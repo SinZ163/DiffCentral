@@ -25,67 +25,67 @@ package ValveLib.Controls
       
       protected var _autoCompleteList:ScrollingList;
       
-      override public function handleInput(param1:InputEvent) : §void§
+      override public function handleInput(event:InputEvent) : §void§
       {
-         var _loc6_:IDataProvider = null;
-         var _loc7_:ButtonEvent = null;
-         var _loc8_:ButtonEvent = null;
-         var _loc2_:MouseEventEx = param1 as MouseEventEx;
-         var _loc3_:uint = _loc2_ == null?0:_loc2_.mouseIdx;
-         var _loc4_:uint = _loc2_ == null?0:_loc2_.buttonIdx;
-         if(param1.handled)
+         var d:IDataProvider = null;
+         var sfButtonEvent:ButtonEvent = null;
+         var sfButtonEvent2:ButtonEvent = null;
+         var sfEvent:MouseEventEx = event as MouseEventEx;
+         var mouseIdx:uint = sfEvent == null?0:sfEvent.mouseIdx;
+         var btnIdx:uint = sfEvent == null?0:sfEvent.buttonIdx;
+         if(event.handled)
          {
             return;
          }
-         var _loc5_:InputDetails = param1.details;
-         if(_loc5_.value == InputValue.KEY_UP)
+         var details:InputDetails = event.details;
+         if(details.value == InputValue.KEY_UP)
          {
             return;
          }
          if(!(this._autoCompleteList == null) && (this._autoCompleteList.visible))
          {
-            if(_loc5_.code == Keyboard.UP)
+            if(details.code == Keyboard.UP)
             {
                this._autoCompleteList.selectedIndex = Math.max(0,this._autoCompleteList.selectedIndex - 1);
                return;
             }
-            if(_loc5_.code == Keyboard.DOWN)
+            if(details.code == Keyboard.DOWN)
             {
-               _loc6_ = Object(this._autoCompleteList)._dataProvider as IDataProvider;
-               if(_loc6_ != null)
+               d = Object(this._autoCompleteList)._dataProvider as IDataProvider;
+               if(d != null)
                {
-                  this._autoCompleteList.selectedIndex = Math.min(_loc6_.length - 1,this._autoCompleteList.selectedIndex + 1);
+                  this._autoCompleteList.selectedIndex = Math.min(d.length - 1,this._autoCompleteList.selectedIndex + 1);
                }
                return;
             }
-            if(_loc5_.code == Keyboard.ENTER)
+            if(details.code == Keyboard.ENTER)
             {
-               _loc6_ = Object(this._autoCompleteList)._dataProvider as IDataProvider;
-               if(_loc6_ != null)
+               d = Object(this._autoCompleteList)._dataProvider as IDataProvider;
+               if(d != null)
                {
-                  text = _loc6_.requestItemAt(this._autoCompleteList.selectedIndex)["label"];
+                  text = d.requestItemAt(this._autoCompleteList.selectedIndex)["label"];
                   dispatchEvent(new Event(Event.CHANGE));
                   return;
                }
             }
          }
-         if(_loc5_.code == Keyboard.ENTER)
+         if(details.code == Keyboard.ENTER)
          {
             trace(" enter pressed - dispatching InputBoxEvent");
             dispatchEvent(new InputBoxEvent(InputBoxEvent.TEXT_SUBMITTED));
-            _loc7_ = new ButtonEvent(ButtonEvent.CLICK,true,false,_loc3_,_loc4_,false);
-            dispatchEvent(_loc7_);
+            sfButtonEvent = new ButtonEvent(ButtonEvent.CLICK,true,false,mouseIdx,btnIdx,false);
+            dispatchEvent(sfButtonEvent);
          }
-         else if(_loc5_.code == Keyboard.TAB)
+         else if(details.code == Keyboard.TAB)
          {
             trace(" tab pressed - dispatching InputBoxEvent");
             dispatchEvent(new InputBoxEvent(InputBoxEvent.TAB_PRESSED));
-            _loc8_ = new ButtonEvent(ButtonEvent.CLICK,true,false,_loc3_,_loc4_,false);
-            dispatchEvent(_loc8_);
+            sfButtonEvent2 = new ButtonEvent(ButtonEvent.CLICK,true,false,mouseIdx,btnIdx,false);
+            dispatchEvent(sfButtonEvent2);
          }
          
-         trace("handleInput code = " + _loc5_.code + " this = " + this.name + " stage.focus = " + stage.focus + " getFocus = " + FocusHandler.getInstance().getFocus(0));
-         super.handleInput(param1);
+         trace("handleInput code = " + details.code + " this = " + this.name + " stage.focus = " + stage.focus + " getFocus = " + FocusHandler.getInstance().getFocus(0));
+         super.handleInput(event);
       }
       
       override protected function configUI() : §void§
@@ -99,14 +99,14 @@ package ValveLib.Controls
          return this._autoCompleteListValue;
       }
       
-      public function set autoCompleteList(param1:Object) : §void§
+      public function set autoCompleteList(value:Object) : §void§
       {
-         this._autoCompleteListValue = param1;
+         this._autoCompleteListValue = value;
       }
       
       protected function findAutoCompleteList() : *
       {
-         var _loc1_:ScrollingList = null;
+         var acList:ScrollingList = null;
          if(this._autoCompleteListValue is String)
          {
             if(parent != null)

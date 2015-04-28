@@ -5,9 +5,9 @@ package scaleform.gfx
    public final class MouseEventEx extends MouseEvent
    {
       
-      public function MouseEventEx(param1:String)
+      public function MouseEventEx(type:String)
       {
-         super(param1);
+         super(type);
       }
       
       public static const LEFT_BUTTON:uint = 0;

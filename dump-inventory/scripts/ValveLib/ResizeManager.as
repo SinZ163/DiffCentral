@@ -12,17 +12,17 @@ package ValveLib
          this.ReferencePositions = new Array();
          this.Listeners = new Array();
          super();
-         var _loc1_:* = 0;
-         while(_loc1_ <= SCALE_USING_HORIZONTAL)
+         var i:* = 0;
+         while(i <= SCALE_USING_HORIZONTAL)
          {
             this.ScalingFactors.push(1);
-            _loc1_++;
+            i++;
          }
-         var _loc2_:* = 0;
-         while(_loc2_ <= REFERENCE_CENTER_Y)
+         var j:* = 0;
+         while(j <= REFERENCE_CENTER_Y)
          {
             this.ReferencePositions.push(0);
-            _loc2_++;
+            j++;
          }
       }
       
@@ -146,76 +146,76 @@ package ValveLib
          param1.scaleY = param1.originalYScale * param2;
       }
       
-      public function GetPctPosition(param1:Number, param2:Number, param3:Number, param4:Number) : Number
+      public function GetPctPosition(position:Number, anchor:Number, rectDim:Number, stageDim:Number) : Number
       {
-         return Math.floor(param4 * param1 - param3 * param2);
+         return Math.floor(stageDim * position - rectDim * anchor);
       }
       
-      public function ResetPosition(param1:MovieClip, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number) : *
+      public function ResetPosition(obj:MovieClip, scaling:Number, positiony:Number, positionx:Number, anchory:Number, anchorx:Number) : *
       {
-         this.SetScaling(param1,param2);
-         var _loc7_:Number = this.GetPctPosition(param4,param6,param1.width,this.ScreenWidth);
-         var _loc8_:Number = this.GetPctPosition(param3,param5,param1.height,this.ScreenHeight);
-         param1.x = this.ScreenX + _loc7_;
-         param1.y = this.ScreenY + _loc8_;
+         this.SetScaling(obj,scaling);
+         var x:Number = this.GetPctPosition(positionx,anchorx,obj.width,this.ScreenWidth);
+         var y:Number = this.GetPctPosition(positiony,anchory,obj.height,this.ScreenHeight);
+         obj.x = this.ScreenX + x;
+         obj.y = this.ScreenY + y;
       }
       
-      public function GetPixelPosition(param1:Number, param2:Number, param3:Number, param4:Number) : *
+      public function GetPixelPosition(screenReference:Number, screenOffset:Number, elementAlignment:Number, elementSize:Number) : *
       {
-         return Math.floor(this.ReferencePositions[param1] + param2 - param4 * param3);
+         return Math.floor(this.ReferencePositions[screenReference] + screenOffset - elementSize * elementAlignment);
       }
       
-      public function ResetPositionByPixel(param1:MovieClip, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number) : *
+      public function ResetPositionByPixel(obj:MovieClip, scaling:Number, xScreenReference:Number, xScreenOffset:Number, xElementAlign:Number, yScreenReference:Number, yScreenOffset:Number, yElementAlign:Number) : *
       {
-         this.SetScaling(param1,param2);
-         param1.x = this.GetPixelPosition(param3,param4 * this.ScalingFactors[param2],param5,param1.width);
-         param1.y = this.GetPixelPosition(param6,param7 * this.ScalingFactors[param2],param8,param1.height);
+         this.SetScaling(obj,scaling);
+         obj.x = this.GetPixelPosition(xScreenReference,xScreenOffset * this.ScalingFactors[scaling],xElementAlign,obj.width);
+         obj.y = this.GetPixelPosition(yScreenReference,yScreenOffset * this.ScalingFactors[scaling],yElementAlign,obj.height);
       }
       
-      public function ResetPositionByPercentage(param1:MovieClip, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number) : *
+      public function ResetPositionByPercentage(obj:MovieClip, scaling:Number, xScreenReference:Number, xScreenOffset:Number, xElementAlign:Number, yScreenReference:Number, yScreenOffset:Number, yElementAlign:Number) : *
       {
-         this.SetScaling(param1,param2);
-         param1.x = this.GetPixelPosition(param3,param4 * this.ScreenWidth,param5,param1.width);
-         param1.y = this.GetPixelPosition(param6,param7 * this.ScreenHeight,param8,param1.height);
+         this.SetScaling(obj,scaling);
+         obj.x = this.GetPixelPosition(xScreenReference,xScreenOffset * this.ScreenWidth,xElementAlign,obj.width);
+         obj.y = this.GetPixelPosition(yScreenReference,yScreenOffset * this.ScreenHeight,yElementAlign,obj.height);
       }
       
-      public function PositionDashboardPage(param1:MovieClip) : *
+      public function PositionDashboardPage(obj:MovieClip) : *
       {
-         this.SetScaling(param1,SCALE_USING_VERTICAL);
-         var _loc2_:Number = this.ScreenWidth * 0.5;
+         this.SetScaling(obj,SCALE_USING_VERTICAL);
+         var middle:Number = this.ScreenWidth * 0.5;
          if(this.LayoutVersion == 5)
          {
             if(this.Is16by9())
             {
-               param1.x = _loc2_ - 625 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 625 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             else if(this.Is16by10())
             {
-               param1.x = _loc2_ - 570 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 570 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             else
             {
-               param1.x = _loc2_ - 484 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 484 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             
-            param1.y = 88 * this.ScalingFactors[SCALE_USING_VERTICAL];
+            obj.y = 88 * this.ScalingFactors[SCALE_USING_VERTICAL];
          }
          else
          {
             if(this.Is16by9())
             {
-               param1.x = _loc2_ - 625 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 625 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             else if(this.Is16by10())
             {
-               param1.x = _loc2_ - 540 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 540 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             else
             {
-               param1.x = _loc2_ - 484 * this.ScalingFactors[SCALE_USING_VERTICAL];
+               obj.x = middle - 484 * this.ScalingFactors[SCALE_USING_VERTICAL];
             }
             
-            param1.y = 96 * this.ScalingFactors[SCALE_USING_VERTICAL];
+            obj.y = 96 * this.ScalingFactors[SCALE_USING_VERTICAL];
          }
       }
       
@@ -236,110 +236,110 @@ package ValveLib
       
       public function OnStageResize() : *
       {
-         var _loc6_:Object = null;
-         var _loc1_:Number = Globals.instance.Level0.stage.stageWidth;
-         var _loc2_:Number = Globals.instance.Level0.stage.stageHeight;
-         Globals.instance.Level0.transform.perspectiveProjection.projectionCenter = new Point(_loc1_ * 0.5,_loc2_ * 0.5);
+         var listener:Object = null;
+         var w:Number = Globals.instance.Level0.stage.stageWidth;
+         var h:Number = Globals.instance.Level0.stage.stageHeight;
+         Globals.instance.Level0.transform.perspectiveProjection.projectionCenter = new Point(w * 0.5,h * 0.5);
          this.ScreenX = 0;
          this.ScreenY = 0;
-         if(this.ScreenWidth == _loc1_ && this.ScreenHeight == _loc2_)
+         if(this.ScreenWidth == w && this.ScreenHeight == h)
          {
             return;
          }
-         this.ScreenWidth = _loc1_;
-         this.ScreenHeight = _loc2_;
-         var _loc3_:Number = this.ScreenWidth / this.AuthoredWidth;
-         var _loc4_:Number = this.ScreenHeight / this.AuthoredHeight;
-         if(_loc1_ == 1280 && _loc2_ == 1024)
+         this.ScreenWidth = w;
+         this.ScreenHeight = h;
+         var scalex:Number = this.ScreenWidth / this.AuthoredWidth;
+         var scaley:Number = this.ScreenHeight / this.AuthoredHeight;
+         if(w == 1280 && h == 1024)
          {
-            _loc4_ = 960 / this.AuthoredHeight;
+            scaley = 960 / this.AuthoredHeight;
          }
-         if(_loc3_ >= _loc4_)
+         if(scalex >= scaley)
          {
-            this.ScalingFactors[SCALE_BIGGEST] = _loc3_;
-            this.ScalingFactors[SCALE_SMALLEST] = _loc4_;
+            this.ScalingFactors[SCALE_BIGGEST] = scalex;
+            this.ScalingFactors[SCALE_SMALLEST] = scaley;
          }
          else
          {
-            this.ScalingFactors[SCALE_BIGGEST] = _loc4_;
-            this.ScalingFactors[SCALE_SMALLEST] = _loc3_;
+            this.ScalingFactors[SCALE_BIGGEST] = scaley;
+            this.ScalingFactors[SCALE_SMALLEST] = scalex;
          }
-         this.ScalingFactors[SCALE_USING_VERTICAL] = _loc4_;
-         this.ScalingFactors[SCALE_USING_HORIZONTAL] = _loc3_;
+         this.ScalingFactors[SCALE_USING_VERTICAL] = scaley;
+         this.ScalingFactors[SCALE_USING_HORIZONTAL] = scalex;
          this.UpdateReferencePositions();
-         var _loc5_:Number = this.Listeners.length;
-         var _loc7_:* = 0;
-         while(_loc7_ < _loc5_)
+         var len:Number = this.Listeners.length;
+         var i:* = 0;
+         while(i < len)
          {
-            _loc6_ = this.Listeners[_loc7_];
-            if(_loc6_["onResize"] != undefined)
+            listener = this.Listeners[i];
+            if(listener["onResize"] != undefined)
             {
-               this.Listeners[_loc7_].onResize(this);
+               this.Listeners[i].onResize(this);
             }
-            _loc7_ = _loc7_ + 1;
+            i = i + 1;
          }
       }
       
-      public function GetListenerIndex(param1:Object, param2:Number) : Number
+      public function GetListenerIndex(listener:Object, l:Number) : Number
       {
-         var _loc3_:Number = 0;
-         if(param2 == -1)
+         var i:Number = 0;
+         if(l == -1)
          {
-            var param2:Number = this.Listeners.length - 1;
+            var l:Number = this.Listeners.length - 1;
          }
-         while(_loc3_ <= param2)
+         while(i <= l)
          {
-            if(this.Listeners[_loc3_] == param1)
+            if(this.Listeners[i] == listener)
             {
-               return _loc3_;
+               return i;
             }
-            _loc3_++;
+            i++;
          }
          return -1;
       }
       
-      public function AddListener(param1:Object) : *
+      public function AddListener(listener:Object) : *
       {
-         if(this.GetListenerIndex(param1,-1) == -1)
+         if(this.GetListenerIndex(listener,-1) == -1)
          {
-            this.Listeners.push(param1);
-            if(param1.hasOwnProperty("onResize"))
+            this.Listeners.push(listener);
+            if(listener.hasOwnProperty("onResize"))
             {
-               param1.onResize(this);
+               listener.onResize(this);
             }
             else
             {
-               param1.scaleY = param1.stage.stageHeight / 768;
-               param1.scaleX = param1.scaleY;
-               param1.x = param1.stage.stageWidth * 0.5 - 1024 * param1.scaleX * 0.5;
-               param1.y = param1.stage.stageHeight * 0.5 - 768 * param1.scaleY * 0.5;
+               listener.scaleY = listener.stage.stageHeight / 768;
+               listener.scaleX = listener.scaleY;
+               listener.x = listener.stage.stageWidth * 0.5 - 1024 * listener.scaleX * 0.5;
+               listener.y = listener.stage.stageHeight * 0.5 - 768 * listener.scaleY * 0.5;
             }
-            if(param1.hasOwnProperty("onScreenSizeChanged"))
+            if(listener.hasOwnProperty("onScreenSizeChanged"))
             {
-               param1.onScreenSizeChanged();
+               listener.onScreenSizeChanged();
             }
          }
       }
       
-      public function RemoveListener(param1:Object) : *
+      public function RemoveListener(listener:Object) : *
       {
-         var _loc2_:Number = this.Listeners.length - 1;
-         var _loc3_:Number = this.GetListenerIndex(param1,_loc2_);
-         if(_loc3_ == -1)
+         var l:Number = this.Listeners.length - 1;
+         var i:Number = this.GetListenerIndex(listener,l);
+         if(i == -1)
          {
             return;
          }
-         if(_loc3_ == _loc2_)
+         if(i == l)
          {
-            this.Listeners.length = _loc2_;
+            this.Listeners.length = l;
          }
-         else if(_loc3_ == 0)
+         else if(i == 0)
          {
             this.Listeners.shift();
          }
          else
          {
-            this.Listeners = this.Listeners.slice(0,_loc3_).concat(this.Listeners.slice(_loc3_ + 1,_loc2_ + 1));
+            this.Listeners = this.Listeners.slice(0,i).concat(this.Listeners.slice(i + 1,l + 1));
          }
          
       }
@@ -350,9 +350,9 @@ package ValveLib
          Globals.instance.resizeManager = null;
       }
       
-      public function SetLayoutVersionNumber(param1:int) : *
+      public function SetLayoutVersionNumber(version:int) : *
       {
-         this.LayoutVersion = param1;
+         this.LayoutVersion = version;
       }
    }
 }

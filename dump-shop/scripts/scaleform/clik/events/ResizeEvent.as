@@ -5,11 +5,11 @@ package scaleform.clik.events
    public class ResizeEvent extends Event
    {
       
-      public function ResizeEvent(param1:String, param2:Number, param3:Number)
+      public function ResizeEvent(type:String, scaleX:Number, scaleY:Number)
       {
-         super(param1,false,false);
-         this.scaleX = param2;
-         this.scaleY = param3;
+         super(type,false,false);
+         this.scaleX = scaleX;
+         this.scaleY = scaleY;
       }
       
       public static const RESIZE:String = "resize";

@@ -35,9 +35,9 @@ package
          return this._itemData;
       }
       
-      public function set itemData(param1:Object) : §void§
+      public function set itemData(value:Object) : §void§
       {
-         this._itemData = param1;
+         this._itemData = value;
          this.update();
       }
       
@@ -46,9 +46,9 @@ package
          return this._purchaseLocation;
       }
       
-      public function set purchaseLocation(param1:int) : §void§
+      public function set purchaseLocation(value:int) : §void§
       {
-         this._purchaseLocation = param1;
+         this._purchaseLocation = value;
       }
       
       private var _purchaseLocation:int;
@@ -94,22 +94,22 @@ package
          return this._itemData.purchasable;
       }
       
-      public function set purchasable(param1:Boolean) : §void§
+      public function set purchasable(purchasable:Boolean) : §void§
       {
-         this._itemData.purchasable = param1;
-         this.purchasableMC.visible = param1;
+         this._itemData.purchasable = purchasable;
+         this.purchasableMC.visible = purchasable;
       }
       
-      public function set almostPurchasable(param1:Boolean) : §void§
+      public function set almostPurchasable(almostPurchasable:Boolean) : §void§
       {
-         this._itemData.almostPurchasable = param1;
-         this.almostPurchasableMC.visible = param1;
+         this._itemData.almostPurchasable = almostPurchasable;
+         this.almostPurchasableMC.visible = almostPurchasable;
       }
       
-      public function set owned(param1:Boolean) : §void§
+      public function set owned(owned:Boolean) : §void§
       {
-         this._itemData.owned = param1;
-         this.ownedMC.visible = param1;
+         this._itemData.owned = owned;
+         this.ownedMC.visible = owned;
       }
       
       private function update() : §void§
@@ -123,24 +123,24 @@ package
             this.itemImage.visible = false;
             return;
          }
-         var _loc1_:* = new MovieClip();
-         _loc1_.height = 32;
-         _loc1_.width = 48;
-         _loc1_.scaleX = 1;
-         _loc1_.scaleY = 1;
+         var contentMC:* = new MovieClip();
+         contentMC.height = 32;
+         contentMC.width = 48;
+         contentMC.scaleX = 1;
+         contentMC.scaleY = 1;
          this.itemImage.visible = true;
          if(this._itemData.itemName.substring(0,6) == "recipe")
          {
             Globals.instance.LoadItemImage("recipe",this.itemImage);
-            Globals.instance.LoadItemImage("recipe",_loc1_);
+            Globals.instance.LoadItemImage("recipe",contentMC);
          }
          else
          {
             Globals.instance.LoadItemImage(this._itemData.itemName,this.itemImage);
-            Globals.instance.LoadItemImage(this._itemData.itemName,_loc1_);
+            Globals.instance.LoadItemImage(this._itemData.itemName,contentMC);
          }
-         _loc1_.visible = false;
-         content = _loc1_;
+         contentMC.visible = false;
+         content = contentMC;
          this.itemImage.mouseEnabled = false;
          this.itemImage.mouseChildren = false;
          this.secretShopMC.visible = this._itemData.secretShop;
@@ -158,41 +158,41 @@ package
          this.update();
       }
       
-      override protected function handleMouseMove(param1:MouseEvent) : §void§
+      override protected function handleMouseMove(e:MouseEvent) : §void§
       {
       }
       
-      override protected function handleMouseRollOver(param1:MouseEvent) : §void§
+      override protected function handleMouseRollOver(e:MouseEvent) : §void§
       {
-         super.handleMouseRollOver(param1);
+         super.handleMouseRollOver(e);
          root["onShowShopItemTooltip"](this);
       }
       
-      override protected function handleMouseRollOut(param1:MouseEvent) : §void§
+      override protected function handleMouseRollOut(e:MouseEvent) : §void§
       {
-         var _loc2_:Object = null;
-         var _loc3_:DragEvent = null;
+         var dragData:Object = null;
+         var dragStartEvent:DragEvent = null;
          root["onHideShopItemTooltip"](this);
-         super.handleMouseRollOut(param1);
+         super.handleMouseRollOut(e);
          if(this.mouseDown)
          {
             cleanupDragListeners();
-            _loc2_ = {"shopItemName":this.itemName};
+            dragData = {"shopItemName":this.itemName};
             content.x = 0;
             content.y = 0;
-            _loc3_ = new DragEvent(DragEvent.DRAG_START,_loc2_,this,null,content);
-            dispatchEvent(new DragEvent(DragEvent.DRAG_START,_loc2_,this,null,content));
-            this.handleDragStartEvent(_loc3_);
+            dragStartEvent = new DragEvent(DragEvent.DRAG_START,dragData,this,null,content);
+            dispatchEvent(new DragEvent(DragEvent.DRAG_START,dragData,this,null,content));
+            this.handleDragStartEvent(dragStartEvent);
             this.mouseDown = false;
          }
       }
       
-      override public function handleDragStartEvent(param1:DragEvent) : §void§
+      override public function handleDragStartEvent(e:DragEvent) : §void§
       {
          content.visible = true;
       }
       
-      override public function handleDragEndEvent(param1:DragEvent, param2:Boolean) : §void§
+      override public function handleDragEndEvent(e:DragEvent, wasValidDrop:Boolean) : §void§
       {
          content.visible = false;
          content.x = 0;
@@ -202,22 +202,22 @@ package
       
       var mouseDown:Boolean;
       
-      override protected function handleMouseDown(param1:MouseEvent) : §void§
+      override protected function handleMouseDown(e:MouseEvent) : §void§
       {
-         var _loc2_:MouseEventEx = param1 as MouseEventEx;
-         if((_loc2_) && _loc2_.buttonIdx == 0)
+         var ex:MouseEventEx = e as MouseEventEx;
+         if((ex) && ex.buttonIdx == 0)
          {
             this.mouseDown = true;
          }
-         super.handleMouseDown(param1);
+         super.handleMouseDown(e);
       }
       
-      override protected function handleMouseUp(param1:MouseEvent) : §void§
+      override protected function handleMouseUp(e:MouseEvent) : §void§
       {
-         super.handleMouseUp(param1);
+         super.handleMouseUp(e);
          this.mouseDown = false;
-         var _loc2_:MouseEventEx = param1 as MouseEventEx;
-         if((_loc2_) && _loc2_.buttonIdx == 1)
+         var ex:MouseEventEx = e as MouseEventEx;
+         if((ex) && ex.buttonIdx == 1)
          {
             root["onBuyButtonPress"](this.itemName,this.itemSlot,this.purchaseLocation);
             return;
@@ -225,7 +225,7 @@ package
          root["onSetQuickBuy"](this.itemName,this.purchaseLocation);
       }
       
-      override public function handleDropEvent(param1:DragEvent) : Boolean
+      override public function handleDropEvent(e:DragEvent) : Boolean
       {
          return false;
       }

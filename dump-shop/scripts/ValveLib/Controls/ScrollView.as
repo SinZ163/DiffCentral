@@ -40,17 +40,17 @@ package ValveLib.Controls
          return this._scrollPosition;
       }
       
-      public function set scrollPosition(param1:Number) : §void§
+      public function set scrollPosition(value:Number) : §void§
       {
-         var _loc2_:Object = this.content.getBounds(this.content);
-         var _loc3_:Number = this.content.height - this.contentMask.height;
-         _loc3_ = _loc3_ + _loc2_.top / scaleY;
+         var contentBounds:Object = this.content.getBounds(this.content);
+         var max:Number = this.content.height - this.contentMask.height;
+         max = max + contentBounds.top / scaleY;
          if(this.overrideMax != -1)
          {
-            _loc3_ = this.overrideMax;
+            max = this.overrideMax;
          }
-         var param1:Number = Math.max(0,Math.min(_loc3_,Math.round(param1)));
-         this._scrollPosition = param1;
+         var value:Number = Math.max(0,Math.min(max,Math.round(value)));
+         this._scrollPosition = value;
          invalidateData();
       }
       
@@ -59,9 +59,9 @@ package ValveLib.Controls
          return this._scrollBar;
       }
       
-      public function set scrollBar(param1:Object) : §void§
+      public function set scrollBar(value:Object) : §void§
       {
-         this._scrollBarValue = param1;
+         this._scrollBarValue = value;
          if(this._debug)
          {
             trace("scrollBar set, setting _scrollBarValue to " + this._scrollBarValue);
@@ -71,7 +71,7 @@ package ValveLib.Controls
       
       protected function createScrollBar() : §void§
       {
-         var _loc1_:IScrollBar = null;
+         var sb:IScrollBar = null;
          if(this._debug)
          {
             trace("createScrollBar _scrollBarValue = " + this._scrollBarValue);
@@ -95,23 +95,23 @@ package ValveLib.Controls
          {
             if(parent != null)
             {
-               _loc1_ = parent.getChildByName(this._scrollBarValue.toString()) as IScrollBar;
+               sb = parent.getChildByName(this._scrollBarValue.toString()) as IScrollBar;
             }
-            if(_loc1_ == null)
+            if(sb == null)
             {
                trace("ScrollView warning, couldn\'t find scrollbar called: " + this._scrollBarValue.toString());
             }
             else if(this._debug)
             {
-               trace("found a scrollbar by name = " + _loc1_);
+               trace("found a scrollbar by name = " + sb);
             }
             
          }
          else
          {
-            _loc1_ = this._scrollBarValue as IScrollBar;
+            sb = this._scrollBarValue as IScrollBar;
          }
-         this._scrollBar = _loc1_;
+         this._scrollBar = sb;
          invalidateSize();
          if(this._scrollBar == null)
          {
@@ -151,18 +151,18 @@ package ValveLib.Controls
       
       private function drawScrollBar() : §void§
       {
-         var _loc1_:* = NaN;
-         _loc1_ = 0;
+         var margin:* = NaN;
+         margin = 0;
          if(!this.autoScrollBar)
          {
             return;
          }
-         this._scrollBar.x = width - this._scrollBar.width - _loc1_;
-         this._scrollBar.y = _loc1_;
-         this._scrollBar.height = height - _loc1_ * 2;
+         this._scrollBar.x = width - this._scrollBar.width - margin;
+         this._scrollBar.y = margin;
+         this._scrollBar.height = height - margin * 2;
       }
       
-      protected function handleScroll(param1:Event) : §void§
+      protected function handleScroll(event:Event) : §void§
       {
          this.scrollPosition = this._scrollBar.position;
          this.content.y = -this.scrollPosition;
@@ -170,8 +170,8 @@ package ValveLib.Controls
       
       public function updateScrollBar() : §void§
       {
-         var _loc3_:ScrollIndicator = null;
-         var _loc4_:ScrollBar = null;
+         var scrollIndicator:ScrollIndicator = null;
+         var scrollBar:ScrollBar = null;
          if(this.content == null)
          {
             if(this._debug)
@@ -196,28 +196,28 @@ package ValveLib.Controls
             }
             return;
          }
-         var _loc1_:Object = this.content.getBounds(this.content);
-         var _loc2_:Number = this.content.height - this.contentMask.height;
+         var contentBounds:Object = this.content.getBounds(this.content);
+         var max:Number = this.content.height - this.contentMask.height;
          if(this._debug)
          {
-            trace("contentBounds.top = " + _loc1_.top + " scaleY = " + scaleY);
+            trace("contentBounds.top = " + contentBounds.top + " scaleY = " + scaleY);
          }
-         _loc2_ = _loc2_ + _loc1_.top / scaleY;
+         max = max + contentBounds.top / scaleY;
          if(this.overrideMax != -1)
          {
-            _loc2_ = this.overrideMax;
+            max = this.overrideMax;
          }
          if(this._scrollBar != null)
          {
-            _loc3_ = this._scrollBar as ScrollIndicator;
-            if(_loc3_ != null)
+            scrollIndicator = this._scrollBar as ScrollIndicator;
+            if(scrollIndicator != null)
             {
-               _loc3_.setScrollProperties(this.contentMask.height,0,_loc2_,this.scrollStep);
+               scrollIndicator.setScrollProperties(this.contentMask.height,0,max,this.scrollStep);
             }
-            _loc4_ = this._scrollBar as ScrollBar;
-            if(_loc4_ != null)
+            scrollBar = this._scrollBar as ScrollBar;
+            if(scrollBar != null)
             {
-               _loc4_.trackScrollPageSize = Math.max(1,this.contentMask.height - this.scrollStep);
+               scrollBar.trackScrollPageSize = Math.max(1,this.contentMask.height - this.scrollStep);
             }
             this.scrollPosition = this._scrollPosition;
             this._scrollBar.position = this._scrollPosition;
@@ -225,18 +225,18 @@ package ValveLib.Controls
          }
          if(this._debug)
          {
-            trace("parent = " + parent + " updateScrollBar content height = " + this.content.height + " contentMask height = " + this.contentMask.height + " max = " + _loc2_ + " _scrollPosition = " + this._scrollPosition + " content.y = " + this.content.y);
+            trace("parent = " + parent + " updateScrollBar content height = " + this.content.height + " contentMask height = " + this.contentMask.height + " max = " + max + " _scrollPosition = " + this._scrollPosition + " content.y = " + this.content.y);
          }
       }
       
-      protected function handleMouseWheel(param1:MouseEvent) : §void§
+      protected function handleMouseWheel(event:MouseEvent) : §void§
       {
-         this.scrollList((param1.delta > 0?1:-1) * this.scrollStep);
+         this.scrollList((event.delta > 0?1:-1) * this.scrollStep);
       }
       
-      protected function scrollList(param1:int) : §void§
+      protected function scrollList(delta:int) : §void§
       {
-         this.scrollPosition = this.scrollPosition - param1;
+         this.scrollPosition = this.scrollPosition - delta;
       }
    }
 }

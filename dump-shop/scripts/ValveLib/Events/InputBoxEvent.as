@@ -5,9 +5,9 @@ package ValveLib.Events
    public class InputBoxEvent extends Event
    {
       
-      public function InputBoxEvent(param1:String, param2:Boolean = true, param3:Boolean = false)
+      public function InputBoxEvent(type:String, bubbles:Boolean = true, cancelable:Boolean = false)
       {
-         super(param1,param2,param3);
+         super(type,bubbles,cancelable);
       }
       
       public static const TEXT_SUBMITTED:String = "textSubmitted";

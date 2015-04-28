@@ -28,9 +28,9 @@ package
          this.doLayout();
       }
       
-      public function setItem(param1:String, param2:Number, param3:Boolean, param4:Boolean) : *
+      public function setItem(itemName:String, color:Number, secretShop:Boolean, purchasable:Boolean) : *
       {
-         this.setItemData(this.centerItem,param1,param2,param3,false,param4);
+         this.setItemData(this.centerItem,itemName,color,secretShop,false,purchasable);
          this.upcombineItem0.visible = false;
          this.upcombineItem1.visible = false;
          this.upcombineItem2.visible = false;
@@ -46,90 +46,90 @@ package
          this.visibleUpcombines = 0;
       }
       
-      public function updateCombineTreeCenterItemState(param1:Boolean) : *
+      public function updateCombineTreeCenterItemState(purchasable:Boolean) : *
       {
-         var _loc2_:* = this.centerItem.itemData;
-         if(!_loc2_)
+         var itemData:* = this.centerItem.itemData;
+         if(!itemData)
          {
             return;
          }
-         _loc2_.purchasable = param1;
-         this.centerItem.itemData = _loc2_;
+         itemData.purchasable = purchasable;
+         this.centerItem.itemData = itemData;
       }
       
-      public function setCombineTreeComponent(param1:Number, param2:Number, param3:String, param4:Number, param5:Boolean) : *
+      public function setCombineTreeComponent(componentSlot:Number, numComponents:Number, itemName:String, color:Number, secretShop:Boolean) : *
       {
-         if(param1 < 0 || param1 > 4)
+         if(componentSlot < 0 || componentSlot > 4)
          {
             return;
          }
-         var _loc6_:CombineTreeItem = this["componentItem" + param1];
-         this.setItemData(_loc6_,param3,param4,param5,false,false);
-         this.visibleComponents = param2;
+         var item:CombineTreeItem = this["componentItem" + componentSlot];
+         this.setItemData(item,itemName,color,secretShop,false,false);
+         this.visibleComponents = numComponents;
       }
       
-      public function updateCombineTreeComponentState(param1:Number, param2:Boolean, param3:Boolean) : *
+      public function updateCombineTreeComponentState(componentSlot:Number, owned:Boolean, purchasable:Boolean) : *
       {
-         if(param1 < 0 || param1 > 4)
+         if(componentSlot < 0 || componentSlot > 4)
          {
             return;
          }
-         var _loc4_:CombineTreeItem = this["componentItem" + param1];
-         _loc4_.owned = param2;
-         _loc4_.purchasable = param3;
+         var item:CombineTreeItem = this["componentItem" + componentSlot];
+         item.owned = owned;
+         item.purchasable = purchasable;
       }
       
-      public function setCombineTreeUpcombine(param1:Number, param2:Number, param3:String, param4:Number, param5:Boolean) : *
+      public function setCombineTreeUpcombine(upcombineSlot:Number, numUpcombines:Number, itemName:String, color:Number, purchasable:Boolean) : *
       {
-         if(param1 < 0 || param1 > 5)
+         if(upcombineSlot < 0 || upcombineSlot > 5)
          {
             return;
          }
-         var _loc6_:CombineTreeItem = this["upcombineItem" + param1];
-         this.setItemData(_loc6_,param3,param4,false,false,false);
-         this.visibleUpcombines = param2;
+         var item:CombineTreeItem = this["upcombineItem" + upcombineSlot];
+         this.setItemData(item,itemName,color,false,false,false);
+         this.visibleUpcombines = numUpcombines;
       }
       
       public function doLayout() : *
       {
-         var _loc1_:* = 0;
-         var _loc2_:CombineTreeItem = null;
+         var i:* = 0;
+         var item:CombineTreeItem = null;
          this.lineDrawingMC.graphics.clear();
-         var _loc3_:int = this.centerItem.height;
-         var _loc4_:int = _loc3_ * 0.5;
-         _loc1_ = 0;
-         while(_loc1_ < this.visibleUpcombines)
+         var itemHeight:int = this.centerItem.height;
+         var halfHeight:int = itemHeight * 0.5;
+         i = 0;
+         while(i < this.visibleUpcombines)
          {
-            _loc2_ = this["upcombineItem" + _loc1_];
-            this.lineDrawingMC.graphics.lineStyle(1,12566463,_loc2_.alpha);
-            this.lineDrawingMC.graphics.moveTo(_loc2_.x,_loc2_.y + _loc4_ - 5);
-            this.lineDrawingMC.graphics.lineTo(this.centerItem.x,this.centerItem.y - _loc4_ + 5);
-            _loc1_++;
+            item = this["upcombineItem" + i];
+            this.lineDrawingMC.graphics.lineStyle(1,12566463,item.alpha);
+            this.lineDrawingMC.graphics.moveTo(item.x,item.y + halfHeight - 5);
+            this.lineDrawingMC.graphics.lineTo(this.centerItem.x,this.centerItem.y - halfHeight + 5);
+            i++;
          }
-         _loc1_ = 0;
-         while(_loc1_ < this.visibleComponents)
+         i = 0;
+         while(i < this.visibleComponents)
          {
-            _loc2_ = this["componentItem" + _loc1_];
-            this.lineDrawingMC.graphics.lineStyle(1,12566463,_loc2_.alpha);
-            this.lineDrawingMC.graphics.moveTo(this.centerItem.x,this.centerItem.y + _loc4_ - 10);
-            this.lineDrawingMC.graphics.lineTo(_loc2_.x,_loc2_.y - _loc4_ + 5);
-            _loc1_++;
+            item = this["componentItem" + i];
+            this.lineDrawingMC.graphics.lineStyle(1,12566463,item.alpha);
+            this.lineDrawingMC.graphics.moveTo(this.centerItem.x,this.centerItem.y + halfHeight - 10);
+            this.lineDrawingMC.graphics.lineTo(item.x,item.y - halfHeight + 5);
+            i++;
          }
       }
       
-      public function setItemData(param1:CombineTreeItem, param2:String, param3:Number, param4:Boolean, param5:Boolean, param6:Boolean) : *
+      public function setItemData(item:CombineTreeItem, itemName:String, color:Number, secretShop:Boolean, owned:Boolean, purchasable:Boolean) : *
       {
-         var _loc7_:* = (param3 & 255) << 16 | param3 & 65280 | (param3 & 16711680) >> 16;
-         var _loc8_:Object = {
-            "itemName":param2,
-            "itemColor":_loc7_,
-            "secretShop":param4,
-            "owned":param5,
-            "purchasable":param6
+         var BGRColor:* = (color & 255) << 16 | color & 65280 | (color & 16711680) >> 16;
+         var data:Object = {
+            "itemName":itemName,
+            "itemColor":BGRColor,
+            "secretShop":secretShop,
+            "owned":owned,
+            "purchasable":purchasable
          };
-         param1.visible = true;
-         param1.itemData = _loc8_;
-         param1.purchaseLocation = CombineTreeItem.PURCHASE_LOCATION_COMBINE_TREE;
+         item.visible = true;
+         item.itemData = data;
+         item.purchaseLocation = CombineTreeItem.PURCHASE_LOCATION_COMBINE_TREE;
       }
       
       public function clear() : *

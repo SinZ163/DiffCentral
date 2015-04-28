@@ -25,22 +25,22 @@ package scaleform.clik.core
       
       public static var sdkVersion:String = "4.2.23";
       
-      public static function generateLabelHash(param1:MovieClip) : Object
+      public static function generateLabelHash(target:MovieClip) : Object
       {
-         var _loc2_:Object = {};
-         if(!param1)
+         var hash:Object = {};
+         if(!target)
          {
-            return _loc2_;
+            return hash;
          }
-         var _loc3_:Array = param1.currentLabels;
-         var _loc4_:uint = _loc3_.length;
-         var _loc5_:uint = 0;
-         while(_loc5_ < _loc4_)
+         var labels:Array = target.currentLabels;
+         var l:uint = labels.length;
+         var i:uint = 0;
+         while(i < l)
          {
-            _loc2_[_loc3_[_loc5_].name] = true;
-            _loc5_++;
+            hash[labels[i].name] = true;
+            i++;
          }
-         return _loc2_;
+         return hash;
       }
       
       public var initialized:Boolean = false;
@@ -97,7 +97,7 @@ package scaleform.clik.core
          this.invalidate();
       }
       
-      protected function addedToStage(param1:Event) : §void§
+      protected function addedToStage(event:Event) : §void§
       {
          removeEventListener(Event.ADDED_TO_STAGE,this.addedToStage,false);
          if(!CLIK.initialized)
@@ -115,10 +115,10 @@ package scaleform.clik.core
          return this._inspector;
       }
       
-      public function set componentInspectorSetting(param1:Boolean) : §void§
+      public function set componentInspectorSetting(value:Boolean) : §void§
       {
-         this._inspector = param1;
-         if(param1)
+         this._inspector = value;
+         if(value)
          {
             this.beforeInspectorParams();
          }
@@ -133,9 +133,9 @@ package scaleform.clik.core
          return this._width;
       }
       
-      override public function set width(param1:Number) : §void§
+      override public function set width(value:Number) : §void§
       {
-         this.setSize(param1,this._height);
+         this.setSize(value,this._height);
       }
       
       override public function get height() : Number
@@ -143,9 +143,9 @@ package scaleform.clik.core
          return this._height;
       }
       
-      override public function set height(param1:Number) : §void§
+      override public function set height(value:Number) : §void§
       {
-         this.setSize(this._width,param1);
+         this.setSize(this._width,value);
       }
       
       override public function get scaleX() : Number
@@ -153,9 +153,9 @@ package scaleform.clik.core
          return this._width / this._originalWidth;
       }
       
-      override public function set scaleX(param1:Number) : §void§
+      override public function set scaleX(value:Number) : §void§
       {
-         super.scaleX = param1;
+         super.scaleX = value;
          if(rotation == 0)
          {
             this.width = super.width;
@@ -167,9 +167,9 @@ package scaleform.clik.core
          return this._height / this._originalHeight;
       }
       
-      override public function set scaleY(param1:Number) : §void§
+      override public function set scaleY(value:Number) : §void§
       {
-         super.scaleY = param1;
+         super.scaleY = value;
          if(rotation == 0)
          {
             this.height = super.height;
@@ -181,15 +181,15 @@ package scaleform.clik.core
          return super.enabled;
       }
       
-      override public function set enabled(param1:Boolean) : §void§
+      override public function set enabled(value:Boolean) : §void§
       {
-         if(param1 == super.enabled)
+         if(value == super.enabled)
          {
             return;
          }
-         super.enabled = param1;
+         super.enabled = value;
          tabEnabled = !this.enabled?false:this._focusable;
-         mouseEnabled = param1;
+         mouseEnabled = value;
       }
       
       override public function get visible() : Boolean
@@ -197,10 +197,10 @@ package scaleform.clik.core
          return super.visible;
       }
       
-      override public function set visible(param1:Boolean) : §void§
+      override public function set visible(value:Boolean) : §void§
       {
-         super.visible = param1;
-         dispatchEvent(new ComponentEvent(param1?ComponentEvent.SHOW:ComponentEvent.HIDE));
+         super.visible = value;
+         dispatchEvent(new ComponentEvent(value?ComponentEvent.SHOW:ComponentEvent.HIDE));
       }
       
       public function get hasFocus() : Boolean
@@ -213,10 +213,10 @@ package scaleform.clik.core
          return this._focusable;
       }
       
-      public function set focusable(param1:Boolean) : §void§
+      public function set focusable(value:Boolean) : §void§
       {
-         var _loc2_:* = !(this._focusable == param1);
-         this._focusable = param1;
+         var changed:* = !(this._focusable == value);
+         this._focusable = value;
          if(!this._focusable && (this.enabled))
          {
             tabEnabled = tabChildren = false;
@@ -226,7 +226,7 @@ package scaleform.clik.core
             tabEnabled = true;
          }
          
-         if(_loc2_)
+         if(changed)
          {
             this.changeFocus();
          }
@@ -237,43 +237,43 @@ package scaleform.clik.core
          return this._focused;
       }
       
-      public function set focused(param1:Number) : §void§
+      public function set focused(value:Number) : §void§
       {
-         var _loc2_:uint = 0;
-         var _loc3_:uint = 0;
-         var _loc4_:* = NaN;
-         var _loc5_:* = false;
-         var _loc6_:* = NaN;
-         var _loc7_:* = NaN;
-         var _loc8_:* = false;
-         if(param1 == this._focused || !this._focusable)
+         var numFocusGroups:uint = 0;
+         var numControllers:uint = 0;
+         var i:* = NaN;
+         var isFocused:* = false;
+         var controllerMask1:* = NaN;
+         var j:* = NaN;
+         var controllerValue1:* = false;
+         if(value == this._focused || !this._focusable)
          {
             return;
          }
-         this._focused = param1;
+         this._focused = value;
          if(Extensions.isScaleform)
          {
-            _loc2_ = FocusManager.numFocusGroups;
-            _loc3_ = Extensions.numControllers;
-            _loc4_ = 0;
-            while(_loc4_ < _loc2_)
+            numFocusGroups = FocusManager.numFocusGroups;
+            numControllers = Extensions.numControllers;
+            i = 0;
+            while(i < numFocusGroups)
             {
-               _loc5_ = !((this._focused >> _loc4_ & 1) == 0);
-               if(_loc5_)
+               isFocused = !((this._focused >> i & 1) == 0);
+               if(isFocused)
                {
-                  _loc6_ = FocusManager.getControllerMaskByFocusGroup(_loc4_);
-                  _loc7_ = 0;
-                  while(_loc7_ < _loc3_)
+                  controllerMask1 = FocusManager.getControllerMaskByFocusGroup(i);
+                  j = 0;
+                  while(j < numControllers)
                   {
-                     _loc8_ = !((_loc6_ >> _loc7_ & 1) == 0);
-                     if((_loc8_) && !(FocusManager.getFocus(_loc7_) == this))
+                     controllerValue1 = !((controllerMask1 >> j & 1) == 0);
+                     if((controllerValue1) && !(FocusManager.getFocus(j) == this))
                      {
-                        FocusManager.setFocus(this,_loc7_);
+                        FocusManager.setFocus(this,j);
                      }
-                     _loc7_++;
+                     j++;
                   }
                }
-               _loc4_++;
+               i++;
             }
          }
          else if(!(stage == null) && this._focused > 0)
@@ -289,13 +289,13 @@ package scaleform.clik.core
          return this._displayFocus;
       }
       
-      public function set displayFocus(param1:Boolean) : §void§
+      public function set displayFocus(value:Boolean) : §void§
       {
-         if(param1 == this._displayFocus)
+         if(value == this._displayFocus)
          {
             return;
          }
-         this._displayFocus = param1;
+         this._displayFocus = value;
          this.changeFocus();
       }
       
@@ -304,9 +304,9 @@ package scaleform.clik.core
          return this._focusTarget;
       }
       
-      public function set focusTarget(param1:UIComponent) : §void§
+      public function set focusTarget(value:UIComponent) : §void§
       {
-         this._focusTarget = param1;
+         this._focusTarget = value;
       }
       
       public function get layoutData() : LayoutData
@@ -314,9 +314,9 @@ package scaleform.clik.core
          return this._layoutData;
       }
       
-      public function set layoutData(param1:LayoutData) : §void§
+      public function set layoutData(value:LayoutData) : §void§
       {
-         this._layoutData = param1;
+         this._layoutData = value;
       }
       
       public function get enableInitCallback() : Boolean
@@ -324,13 +324,13 @@ package scaleform.clik.core
          return this._enableInitCallback;
       }
       
-      public function set enableInitCallback(param1:Boolean) : §void§
+      public function set enableInitCallback(value:Boolean) : §void§
       {
-         if(param1 == this._enableInitCallback)
+         if(value == this._enableInitCallback)
          {
             return;
          }
-         this._enableInitCallback = param1;
+         this._enableInitCallback = value;
          if((this._enableInitCallback) && !(stage == null) && !(Extensions.CLIK_addedToStageCallback == null))
          {
             if(!CLIK.initialized)
@@ -361,41 +361,41 @@ package scaleform.clik.core
          return super.scaleY;
       }
       
-      public function setSize(param1:Number, param2:Number) : §void§
+      public function setSize(width:Number, height:Number) : §void§
       {
-         this._width = param1;
-         this._height = param2;
+         this._width = width;
+         this._height = height;
          this.invalidateSize();
       }
       
-      public function setActualSize(param1:Number, param2:Number) : §void§
+      public function setActualSize(newWidth:Number, newHeight:Number) : §void§
       {
-         if(!(super.width == param1) || !(this._width == param1))
+         if(!(super.width == newWidth) || !(this._width == newWidth))
          {
-            super.width = this._width = param1;
+            super.width = this._width = newWidth;
          }
-         if(!(super.height == param2) || !(this._height == param2))
+         if(!(super.height == newHeight) || !(this._height == newHeight))
          {
-            super.height = this._height = param2;
+            super.height = this._height = newHeight;
          }
       }
       
-      public final function setActualScale(param1:Number, param2:Number) : §void§
+      public final function setActualScale(scaleX:Number, scaleY:Number) : §void§
       {
-         super.scaleX = param1;
-         super.scaleY = param2;
-         this._width = this._originalWidth * param1;
-         this._height = this._originalHeight * param2;
+         super.scaleX = scaleX;
+         super.scaleY = scaleY;
+         this._width = this._originalWidth * scaleX;
+         this._height = this._originalHeight * scaleY;
          this.invalidateSize();
       }
       
-      public function handleInput(param1:InputEvent) : §void§
+      public function handleInput(event:InputEvent) : §void§
       {
       }
       
-      public function dispatchEventToGame(param1:Event) : §void§
+      public function dispatchEventToGame(event:Event) : §void§
       {
-         ExternalInterface.call("__handleEvent",name,param1);
+         ExternalInterface.call("__handleEvent",name,event);
       }
       
       override public function toString() : String
@@ -425,28 +425,28 @@ package scaleform.clik.core
       
       protected function initSize() : §void§
       {
-         var _loc1_:Number = this._width == 0?this.actualWidth:this._width;
-         var _loc2_:Number = this._height == 0?this.actualHeight:this._height;
+         var w:Number = this._width == 0?this.actualWidth:this._width;
+         var h:Number = this._height == 0?this.actualHeight:this._height;
          super.scaleX = super.scaleY = 1;
-         this.setSize(_loc1_,_loc2_);
+         this.setSize(w,h);
       }
       
-      public function invalidate(... rest) : §void§
+      public function invalidate(... invalidTypes) : §void§
       {
-         var _loc2_:uint = 0;
-         var _loc3_:uint = 0;
-         if(rest.length == 0)
+         var l:uint = 0;
+         var i:uint = 0;
+         if(invalidTypes.length == 0)
          {
             this._invalidHash[InvalidationType.ALL] = true;
          }
          else
          {
-            _loc2_ = rest.length;
-            _loc3_ = 0;
-            while(_loc3_ < _loc2_)
+            l = invalidTypes.length;
+            i = 0;
+            while(i < l)
             {
-               this._invalidHash[rest[_loc3_]] = true;
-               _loc3_++;
+               this._invalidHash[invalidTypes[i]] = true;
+               i++;
             }
          }
          if(!this._invalid)
@@ -470,7 +470,7 @@ package scaleform.clik.core
          
       }
       
-      public function validateNow(param1:Event = null) : §void§
+      public function validateNow(event:Event = null) : §void§
       {
          if(!this.initialized)
          {
@@ -488,14 +488,14 @@ package scaleform.clik.core
          this._invalid = false;
       }
       
-      protected function isInvalid(... rest) : Boolean
+      protected function isInvalid(... invalidTypes) : Boolean
       {
          if(!this._invalid)
          {
             return false;
          }
-         var _loc2_:uint = rest.length;
-         if(_loc2_ == 0)
+         var l:uint = invalidTypes.length;
+         if(l == 0)
          {
             return this._invalid;
          }
@@ -503,14 +503,14 @@ package scaleform.clik.core
          {
             return true;
          }
-         var _loc3_:uint = 0;
-         while(_loc3_ < _loc2_)
+         var i:uint = 0;
+         while(i < l)
          {
-            if(this._invalidHash[rest[_loc3_]])
+            if(this._invalidHash[invalidTypes[i]])
             {
                return true;
             }
-            _loc3_++;
+            i++;
          }
          return false;
       }
@@ -530,9 +530,9 @@ package scaleform.clik.core
          this.invalidate(InvalidationType.STATE);
       }
       
-      protected function handleStageChange(param1:Event) : §void§
+      protected function handleStageChange(event:Event) : §void§
       {
-         if(param1.type == Event.ADDED_TO_STAGE)
+         if(event.type == Event.ADDED_TO_STAGE)
          {
             removeEventListener(Event.ADDED_TO_STAGE,this.handleStageChange,false);
             addEventListener(Event.RENDER,this.validateNow,false,0,true);
@@ -543,36 +543,36 @@ package scaleform.clik.core
          }
       }
       
-      protected function handleEnterFrameValidation(param1:Event) : §void§
+      protected function handleEnterFrameValidation(event:Event) : §void§
       {
          this.validateNow();
       }
       
       protected function getInvalid() : String
       {
-         var _loc4_:String = null;
-         var _loc1_:Array = [];
-         var _loc2_:Array = [InvalidationType.ALL,InvalidationType.DATA,InvalidationType.RENDERERS,InvalidationType.SIZE,InvalidationType.STATE];
-         var _loc3_:uint = 0;
-         while(_loc3_ < _loc2_.length)
+         var n:String = null;
+         var inv:Array = [];
+         var check:Array = [InvalidationType.ALL,InvalidationType.DATA,InvalidationType.RENDERERS,InvalidationType.SIZE,InvalidationType.STATE];
+         var i:uint = 0;
+         while(i < check.length)
          {
-            _loc1_.push("* " + _loc2_[_loc3_] + ": " + (this._invalidHash[_loc2_[_loc3_]] == true));
-            _loc3_++;
+            inv.push("* " + check[i] + ": " + (this._invalidHash[check[i]] == true));
+            i++;
          }
-         for(_loc4_ in this._invalidHash)
+         for(n in this._invalidHash)
          {
-            if(!_loc2_.indexOf(_loc4_))
+            if(!check.indexOf(n))
             {
-               _loc1_.push("* " + _loc4_ + ": true");
+               inv.push("* " + n + ": true");
             }
          }
-         return "Invalid " + this + ": \n" + _loc1_.join("\n");
+         return "Invalid " + this + ": \n" + inv.join("\n");
       }
       
-      public function dispatchEventAndSound(param1:Event) : Boolean
+      public function dispatchEventAndSound(event:Event) : Boolean
       {
-         var _loc2_:Boolean = super.dispatchEvent(param1);
-         return _loc2_;
+         var ok:Boolean = super.dispatchEvent(event);
+         return ok;
       }
    }
 }

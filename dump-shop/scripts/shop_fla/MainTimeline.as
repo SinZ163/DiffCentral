@@ -53,50 +53,50 @@ package shop_fla
          trace("debug",this.debugCounter);
       }
       
-      public function OnViewModeListClicked(param1:MouseEvent) : *
+      public function OnViewModeListClicked(event:MouseEvent) : *
       {
          this.gameAPI.OnViewModeListClicked();
       }
       
-      public function OnViewModeGridClicked(param1:MouseEvent) : *
+      public function OnViewModeGridClicked(event:MouseEvent) : *
       {
          this.gameAPI.OnViewModeGridClicked();
       }
       
-      public function OnEditSuggestedClicked(param1:MouseEvent) : *
+      public function OnEditSuggestedClicked(event:MouseEvent) : *
       {
          this.gameAPI.OnEditSuggestedItemClick();
       }
       
-      public function OnSuggestedItemSaveAsClicked(param1:MouseEvent) : *
+      public function OnSuggestedItemSaveAsClicked(event:MouseEvent) : *
       {
          this.gameAPI.OnSuggestedItemSaveAsClick();
       }
       
-      public function loadTabListItemRollOver(param1:MouseEvent) : *
+      public function loadTabListItemRollOver(event:MouseEvent) : *
       {
-         if(param1.target.slot == 0)
+         if(event.target.slot == 0)
          {
-            param1.currentTarget.gotoAndStop(2);
+            event.currentTarget.gotoAndStop(2);
          }
          else
          {
-            param1.currentTarget.gotoAndStop(3);
+            event.currentTarget.gotoAndStop(3);
          }
       }
       
-      public function loadTabListItemRollOut(param1:MouseEvent) : *
+      public function loadTabListItemRollOut(event:MouseEvent) : *
       {
-         param1.currentTarget.gotoAndStop(1);
+         event.currentTarget.gotoAndStop(1);
       }
       
       public var bInputConsumer:Boolean;
       
       public var g_bFlippedHUD:Boolean;
       
-      public function onHUDFlipChanged(param1:Boolean) : *
+      public function onHUDFlipChanged(bFlipped:Boolean) : *
       {
-         this.g_bFlippedHUD = param1;
+         this.g_bFlippedHUD = bFlipped;
          this.onResize(Globals.instance.resizeManager);
       }
       
@@ -107,17 +107,17 @@ package shop_fla
          Globals.instance.GameInterface.AddMouseInputConsumer();
       }
       
-      public function onResize(param1:ResizeManager) : *
+      public function onResize(rm:ResizeManager) : *
       {
          if(this.g_bFlippedHUD)
          {
-            param1.ResetPositionByPixel(this.shop,ResizeManager.SCALE_USING_VERTICAL,ResizeManager.REFERENCE_LEFT,0,ResizeManager.ALIGN_RIGHT,ResizeManager.REFERENCE_TOP,54,ResizeManager.ALIGN_TOP);
+            rm.ResetPositionByPixel(this.shop,ResizeManager.SCALE_USING_VERTICAL,ResizeManager.REFERENCE_LEFT,0,ResizeManager.ALIGN_RIGHT,ResizeManager.REFERENCE_TOP,54,ResizeManager.ALIGN_TOP);
             this.shop.x = 0;
          }
          else
          {
-            param1.ResetPositionByPixel(this.shop,ResizeManager.SCALE_USING_VERTICAL,ResizeManager.REFERENCE_RIGHT,0,ResizeManager.ALIGN_RIGHT,ResizeManager.REFERENCE_TOP,54,ResizeManager.ALIGN_TOP);
-            this.shop.x = param1.ScreenWidth;
+            rm.ResetPositionByPixel(this.shop,ResizeManager.SCALE_USING_VERTICAL,ResizeManager.REFERENCE_RIGHT,0,ResizeManager.ALIGN_RIGHT,ResizeManager.REFERENCE_TOP,54,ResizeManager.ALIGN_TOP);
+            this.shop.x = rm.ScreenWidth;
          }
       }
       
@@ -160,193 +160,193 @@ package shop_fla
          this.shop.combineTree_container.visible = true;
       }
       
-      public function setItemInItemRow(param1:Number, param2:String, param3:String, param4:Number, param5:Boolean) : *
+      public function setItemInItemRow(row:Number, itemName:String, itemImageName:String, color:Number, bDisabled:Boolean) : *
       {
-         var _loc6_:MovieClip = this.shop.itemRowsAnimate;
-         if(!_loc6_)
+         var gridParentMC:MovieClip = this.shop.itemRowsAnimate;
+         if(!gridParentMC)
          {
             return;
          }
-         var _loc7_:ShopItemButton = _loc6_["Item" + param1];
-         if(_loc7_.slotIndex == undefined)
+         var slotMC:ShopItemButton = gridParentMC["Item" + row];
+         if(slotMC.slotIndex == undefined)
          {
-            _loc7_.slotIndex = param1;
+            slotMC.slotIndex = row;
          }
-         _loc7_.visible = true;
-         var _loc8_:Object = {
-            "itemName":param2,
-            "itemImageName":param3,
-            "itemColor":param4
+         slotMC.visible = true;
+         var data:Object = {
+            "itemName":itemName,
+            "itemImageName":itemImageName,
+            "itemColor":color
          };
-         _loc7_.itemData = _loc8_;
-         _loc7_.setDisabled(param5);
+         slotMC.itemData = data;
+         slotMC.setDisabled(bDisabled);
       }
       
-      public function clearItemRow(param1:Number) : *
+      public function clearItemRow(row:Number) : *
       {
-         var _loc2_:MovieClip = this.shop.itemRowsAnimate;
-         if(!_loc2_)
+         var gridParentMC:MovieClip = this.shop.itemRowsAnimate;
+         if(!gridParentMC)
          {
             return;
          }
-         var _loc3_:MovieClip = _loc2_["Item" + param1];
-         _loc3_.visible = false;
+         var slotMC:MovieClip = gridParentMC["Item" + row];
+         slotMC.visible = false;
       }
       
-      public function getGridMC(param1:Number) : MovieClip
+      public function getGridMC(gridNumber:Number) : MovieClip
       {
-         var _loc2_:MovieClip = null;
-         switch(param1)
+         var gridParentMC:MovieClip = null;
+         switch(gridNumber)
          {
             case 0:
-               _loc2_ = this.shop.itemGridBasics;
+               gridParentMC = this.shop.itemGridBasics;
                break;
             case 1:
-               _loc2_ = this.shop.itemGridRecipes;
+               gridParentMC = this.shop.itemGridRecipes;
                break;
             case 2:
-               _loc2_ = this.shop.itemGridSideShop;
+               gridParentMC = this.shop.itemGridSideShop;
                break;
             case 3:
-               _loc2_ = this.shop.itemGridSecretShop;
+               gridParentMC = this.shop.itemGridSecretShop;
                break;
          }
-         return _loc2_;
+         return gridParentMC;
       }
       
-      public function setItemInItemGrid(param1:Number, param2:Number, param3:Number, param4:String, param5:String, param6:Number, param7:Boolean, param8:Boolean) : *
+      public function setItemInItemGrid(gridNumber:Number, row:Number, column:Number, itemName:String, itemImageName:String, color:Number, bCooldown:Boolean, bDisabled:Boolean) : *
       {
-         var _loc12_:ColorMatrixFilter = null;
-         var _loc9_:MovieClip = this.getGridMC(param1);
-         if(!_loc9_)
+         var saturation:ColorMatrixFilter = null;
+         var gridParentMC:MovieClip = this.getGridMC(gridNumber);
+         if(!gridParentMC)
          {
             return;
          }
-         var _loc10_:ShopItemGridButton = _loc9_["Item_" + param2 + "_" + param3];
-         if(!_loc10_)
+         var slotMC:ShopItemGridButton = gridParentMC["Item_" + row + "_" + column];
+         if(!slotMC)
          {
             return;
          }
-         if(_loc10_.slotIndex == undefined)
+         if(slotMC.slotIndex == undefined)
          {
-            _loc10_.rowIndex = param2;
-            _loc10_.columnIndex = param3;
+            slotMC.rowIndex = row;
+            slotMC.columnIndex = column;
          }
-         _loc10_.visible = true;
-         var _loc11_:Object = {
-            "itemName":param4,
-            "itemImageName":param5,
-            "itemColor":param6,
-            "needsCooldown":param7
+         slotMC.visible = true;
+         var data:Object = {
+            "itemName":itemName,
+            "itemImageName":itemImageName,
+            "itemColor":color,
+            "needsCooldown":bCooldown
          };
-         _loc10_.itemData = _loc11_;
-         _loc10_.disable.visible = param8;
-         if(param8)
+         slotMC.itemData = data;
+         slotMC.disable.visible = bDisabled;
+         if(bDisabled)
          {
-            _loc12_ = new ColorMatrixFilter([0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.0,0.0,0.0,1,0]);
-            _loc10_.filters = [_loc12_];
+            saturation = new ColorMatrixFilter([0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.0,0.0,0.0,1,0]);
+            slotMC.filters = [saturation];
          }
          else
          {
-            _loc10_.filters = [];
+            slotMC.filters = [];
          }
       }
       
-      public function clearItemGrid(param1:Number, param2:Number, param3:Number) : *
+      public function clearItemGrid(gridNumber:Number, row:Number, column:Number) : *
       {
-         var _loc4_:MovieClip = this.getGridMC(param1);
-         if(!_loc4_)
+         var gridParentMC:MovieClip = this.getGridMC(gridNumber);
+         if(!gridParentMC)
          {
             return;
          }
-         var _loc5_:ShopItemGridButton = _loc4_["Item_" + param2 + "_" + param3];
-         if(_loc5_)
+         var slotMC:ShopItemGridButton = gridParentMC["Item_" + row + "_" + column];
+         if(slotMC)
          {
-            _loc5_.visible = false;
+            slotMC.visible = false;
          }
       }
       
-      public function getCooldownMovieForGridSlot(param1:Number, param2:Number, param3:Number) : MovieClip
+      public function getCooldownMovieForGridSlot(gridNumber:Number, row:Number, column:Number) : MovieClip
       {
-         var _loc4_:MovieClip = this.getGridMC(param1);
-         if(!_loc4_)
+         var gridParentMC:MovieClip = this.getGridMC(gridNumber);
+         if(!gridParentMC)
          {
             return null;
          }
-         var _loc5_:ShopItemGridButton = _loc4_["Item_" + param2 + "_" + param3];
-         if(!_loc5_)
+         var slotMC:ShopItemGridButton = gridParentMC["Item_" + row + "_" + column];
+         if(!slotMC)
          {
             return null;
          }
-         return _loc5_.cooldownMC.cooldown;
+         return slotMC.cooldownMC.cooldown;
       }
       
-      public function setItemGridSlotPurchasable(param1:Number, param2:Number, param3:Number, param4:Boolean) : *
+      public function setItemGridSlotPurchasable(gridNumber:Number, row:Number, column:Number, purchasable:Boolean) : *
       {
-         var _loc5_:MovieClip = this.getGridMC(param1);
-         if(!_loc5_)
+         var gridParentMC:MovieClip = this.getGridMC(gridNumber);
+         if(!gridParentMC)
          {
             return;
          }
-         var _loc6_:ShopItemGridButton = _loc5_["Item_" + param2 + "_" + param3];
-         if(_loc6_)
+         var slotMC:ShopItemGridButton = gridParentMC["Item_" + row + "_" + column];
+         if(slotMC)
          {
-            _loc6_.purchasableMC.visible = param4;
+            slotMC.purchasableMC.visible = purchasable;
          }
       }
       
-      public function onBuyButtonPress(param1:String, param2:uint, param3:int) : *
+      public function onBuyButtonPress(itemName:String, itemSlot:uint, purchaseOrigin:int) : *
       {
-         this.gameAPI.OnPurchaseItem(param1,param3);
+         this.gameAPI.OnPurchaseItem(itemName,purchaseOrigin);
       }
       
-      public function onBuyButtonPressShopItem(param1:String) : *
+      public function onBuyButtonPressShopItem(itemName:String) : *
       {
-         var _loc2_:* = NaN;
-         var _loc3_:int = CombineTreeItem.PURCHASE_LOCATION_SHOP_ROW;
+         var shopNumber:* = NaN;
+         var purchaseOrigin:int = CombineTreeItem.PURCHASE_LOCATION_SHOP_ROW;
          if(this.shop.searchTab.visible)
          {
-            _loc2_ = -1;
-            _loc3_ = CombineTreeItem.PURCHASE_LOCATION_SEARCH_RESULTS;
+            shopNumber = -1;
+            purchaseOrigin = CombineTreeItem.PURCHASE_LOCATION_SEARCH_RESULTS;
          }
          else if(this.sideShopOpen)
          {
-            _loc2_ = 1;
+            shopNumber = 1;
          }
          else if(this.secretShopOpen)
          {
-            _loc2_ = 2;
+            shopNumber = 2;
          }
          else
          {
-            _loc2_ = 0;
+            shopNumber = 0;
          }
          
          
-         this.gameAPI.OnPurchaseItemFromShop(param1,_loc2_,_loc3_);
+         this.gameAPI.OnPurchaseItemFromShop(itemName,shopNumber,purchaseOrigin);
       }
       
-      public function onSetInventoryQuickBuy(param1:String) : *
+      public function onSetInventoryQuickBuy(itemName:String) : *
       {
-         this.gameAPI.OnSetInventoryQuickBuy(param1);
+         this.gameAPI.OnSetInventoryQuickBuy(itemName);
       }
       
-      public function onUpgradeButtonPress(param1:String) : *
+      public function onUpgradeButtonPress(itemName:String) : *
       {
-         this.gameAPI.OnUpgradeItem(param1);
+         this.gameAPI.OnUpgradeItem(itemName);
       }
       
-      public function onSetQuickBuy(param1:String, param2:int) : *
+      public function onSetQuickBuy(itemName:String, purchaseOrigin:int) : *
       {
-         if(param2 == 1)
+         if(purchaseOrigin == 1)
          {
             if(this.shop.searchTab.visible)
             {
-               var param2:int = CombineTreeItem.PURCHASE_LOCATION_SEARCH_RESULTS;
+               var purchaseOrigin:int = CombineTreeItem.PURCHASE_LOCATION_SEARCH_RESULTS;
             }
          }
-         var _loc3_:Number = 0;
-         this.gameAPI.OnSetQuickBuy(param1,_loc3_,param2);
+         var recipe:Number = 0;
+         this.gameAPI.OnSetQuickBuy(itemName,recipe,purchaseOrigin);
       }
       
       public var shopOpen:Boolean;
@@ -357,7 +357,7 @@ package shop_fla
       
       public var secretShopOpen:Boolean;
       
-      public function toggleShop(param1:Number) : *
+      public function toggleShop(shopTab:Number) : *
       {
          if(this.shopOpen)
          {
@@ -365,67 +365,67 @@ package shop_fla
          }
          else
          {
-            this.openShopTab(param1);
+            this.openShopTab(shopTab);
          }
       }
       
-      public function openShopTab(param1:Number) : *
+      public function openShopTab(shopTab:Number) : *
       {
          if(this.shopOpen)
          {
-            this.showShopTabInstant(param1);
+            this.showShopTabInstant(shopTab);
          }
          else
          {
-            this.showShopTabAnimated(param1);
+            this.showShopTabAnimated(shopTab);
          }
       }
       
-      public function openShopCategory(param1:uint, param2:uint) : *
+      public function openShopCategory(tabIndex:uint, subtabIndex:uint) : *
       {
-         var _loc3_:uint = 0;
-         var _loc4_:* = false;
-         var _loc5_:MovieClip = null;
-         var _loc6_:MovieClip = null;
-         var _loc7_:MovieClip = null;
-         switch(param1)
+         var containingShop:uint = 0;
+         var needsUpdating:* = false;
+         var MainShopContents:MovieClip = null;
+         var tabMC:MovieClip = null;
+         var subTabButton:MovieClip = null;
+         switch(tabIndex)
          {
             case 1:
             case 2:
                this.openShopTab(0);
-               _loc4_ = false;
-               _loc5_ = this.shop.MainShop.MainShopContents;
-               if(param1 != this.activeMainShopTab)
+               needsUpdating = false;
+               MainShopContents = this.shop.MainShop.MainShopContents;
+               if(tabIndex != this.activeMainShopTab)
                {
-                  _loc5_["tab" + param1 + "Button"].gotoAndStop(3);
-                  _loc5_["tab" + param1].visible = true;
-                  _loc5_["tab" + this.activeMainShopTab + "Button"].gotoAndStop(1);
-                  _loc5_["tab" + this.activeMainShopTab].visible = false;
-                  this.activeMainShopTab = param1;
-                  _loc4_ = true;
+                  MainShopContents["tab" + tabIndex + "Button"].gotoAndStop(3);
+                  MainShopContents["tab" + tabIndex].visible = true;
+                  MainShopContents["tab" + this.activeMainShopTab + "Button"].gotoAndStop(1);
+                  MainShopContents["tab" + this.activeMainShopTab].visible = false;
+                  this.activeMainShopTab = tabIndex;
+                  needsUpdating = true;
                }
-               if(this.activeSubTab[param1 - 1] != param2)
+               if(this.activeSubTab[tabIndex - 1] != subtabIndex)
                {
-                  _loc6_ = _loc5_["tab" + param1];
-                  _loc7_ = _loc6_["subtab" + param2 + "Button"];
-                  _loc6_["subtab" + param2 + "Button"].gotoAndStop(3);
-                  _loc6_["subtab" + this.activeSubTab[param1 - 1] + "Button"].gotoAndStop(1);
-                  this.activeSubTab[param1 - 1] = param2;
-                  _loc4_ = true;
+                  tabMC = MainShopContents["tab" + tabIndex];
+                  subTabButton = tabMC["subtab" + subtabIndex + "Button"];
+                  tabMC["subtab" + subtabIndex + "Button"].gotoAndStop(3);
+                  tabMC["subtab" + this.activeSubTab[tabIndex - 1] + "Button"].gotoAndStop(1);
+                  this.activeSubTab[tabIndex - 1] = subtabIndex;
+                  needsUpdating = true;
                }
-               if(_loc4_)
+               if(needsUpdating)
                {
                   this.gameAPI.OnShopTabActivated(this.activeMainShopTab,int(this.activeSubTab[this.activeMainShopTab - 1]));
                }
                break;
             case 3:
                this.openShopTab(1);
-               if(this.activeSubTab[param1 - 1] != param2)
+               if(this.activeSubTab[tabIndex - 1] != subtabIndex)
                {
-                  this.shop.SideShop.SideShopContents["subtab" + param2 + "Button"].gotoAndStop(3);
-                  this.shop.SideShop.SideShopContents["subtab" + this.activeSubTab[param1 - 1] + "Button"].gotoAndStop(1);
-                  this.activeSubTab[param1 - 1] = param2;
-                  this.gameAPI.OnShopTabActivated(param1,int(this.activeSubTab[param1 - 1]));
+                  this.shop.SideShop.SideShopContents["subtab" + subtabIndex + "Button"].gotoAndStop(3);
+                  this.shop.SideShop.SideShopContents["subtab" + this.activeSubTab[tabIndex - 1] + "Button"].gotoAndStop(1);
+                  this.activeSubTab[tabIndex - 1] = subtabIndex;
+                  this.gameAPI.OnShopTabActivated(tabIndex,int(this.activeSubTab[tabIndex - 1]));
                }
                break;
             case 4:
@@ -463,105 +463,105 @@ package shop_fla
          }
       }
       
-      public function showShopTabInstant(param1:Number) : *
+      public function showShopTabInstant(shopTab:Number) : *
       {
-         var _loc2_:* = 0;
+         var tab:* = 0;
          this.shop.searchTab.visible = false;
-         if(this.isShopTabOpen(param1))
+         if(this.isShopTabOpen(shopTab))
          {
             return;
          }
-         if(param1 == 0)
+         if(shopTab == 0)
          {
             this.mainShopOpen = true;
             this.shop.MainShop.visible = true;
-            _loc2_ = this.activeMainShopTab;
+            tab = this.activeMainShopTab;
          }
          else
          {
             this.mainShopOpen = false;
             this.shop.MainShop.visible = false;
          }
-         if(param1 == 1)
+         if(shopTab == 1)
          {
             this.sideShopOpen = true;
             this.shop.SideShop.visible = true;
-            _loc2_ = this.activeSideShopTab;
+            tab = this.activeSideShopTab;
          }
          else
          {
             this.sideShopOpen = false;
             this.shop.SideShop.visible = false;
          }
-         if(param1 == 2)
+         if(shopTab == 2)
          {
             this.secretShopOpen = true;
             this.shop.SecretShop.visible = true;
-            _loc2_ = this.activeSecretShopTab;
+            tab = this.activeSecretShopTab;
          }
          else
          {
             this.secretShopOpen = false;
             this.shop.SecretShop.visible = false;
          }
-         this.gameAPI.OnShopTabActivated(_loc2_,int(this.activeSubTab[_loc2_ - 1]));
+         this.gameAPI.OnShopTabActivated(tab,int(this.activeSubTab[tab - 1]));
          this.gameAPI.OnShopOpened();
       }
       
-      public function showShopTabAnimated(param1:Number) : *
+      public function showShopTabAnimated(shopTab:Number) : *
       {
-         var _loc2_:* = 0;
+         var tab:* = 0;
          this.shopOpen = true;
-         this.setShopTabOpen(param1,true);
+         this.setShopTabOpen(shopTab,true);
          this.shop.ShopTools.visible = true;
          this.shop.combineTree_container.visible = true;
-         switch(param1)
+         switch(shopTab)
          {
             case 0:
                this.shop.MainShop.visible = true;
                this.mainShopOpen = true;
                this.shop.SideShop.visible = false;
                this.shop.SecretShop.visible = false;
-               _loc2_ = this.activeMainShopTab;
+               tab = this.activeMainShopTab;
                break;
             case 1:
                this.shop.SideShop.visible = true;
                this.sideShopOpen = true;
                this.shop.MainShop.visible = false;
                this.shop.SecretShop.visible = false;
-               _loc2_ = this.activeSideShopTab;
+               tab = this.activeSideShopTab;
                break;
             case 2:
                this.shop.SecretShop.visible = true;
                this.secretShopOpen = true;
                this.shop.MainShop.visible = false;
                this.shop.SideShop.visible = false;
-               _loc2_ = this.activeSecretShopTab;
+               tab = this.activeSecretShopTab;
                break;
          }
-         this.gameAPI.OnShopTabActivated(_loc2_,int(this.activeSubTab[_loc2_ - 1]));
+         this.gameAPI.OnShopTabActivated(tab,int(this.activeSubTab[tab - 1]));
          this.gameAPI.OnShopOpened();
       }
       
-      public function setShopTabOpen(param1:Number, param2:Boolean) : *
+      public function setShopTabOpen(shopTab:Number, open:Boolean) : *
       {
-         switch(param1)
+         switch(shopTab)
          {
             case 0:
-               this.mainShopOpen = param2;
+               this.mainShopOpen = open;
                break;
             case 1:
-               this.sideShopOpen = param2;
+               this.sideShopOpen = open;
                break;
             case 2:
-               this.secretShopOpen = param2;
+               this.secretShopOpen = open;
                break;
          }
       }
       
-      public function isShopTabOpen(param1:Number) : Boolean
+      public function isShopTabOpen(shopTab:Number) : Boolean
       {
-         switch(param1)
+         switch(shopTab)
          {
             case 0:
                return this.mainShopOpen;
@@ -584,53 +584,53 @@ package shop_fla
          this.shop.ShopTools.searchBox.text = "";
       }
       
-      public function modifySearchBox(param1:String) : *
+      public function modifySearchBox(searchcontents:String) : *
       {
-         this.shop.ShopTools.searchBox.text = param1;
-         this.searchTextChanged(param1);
+         this.shop.ShopTools.searchBox.text = searchcontents;
+         this.searchTextChanged(searchcontents);
       }
       
       public var mouseOverShopItem:ShopItemButton;
       
-      public function onShowShopItemTooltip(param1:MovieClip) : *
+      public function onShowShopItemTooltip(itemMC:MovieClip) : *
       {
-         var _loc2_:String = param1.itemName;
-         if(_loc2_.length == 0)
+         var itemName:String = itemMC.itemName;
+         if(itemName.length == 0)
          {
             return;
          }
-         var _loc3_:Point = new Point(param1.x,param1.y);
-         if(param1 is CombineTreeItem)
+         var ipt:Point = new Point(itemMC.x,itemMC.y);
+         if(itemMC is CombineTreeItem)
          {
-            _loc3_.x = _loc3_.x - 19;
-            _loc3_.y = _loc3_.y - 14;
+            ipt.x = ipt.x - 19;
+            ipt.y = ipt.y - 14;
          }
          if(this.g_bFlippedHUD)
          {
-            if(param1 is ShopItemGridButton || param1 is CombineTreeItem || param1 is ItemBuildItem)
+            if(itemMC is ShopItemGridButton || itemMC is CombineTreeItem || itemMC is ItemBuildItem)
             {
-               _loc3_.x = _loc3_.x + param1.width * 0.75;
+               ipt.x = ipt.x + itemMC.width * 0.75;
             }
             else
             {
-               _loc3_.x = _loc3_.x + param1.width;
+               ipt.x = ipt.x + itemMC.width;
             }
          }
-         _loc3_ = param1.parent.localToGlobal(_loc3_);
-         this.gameAPI.ShowItemTooltip(_loc3_.x,_loc3_.y,_loc2_);
-         var _loc4_:ShopItemButton = param1 as ShopItemButton;
-         if(_loc4_)
+         ipt = itemMC.parent.localToGlobal(ipt);
+         this.gameAPI.ShowItemTooltip(ipt.x,ipt.y,itemName);
+         var shopItem:ShopItemButton = itemMC as ShopItemButton;
+         if(shopItem)
          {
-            this.mouseOverShopItem = _loc4_;
+            this.mouseOverShopItem = shopItem;
             this.updatePurchasableState();
          }
       }
       
-      public function onHideShopItemTooltip(param1:MovieClip) : *
+      public function onHideShopItemTooltip(itemMC:MovieClip) : *
       {
          this.gameAPI.HideItemTooltip();
-         var _loc2_:ShopItemButton = param1 as ShopItemButton;
-         if((_loc2_) && this.mouseOverShopItem == _loc2_)
+         var shopItem:ShopItemButton = itemMC as ShopItemButton;
+         if((shopItem) && this.mouseOverShopItem == shopItem)
          {
             this.mouseOverShopItem = null;
          }
@@ -638,8 +638,8 @@ package shop_fla
       
       public function updatePurchasableState() : *
       {
-         var _loc1_:int = this.mouseOverShopItem.slotIndex;
-         this.gameAPI.OnRequestItemPurchasableState(_loc1_,this.mouseOverShopItem.itemName,this.sideShopOpen);
+         var slot:int = this.mouseOverShopItem.slotIndex;
+         this.gameAPI.OnRequestItemPurchasableState(slot,this.mouseOverShopItem.itemName,this.sideShopOpen);
       }
       
       public var activeMainShopTab:int;
@@ -656,34 +656,34 @@ package shop_fla
       
       public var mc:MovieClip;
       
-      public function tabRollOver(param1:MouseEvent) : *
+      public function tabRollOver(event:MouseEvent) : *
       {
-         var _loc2_:Number = param1.target.tabIndex;
-         if(_loc2_ != this.activeMainShopTab)
+         var tabIndex:Number = event.target.tabIndex;
+         if(tabIndex != this.activeMainShopTab)
          {
-            this.shop.MainShop.MainShopContents["tab" + _loc2_ + "Button"].gotoAndStop(2);
+            this.shop.MainShop.MainShopContents["tab" + tabIndex + "Button"].gotoAndStop(2);
          }
       }
       
-      public function tabRollOut(param1:MouseEvent) : *
+      public function tabRollOut(event:MouseEvent) : *
       {
-         var _loc2_:Number = param1.target.tabIndex;
-         if(_loc2_ != this.activeMainShopTab)
+         var tabIndex:Number = event.target.tabIndex;
+         if(tabIndex != this.activeMainShopTab)
          {
-            this.shop.MainShop.MainShopContents["tab" + _loc2_ + "Button"].gotoAndStop(1);
+            this.shop.MainShop.MainShopContents["tab" + tabIndex + "Button"].gotoAndStop(1);
          }
       }
       
-      public function tabPress(param1:Object) : *
+      public function tabPress(event:Object) : *
       {
-         var _loc2_:Number = param1.target.tabIndex;
-         if(_loc2_ != this.activeMainShopTab)
+         var tabIndex:Number = event.target.tabIndex;
+         if(tabIndex != this.activeMainShopTab)
          {
-            this.shop.MainShop.MainShopContents["tab" + _loc2_ + "Button"].gotoAndStop(3);
-            this.shop.MainShop.MainShopContents["tab" + _loc2_].visible = true;
+            this.shop.MainShop.MainShopContents["tab" + tabIndex + "Button"].gotoAndStop(3);
+            this.shop.MainShop.MainShopContents["tab" + tabIndex].visible = true;
             this.shop.MainShop.MainShopContents["tab" + this.activeMainShopTab + "Button"].gotoAndStop(1);
             this.shop.MainShop.MainShopContents["tab" + this.activeMainShopTab].visible = false;
-            this.activeMainShopTab = _loc2_;
+            this.activeMainShopTab = tabIndex;
             this.gameAPI.OnShopTabActivated(this.activeMainShopTab,int(this.activeSubTab[this.activeMainShopTab - 1]));
          }
          this.shop.searchTab.visible = false;
@@ -709,9 +709,9 @@ package shop_fla
       
       public const SHOP_VIEW_MODE_GRID:int = 1;
       
-      public function notifyViewMode(param1:int) : *
+      public function notifyViewMode(newViewMode:int) : *
       {
-         if(this.viewMode != param1)
+         if(this.viewMode != newViewMode)
          {
             this.shop.MainShop.MainShopContents.tab1.subtab1Button.gotoAndStop(1);
             this.shop.MainShop.MainShopContents.tab1.subtab2Button.gotoAndStop(1);
@@ -726,63 +726,63 @@ package shop_fla
             this.shop.SideShop.SideShopContents.subtab1Button.gotoAndStop(1);
             this.shop.SideShop.SideShopContents.subtab2Button.gotoAndStop(1);
          }
-         this.viewMode = param1;
+         this.viewMode = newViewMode;
       }
       
-      public function subTabPress(param1:MouseEvent) : *
+      public function subTabPress(event:MouseEvent) : *
       {
-         var _loc2_:int = param1.target.tab;
-         var _loc3_:Number = param1.target.subtab;
-         if(this.activeSubTab[_loc2_ - 1] != _loc3_)
+         var tab:int = event.target.tab;
+         var subtab:Number = event.target.subtab;
+         if(this.activeSubTab[tab - 1] != subtab)
          {
             if(this.viewMode != this.SHOP_VIEW_MODE_GRID)
             {
-               param1.target.gotoAndStop(3);
-               param1.target.parent["subtab" + this.activeSubTab[_loc2_ - 1] + "Button"].gotoAndStop(1);
+               event.target.gotoAndStop(3);
+               event.target.parent["subtab" + this.activeSubTab[tab - 1] + "Button"].gotoAndStop(1);
             }
-            this.activeSubTab[_loc2_ - 1] = _loc3_;
-            this.gameAPI.OnShopTabActivated(_loc2_,int(this.activeSubTab[_loc2_ - 1]));
+            this.activeSubTab[tab - 1] = subtab;
+            this.gameAPI.OnShopTabActivated(tab,int(this.activeSubTab[tab - 1]));
          }
       }
       
-      public function subTabRollOver(param1:MouseEvent) : *
+      public function subTabRollOver(event:MouseEvent) : *
       {
-         var _loc2_:Number = param1.target.tab;
-         var _loc3_:Number = param1.target.subtab;
+         var tab:Number = event.target.tab;
+         var subtab:Number = event.target.subtab;
          if(this.viewMode != this.SHOP_VIEW_MODE_GRID)
          {
-            if(this.activeSubTab[_loc2_ - 1] != _loc3_)
+            if(this.activeSubTab[tab - 1] != subtab)
             {
-               param1.target.gotoAndStop(2);
+               event.target.gotoAndStop(2);
             }
          }
-         this.gameAPI.OnShowCategoryTooltip(_loc2_,_loc3_);
+         this.gameAPI.OnShowCategoryTooltip(tab,subtab);
       }
       
-      public function subTabRollOut(param1:MouseEvent) : *
+      public function subTabRollOut(event:MouseEvent) : *
       {
-         var _loc2_:Number = param1.target.tab;
-         var _loc3_:Number = param1.target.subtab;
+         var tab:Number = event.target.tab;
+         var subtab:Number = event.target.subtab;
          if(this.viewMode != this.SHOP_VIEW_MODE_GRID)
          {
-            if(this.activeSubTab[_loc2_ - 1] != _loc3_)
+            if(this.activeSubTab[tab - 1] != subtab)
             {
-               param1.target.gotoAndStop(1);
+               event.target.gotoAndStop(1);
             }
          }
          this.gameAPI.OnHideCategoryTooltip();
       }
       
-      public function searchTextChangedEvent(param1:Object) : *
+      public function searchTextChangedEvent(event:Object) : *
       {
-         this.searchTextChanged(param1.target.text);
+         this.searchTextChanged(event.target.text);
       }
       
-      public function searchTextChanged(param1:String) : *
+      public function searchTextChanged(text:String) : *
       {
-         var _loc2_:* = 0;
-         this.gameAPI.OnSearchTextChanged(param1);
-         if(param1.length > 0)
+         var tab:* = 0;
+         this.gameAPI.OnSearchTextChanged(text);
+         if(text.length > 0)
          {
             this.shop.searchTab.visible = true;
             this.shop.ShopTools.clearSearch.visible = true;
@@ -793,50 +793,50 @@ package shop_fla
             this.shop.searchTab.visible = false;
             if(this.sideShopOpen)
             {
-               _loc2_ = this.activeSideShopTab;
+               tab = this.activeSideShopTab;
             }
             else if(this.secretShopOpen)
             {
-               _loc2_ = this.activeSecretShopTab;
+               tab = this.activeSecretShopTab;
             }
             else
             {
-               _loc2_ = this.activeMainShopTab;
+               tab = this.activeMainShopTab;
             }
             
-            this.gameAPI.OnShopTabActivated(_loc2_,int(this.activeSubTab[_loc2_ - 1]));
+            this.gameAPI.OnShopTabActivated(tab,int(this.activeSubTab[tab - 1]));
             this.shop.ShopTools.clearSearch.visible = false;
             this.shop.ShopTools.clearSearch.removeEventListener(MouseEvent.CLICK,this.onClearSearchClick);
          }
       }
       
-      public function onClearSearchClick(param1:MouseEvent) : *
+      public function onClearSearchClick(event:MouseEvent) : *
       {
          this.shop.ShopTools.searchBox.text = "";
          this.searchTextChanged("");
       }
       
-      public function onSearchBoxEnterPress(param1:InputBoxEvent) : *
+      public function onSearchBoxEnterPress(event:InputBoxEvent) : *
       {
          this.clearSearchFocus();
       }
       
-      public function searchBoxGainFocus(param1:Object) : *
+      public function searchBoxGainFocus(event:Object) : *
       {
          if(!this.bInputConsumer)
          {
             Globals.instance.GameInterface.AddKeyInputConsumer();
             this.bInputConsumer = true;
          }
-         if(param1.target.text.length > 0)
+         if(event.target.text.length > 0)
          {
             this.shop.searchTab.visible = true;
-            this.gameAPI.OnSearchTextChanged(param1.target.text);
+            this.gameAPI.OnSearchTextChanged(event.target.text);
          }
          this.gameAPI.OnSearchBoxGainFocus();
       }
       
-      public function searchBoxLoseFocus(param1:Object) : *
+      public function searchBoxLoseFocus(event:Object) : *
       {
          if(this.bInputConsumer)
          {
@@ -867,67 +867,67 @@ package shop_fla
       
       public var lastHeaderYBottom:Number;
       
-      public function onShopItemDraggedToSuggestedItems(param1:MovieClip, param2:String) : *
+      public function onShopItemDraggedToSuggestedItems(dragTarget:MovieClip, itemName:String) : *
       {
-         var _loc7_:* = 0;
-         var _loc9_:MovieClip = null;
-         var _loc3_:* = this.shop.recommendedTab.content.mouseX;
-         var _loc4_:* = this.shop.recommendedTab.content.mouseY;
-         var _loc5_:* = this.shop.recommendedTab.content.height + 50;
-         if(_loc3_ < 0 || _loc3_ >= this.shop.recommendedTab.content.width || _loc4_ < 0 || _loc4_ >= _loc5_)
+         var i:* = 0;
+         var mc:MovieClip = null;
+         var xpos:* = this.shop.recommendedTab.content.mouseX;
+         var ypos:* = this.shop.recommendedTab.content.mouseY;
+         var h:* = this.shop.recommendedTab.content.height + 50;
+         if(xpos < 0 || xpos >= this.shop.recommendedTab.content.width || ypos < 0 || ypos >= h)
          {
             return;
          }
-         var _loc6_:* = -1;
-         var _loc8_:int = this.itemBuildContents.length;
-         _loc7_ = 0;
-         while(_loc7_ < _loc8_)
+         var slot:* = -1;
+         var len:int = this.itemBuildContents.length;
+         i = 0;
+         while(i < len)
          {
-            _loc9_ = this.itemBuildContents[_loc7_];
-            if(_loc9_)
+            mc = this.itemBuildContents[i];
+            if(mc)
             {
-               if(!(_loc3_ < _loc9_.x || _loc4_ < _loc9_.y))
+               if(!(xpos < mc.x || ypos < mc.y))
                {
-                  _loc6_ = _loc7_;
+                  slot = i;
                }
             }
-            _loc7_++;
+            i++;
          }
-         if(_loc6_ > -1)
+         if(slot > -1)
          {
-            this.gameAPI.OnItemDraggedToSuggested(_loc6_,param2);
+            this.gameAPI.OnItemDraggedToSuggested(slot,itemName);
          }
       }
       
       public function clearItemBuild() : *
       {
-         var _loc1_:MovieClip = null;
-         var _loc3_:* = NaN;
-         var _loc2_:MovieClip = this.shop.recommendedTab.content;
-         _loc3_ = 0;
-         while(_loc3_ < this.numHeaders)
+         var mc:MovieClip = null;
+         var i:* = NaN;
+         var baseMC:MovieClip = this.shop.recommendedTab.content;
+         i = 0;
+         while(i < this.numHeaders)
          {
-            _loc1_ = _loc2_["Header" + _loc3_];
-            if(_loc1_)
+            mc = baseMC["Header" + i];
+            if(mc)
             {
-               _loc1_.visible = false;
+               mc.visible = false;
             }
-            _loc3_++;
+            i++;
          }
-         _loc3_ = 0;
-         while(_loc3_ < this.numItems)
+         i = 0;
+         while(i < this.numItems)
          {
-            _loc1_ = _loc2_["ItemEntry" + _loc3_];
-            if(_loc1_)
+            mc = baseMC["ItemEntry" + i];
+            if(mc)
             {
-               _loc1_.visible = false;
+               mc.visible = false;
             }
-            _loc3_++;
+            i++;
          }
-         _loc1_ = _loc2_["ItemPlaceholder"];
-         if((_loc1_) && (_loc1_.visible))
+         mc = baseMC["ItemPlaceholder"];
+         if((mc) && (mc.visible))
          {
-            _loc1_.visible = false;
+            mc.visible = false;
          }
          this.numHeaders = 0;
          this.numItems = 0;
@@ -938,8 +938,8 @@ package shop_fla
       
       public function toggleRecommendedTab() : *
       {
-         var _loc1_:* = !this.shop.recommendedTab.visible;
-         if(_loc1_)
+         var vis:* = !this.shop.recommendedTab.visible;
+         if(vis)
          {
             this.gameAPI.OnRecommendedItemsTabOpen();
          }
@@ -947,19 +947,19 @@ package shop_fla
          {
             this.gameAPI.OnRecommendedItemsTabClose();
          }
-         this.shop.recommendedTab.visible = _loc1_;
+         this.shop.recommendedTab.visible = vis;
       }
       
-      public function setRecommendedTabOpen(param1:Boolean) : §void§
+      public function setRecommendedTabOpen(open:Boolean) : §void§
       {
-         this.shop.recommendedTab.visible = param1;
+         this.shop.recommendedTab.visible = open;
       }
       
-      public function onSuggestedItemDragStart(param1:ItemBuildItem, param2:int) : *
+      public function onSuggestedItemDragStart(mc:ItemBuildItem, slot:int) : *
       {
          if(this.inEditMode)
          {
-            this.gameAPI.OnItemBuildItemDragStart(param2);
+            this.gameAPI.OnItemBuildItemDragStart(slot);
          }
       }
       
@@ -977,8 +977,8 @@ package shop_fla
       
       public function SuggestedEditThink() : *
       {
-         var _loc5_:* = 0;
-         var _loc7_:MovieClip = null;
+         var i:* = 0;
+         var mc:MovieClip = null;
          if(!this.inEditMode)
          {
             return;
@@ -987,116 +987,116 @@ package shop_fla
          {
             return;
          }
-         var _loc1_:* = this.shop.recommendedTab.content.mouseX;
-         var _loc2_:* = this.shop.recommendedTab.content.mouseY;
-         var _loc3_:* = this.shop.recommendedTab.content.height + 50;
-         if(_loc1_ < 0 || _loc1_ >= this.shop.recommendedTab.content.width || _loc2_ < 0 || _loc2_ >= _loc3_)
+         var xpos:* = this.shop.recommendedTab.content.mouseX;
+         var ypos:* = this.shop.recommendedTab.content.mouseY;
+         var h:* = this.shop.recommendedTab.content.height + 50;
+         if(xpos < 0 || xpos >= this.shop.recommendedTab.content.width || ypos < 0 || ypos >= h)
          {
             this.gameAPI.OnItemDraggedToSuggested(-1,"placeholder");
             return;
          }
-         var _loc4_:* = -1;
-         var _loc6_:int = this.itemBuildContents.length;
-         _loc5_ = 0;
-         while(_loc5_ < _loc6_)
+         var slot:* = -1;
+         var len:int = this.itemBuildContents.length;
+         i = 0;
+         while(i < len)
          {
-            _loc7_ = this.itemBuildContents[_loc5_];
-            if(_loc7_)
+            mc = this.itemBuildContents[i];
+            if(mc)
             {
-               if(!(_loc1_ < _loc7_.x || _loc2_ < _loc7_.y))
+               if(!(xpos < mc.x || ypos < mc.y))
                {
-                  _loc4_ = _loc5_;
+                  slot = i;
                }
             }
-            _loc5_++;
+            i++;
          }
-         if(_loc4_ > -1)
+         if(slot > -1)
          {
-            this.gameAPI.OnItemDraggedToSuggested(_loc4_,"placeholder");
+            this.gameAPI.OnItemDraggedToSuggested(slot,"placeholder");
          }
       }
       
       public var itemBuildContents;
       
-      public function addItemBuildHeader(param1:String) : §void§
+      public function addItemBuildHeader(headerText:String) : §void§
       {
-         var _loc2_:* = this.shop.recommendedTab.content;
-         var _loc3_:MovieClip = _loc2_["Header" + this.numHeaders];
-         if(_loc3_ == null)
+         var baseMC:* = this.shop.recommendedTab.content;
+         var headerMC:MovieClip = baseMC["Header" + this.numHeaders];
+         if(headerMC == null)
          {
-            _loc3_ = new RecommendedItemHeader();
-            _loc2_["Header" + this.numHeaders] = _loc3_;
-            _loc2_.addChild(_loc3_);
+            headerMC = new RecommendedItemHeader();
+            baseMC["Header" + this.numHeaders] = headerMC;
+            baseMC.addChild(headerMC);
          }
-         _loc3_.visible = true;
-         _loc3_.headerText.text = param1;
-         _loc3_.x = 10;
-         var _loc4_:int = this.itemsInSection / this.itemsPerRow;
+         headerMC.visible = true;
+         headerMC.headerText.text = headerText;
+         headerMC.x = 10;
+         var rows:int = this.itemsInSection / this.itemsPerRow;
          if(this.itemsInSection % this.itemsPerRow > 0)
          {
-            _loc4_++;
+            rows++;
          }
-         _loc3_.y = this.lastHeaderYBottom + _loc4_ * this.itemHeight + 10;
-         this.itemBuildContents.push(_loc3_);
+         headerMC.y = this.lastHeaderYBottom + rows * this.itemHeight + 10;
+         this.itemBuildContents.push(headerMC);
          this.numHeaders = this.numHeaders + 1;
          this.itemsInSection = 0;
-         this.lastHeaderYBottom = _loc3_.y + _loc3_.height;
+         this.lastHeaderYBottom = headerMC.y + headerMC.height;
       }
       
-      public function addItemBuildPlaceholder(param1:int) : §void§
+      public function addItemBuildPlaceholder(slot:int) : §void§
       {
-         var _loc2_:* = this.shop.recommendedTab.content;
-         var _loc3_:ItemBuildPlaceholder = _loc2_["ItemPlaceholder"];
-         if(_loc3_ == null)
+         var baseMC:* = this.shop.recommendedTab.content;
+         var slotMC:ItemBuildPlaceholder = baseMC["ItemPlaceholder"];
+         if(slotMC == null)
          {
-            _loc3_ = new ItemBuildPlaceholder();
-            _loc2_["ItemPlaceholder"] = _loc3_;
-            _loc2_.addChild(_loc3_);
+            slotMC = new ItemBuildPlaceholder();
+            baseMC["ItemPlaceholder"] = slotMC;
+            baseMC.addChild(slotMC);
          }
-         _loc3_.visible = true;
-         var _loc4_:int = this.itemsInSection / this.itemsPerRow;
-         var _loc5_:int = this.itemsInSection % this.itemsPerRow;
-         _loc3_.x = 10 + _loc5_ * this.itemWidth;
-         _loc3_.y = this.lastHeaderYBottom + _loc4_ * (this.itemHeight + 2);
-         this.itemBuildContents.push(_loc3_);
+         slotMC.visible = true;
+         var row:int = this.itemsInSection / this.itemsPerRow;
+         var col:int = this.itemsInSection % this.itemsPerRow;
+         slotMC.x = 10 + col * this.itemWidth;
+         slotMC.y = this.lastHeaderYBottom + row * (this.itemHeight + 2);
+         this.itemBuildContents.push(slotMC);
          this.itemsInSection++;
       }
       
-      public function addItemBuildItem(param1:String, param2:String, param3:String, param4:Number, param5:Number, param6:Boolean, param7:int) : §void§
+      public function addItemBuildItem(itemName:String, itemImageName:String, localizedName:String, cost:Number, color:Number, secretShop:Boolean, slot:int) : §void§
       {
-         var _loc8_:* = this.shop.recommendedTab.content;
-         var _loc9_:ItemBuildItem = _loc8_["ItemEntry" + this.numItems];
-         if(_loc9_ == null)
+         var baseMC:* = this.shop.recommendedTab.content;
+         var slotMC:ItemBuildItem = baseMC["ItemEntry" + this.numItems];
+         if(slotMC == null)
          {
-            _loc9_ = new ItemBuildItem();
-            _loc8_["ItemEntry" + this.numItems] = _loc9_;
-            _loc8_.addChild(_loc9_);
+            slotMC = new ItemBuildItem();
+            baseMC["ItemEntry" + this.numItems] = slotMC;
+            baseMC.addChild(slotMC);
          }
-         _loc9_.visible = true;
-         var _loc10_:* = (param5 & 255) << 16 | param5 & 65280 | (param5 & 16711680) >> 16;
-         var _loc11_:Object = {
-            "itemName":param1,
-            "itemImageName":param2,
-            "itemColor":_loc10_,
-            "secretShop":param6,
+         slotMC.visible = true;
+         var BGRColor:* = (color & 255) << 16 | color & 65280 | (color & 16711680) >> 16;
+         var data:Object = {
+            "itemName":itemName,
+            "itemImageName":itemImageName,
+            "itemColor":BGRColor,
+            "secretShop":secretShop,
             "owned":false,
             "purchasable":false,
-            "itemSlot":param7
+            "itemSlot":slot
          };
-         _loc9_.itemData = _loc11_;
-         var _loc12_:int = this.itemsInSection / this.itemsPerRow;
-         var _loc13_:int = this.itemsInSection % this.itemsPerRow;
-         _loc9_.x = 10 + _loc13_ * this.itemWidth;
-         _loc9_.y = this.lastHeaderYBottom + _loc12_ * (this.itemHeight + 2);
-         this.itemBuildContents.push(_loc9_);
+         slotMC.itemData = data;
+         var row:int = this.itemsInSection / this.itemsPerRow;
+         var col:int = this.itemsInSection % this.itemsPerRow;
+         slotMC.x = 10 + col * this.itemWidth;
+         slotMC.y = this.lastHeaderYBottom + row * (this.itemHeight + 2);
+         this.itemBuildContents.push(slotMC);
          this.numItems++;
          this.itemsInSection++;
       }
       
-      public function setItemBuildSlotPurchased(param1:Number) : §void§
+      public function setItemBuildSlotPurchased(slot:Number) : §void§
       {
-         var _loc2_:ItemBuildItem = this.shop.recommendedTab.content["ItemEntry" + param1];
-         _loc2_.owned = true;
+         var slotMC:ItemBuildItem = this.shop.recommendedTab.content["ItemEntry" + slot];
+         slotMC.owned = true;
       }
       
       public function clearCombineTree() : *
@@ -1104,29 +1104,29 @@ package shop_fla
          this.shop.combineTree_container.combineTree.clear();
       }
       
-      public function setCombineTreeItem(param1:String, param2:Number, param3:Boolean, param4:Boolean) : *
+      public function setCombineTreeItem(itemName:String, color:Number, secretShop:Boolean, purchasable:Boolean) : *
       {
-         this.shop.combineTree_container.combineTree.setItem(param1,param2,param3,param4);
+         this.shop.combineTree_container.combineTree.setItem(itemName,color,secretShop,purchasable);
       }
       
-      public function updateCombineTreeCenterItemState(param1:Boolean) : *
+      public function updateCombineTreeCenterItemState(purchasable:Boolean) : *
       {
-         this.shop.combineTree_container.combineTree.updateCombineTreeCenterItemState(param1);
+         this.shop.combineTree_container.combineTree.updateCombineTreeCenterItemState(purchasable);
       }
       
-      public function updateCombineTreeComponentState(param1:Number, param2:Boolean, param3:Boolean) : *
+      public function updateCombineTreeComponentState(componentSlot:Number, owned:Boolean, purchasable:Boolean) : *
       {
-         this.shop.combineTree_container.combineTree.updateCombineTreeComponentState(param1,param2,param3);
+         this.shop.combineTree_container.combineTree.updateCombineTreeComponentState(componentSlot,owned,purchasable);
       }
       
-      public function setCombineTreeComponent(param1:Number, param2:Number, param3:String, param4:Number, param5:Boolean) : *
+      public function setCombineTreeComponent(componentSlot:Number, numComponents:Number, itemName:String, color:Number, secretShop:Boolean) : *
       {
-         this.shop.combineTree_container.combineTree.setCombineTreeComponent(param1,param2,param3,param4,param5);
+         this.shop.combineTree_container.combineTree.setCombineTreeComponent(componentSlot,numComponents,itemName,color,secretShop);
       }
       
-      public function setCombineTreeUpcombine(param1:Number, param2:Number, param3:String, param4:Number, param5:Boolean) : *
+      public function setCombineTreeUpcombine(upcombineSlot:Number, numUpcombines:Number, itemName:String, color:Number, purchasable:Boolean) : *
       {
-         this.shop.combineTree_container.combineTree.setCombineTreeUpcombine(param1,param2,param3,param4,param5);
+         this.shop.combineTree_container.combineTree.setCombineTreeUpcombine(upcombineSlot,numUpcombines,itemName,color,purchasable);
       }
       
       public function layoutCombineTree() : *
@@ -1136,9 +1136,9 @@ package shop_fla
       
       public var inShopItemDrag:Boolean;
       
-      public function onDragStart(param1:DragEvent) : *
+      public function onDragStart(e:DragEvent) : *
       {
-         if((param1.dragData) && (param1.dragData.shopItemName))
+         if((e.dragData) && (e.dragData.shopItemName))
          {
             this.gameAPI.OnStartShopItemDrag();
             this.inShopItemDrag = true;
@@ -1150,7 +1150,7 @@ package shop_fla
          }
       }
       
-      public function onDragEnd(param1:DragEvent) : *
+      public function onDragEnd(e:DragEvent) : *
       {
          if(this.inShopItemDrag)
          {
@@ -1161,9 +1161,9 @@ package shop_fla
          }
       }
       
-      public function onShopItemDraggedToQuickBuy(param1:MovieClip, param2:String) : *
+      public function onShopItemDraggedToQuickBuy(dragTarget:MovieClip, itemName:String) : *
       {
-         this.onSetQuickBuy(param2,1);
+         this.onSetQuickBuy(itemName,1);
       }
       
       function frame1() : *

@@ -52,9 +52,9 @@ package inventory_fla
       
       public var g_bFlippedHUD:Boolean;
       
-      public function onHUDFlipChanged(param1:Boolean) : *
+      public function onHUDFlipChanged(bFlipped:Boolean) : *
       {
-         this.g_bFlippedHUD = param1;
+         this.g_bFlippedHUD = bFlipped;
          this.onResize(Globals.instance.resizeManager);
          this.initStashSlots();
       }
@@ -63,134 +63,134 @@ package inventory_fla
       
       public var HUDReplacementData:Array;
       
-      public function loadHUDSkinImage(param1:String, param2:String) : *
+      public function loadHUDSkinImage(imageParent:String, imageName:String) : *
       {
-         var _loc4_:MovieClip = null;
-         var _loc3_:* = 0;
-         while(_loc3_ < this.HUDReplacementData.length)
+         var mcParent:MovieClip = null;
+         var i:* = 0;
+         while(i < this.HUDReplacementData.length)
          {
-            if(this.HUDReplacementData[_loc3_][0] == param1)
+            if(this.HUDReplacementData[i][0] == imageParent)
             {
-               _loc4_ = this.HUDReplacementData[_loc3_][1];
-               if(_loc4_)
+               mcParent = this.HUDReplacementData[i][1];
+               if(mcParent)
                {
-                  Globals.instance.LoadImage(param2,_loc4_,true);
+                  Globals.instance.LoadImage(imageName,mcParent,true);
                }
             }
-            _loc3_++;
+            i++;
          }
       }
       
-      public function courierButtonClick(param1:MouseEvent) : *
+      public function courierButtonClick(event:MouseEvent) : *
       {
          this.gameAPI.OnCourierButtonPress();
       }
       
-      public function courierAbsentClick(param1:MouseEvent) : *
+      public function courierAbsentClick(event:MouseEvent) : *
       {
          this.gameAPI.OnCourierAbsentClick();
       }
       
-      public function courierHasteClick(param1:MouseEvent) : *
+      public function courierHasteClick(event:MouseEvent) : *
       {
          this.gameAPI.OnCourierHasteClick();
       }
       
-      public function courierButtonRollOver(param1:MouseEvent) : *
+      public function courierButtonRollOver(event:MouseEvent) : *
       {
-         var _loc2_:MovieClip = this.inventory.courierState;
-         var _loc3_:Point = new Point(_loc2_.x,_loc2_.y + 5);
+         var mc:MovieClip = this.inventory.courierState;
+         var ipt:Point = new Point(mc.x,mc.y + 5);
          if(this.g_bFlippedHUD)
          {
-            _loc3_.x = _loc3_.x + this.inventory.courierState.selectButtonWide.width;
+            ipt.x = ipt.x + this.inventory.courierState.selectButtonWide.width;
          }
-         _loc3_ = this.inventory.localToGlobal(_loc3_);
-         this.gameAPI.OnShowCourierTooltip(_loc3_.x,_loc3_.y);
+         ipt = this.inventory.localToGlobal(ipt);
+         this.gameAPI.OnShowCourierTooltip(ipt.x,ipt.y);
          this.inventory.courierState.selectButton.gotoAndStop(2);
       }
       
-      public function courierButtonRollOut(param1:MouseEvent) : *
+      public function courierButtonRollOut(event:MouseEvent) : *
       {
          this.gameAPI.OnHideCourierTooltip();
          this.inventory.courierState.selectButton.gotoAndStop(1);
       }
       
-      public function setCourierDeliverTarget(param1:String) : *
+      public function setCourierDeliverTarget(heroName:String) : *
       {
-         Globals.instance.LoadHeroImage(param1,this.inventory.courierState.delivering.deliverTargetHero);
+         Globals.instance.LoadHeroImage(heroName,this.inventory.courierState.delivering.deliverTargetHero);
       }
       
-      public function courierDeliverButtonClick(param1:MouseEvent) : *
+      public function courierDeliverButtonClick(event:MouseEvent) : *
       {
          this.gameAPI.OnCourierDeliverButtonPress();
       }
       
-      public function courierDeliverButtonRollOver(param1:MouseEvent) : *
+      public function courierDeliverButtonRollOver(event:MouseEvent) : *
       {
-         var _loc2_:MovieClip = this.inventory.courierState.deliverButton;
-         var _loc3_:Point = new Point(_loc2_.x,_loc2_.y + 5);
+         var mc:MovieClip = this.inventory.courierState.deliverButton;
+         var ipt:Point = new Point(mc.x,mc.y + 5);
          if(this.g_bFlippedHUD)
          {
-            _loc3_.x = _loc3_.x + _loc2_.width;
+            ipt.x = ipt.x + mc.width;
          }
-         _loc3_ = this.inventory.courierState.localToGlobal(_loc3_);
-         this.gameAPI.OnShowCourierDeliveryTooltip(_loc3_.x,_loc3_.y);
+         ipt = this.inventory.courierState.localToGlobal(ipt);
+         this.gameAPI.OnShowCourierDeliveryTooltip(ipt.x,ipt.y);
          this.inventory.courierState.deliverButton.gotoAndStop(2);
       }
       
-      public function courierDeliverButtonRollOut(param1:MouseEvent) : *
+      public function courierDeliverButtonRollOut(event:MouseEvent) : *
       {
          this.gameAPI.OnHideCourierDeliveryTooltip();
          this.inventory.courierState.deliverButton.gotoAndStop(1);
       }
       
-      public function glyphButtonClick(param1:MouseEventEx) : *
+      public function glyphButtonClick(event:MouseEventEx) : *
       {
-         if(param1.buttonIdx != 0)
+         if(event.buttonIdx != 0)
          {
             return;
          }
          this.gameAPI.OnGlyphButtonPress();
       }
       
-      public function glyphButtonRollOver(param1:MouseEvent) : *
+      public function glyphButtonRollOver(event:MouseEvent) : *
       {
-         var _loc2_:MovieClip = this.inventory.glyphButton;
-         var _loc3_:Point = new Point(_loc2_.x,_loc2_.y + _loc2_.height / 2 - 6);
+         var mc:MovieClip = this.inventory.glyphButton;
+         var ipt:Point = new Point(mc.x,mc.y + mc.height / 2 - 6);
          if(this.g_bFlippedHUD)
          {
-            _loc3_.x = _loc3_.x + _loc2_.width;
+            ipt.x = ipt.x + mc.width;
          }
-         _loc3_ = this.inventory.localToGlobal(_loc3_);
-         this.gameAPI.OnShowGlyphTooltip(_loc3_.x,_loc3_.y);
+         ipt = this.inventory.localToGlobal(ipt);
+         this.gameAPI.OnShowGlyphTooltip(ipt.x,ipt.y);
       }
       
-      public function glyphButtonRollOut(param1:MouseEvent) : *
+      public function glyphButtonRollOut(event:MouseEvent) : *
       {
          this.gameAPI.OnHideGlyphTooltip();
       }
       
-      public function shopButtonClick(param1:MouseEventEx) : *
+      public function shopButtonClick(event:MouseEventEx) : *
       {
-         if(param1.buttonIdx != 0)
+         if(event.buttonIdx != 0)
          {
             return;
          }
          this.gameAPI.OnShopButtonPress();
       }
       
-      public function showGoldTooltip(param1:MouseEvent) : *
+      public function showGoldTooltip(event:MouseEvent) : *
       {
          this.gameAPI.OnMouseOverShopButton(true);
       }
       
-      public function hideGoldTooltip(param1:MouseEvent) : *
+      public function hideGoldTooltip(event:MouseEvent) : *
       {
          this.inventory.goldTooltip.visible = false;
          this.gameAPI.OnMouseOverShopButton(false);
       }
       
-      public function onGoldClicked(param1:MouseEvent) : *
+      public function onGoldClicked(event:MouseEvent) : *
       {
          this.gameAPI.OnGoldClicked();
       }
@@ -210,47 +210,47 @@ package inventory_fla
          this.onResize(Globals.instance.resizeManager);
       }
       
-      public function onResize(param1:ResizeManager) : *
+      public function onResize(rm:ResizeManager) : *
       {
-         var _loc5_:* = 0;
-         var _loc2_:Number = param1.ScreenWidth / param1.ScreenHeight;
-         var _loc3_:* = _loc2_ > 1.7;
-         var _loc4_:* = _loc2_ > 1.4;
-         var _loc6_:Number = 1;
-         if(_loc2_ < 1.5)
+         var frame:* = 0;
+         var aspectRatio:Number = rm.ScreenWidth / rm.ScreenHeight;
+         var aspect16by9:* = aspectRatio > 1.7;
+         var aspectWide:* = aspectRatio > 1.4;
+         var scaleAdjust:Number = 1;
+         if(aspectRatio < 1.5)
          {
-            _loc5_ = 1;
-            _loc6_ = _loc2_ / 1.333;
+            frame = 1;
+            scaleAdjust = aspectRatio / 1.333;
          }
-         else if(_loc2_ > 1.7)
+         else if(aspectRatio > 1.7)
          {
-            _loc5_ = 2;
-            _loc6_ = _loc2_ / 1.7778;
+            frame = 2;
+            scaleAdjust = aspectRatio / 1.7778;
          }
          else
          {
-            _loc5_ = 3;
-            _loc6_ = _loc2_ / 1.6;
+            frame = 3;
+            scaleAdjust = aspectRatio / 1.6;
          }
          
          if(this.g_bFlippedHUD)
          {
-            _loc5_ = _loc5_ + 3;
+            frame = frame + 3;
          }
-         this.inventory.gotoAndStop(_loc5_);
-         var _loc7_:MovieClip = this.inventory;
-         if(_loc7_["originalXScale"] == null)
+         this.inventory.gotoAndStop(frame);
+         var obj:MovieClip = this.inventory;
+         if(obj["originalXScale"] == null)
          {
-            _loc7_["originalXScale"] = _loc7_.scaleX;
-            _loc7_["originalYScale"] = _loc7_.scaleY;
+            obj["originalXScale"] = obj.scaleX;
+            obj["originalYScale"] = obj.scaleY;
          }
-         var _loc8_:Number = Globals.instance.Level0.stage.stageHeight;
-         var _loc9_:Number = 768;
-         var _loc10_:Number = _loc8_ / _loc9_ * _loc6_;
-         _loc7_.scaleX = _loc7_.originalXScale * _loc10_;
-         _loc7_.scaleY = _loc7_.originalYScale * _loc10_;
-         this.inventory.x = param1.ScreenWidth;
-         this.inventory.y = param1.ScreenHeight;
+         var screenHeight:Number = Globals.instance.Level0.stage.stageHeight;
+         var authoredHeight:Number = 768;
+         var scale:Number = screenHeight / authoredHeight * scaleAdjust;
+         obj.scaleX = obj.originalXScale * scale;
+         obj.scaleY = obj.originalYScale * scale;
+         this.inventory.x = rm.ScreenWidth;
+         this.inventory.y = rm.ScreenHeight;
          if(this.g_bFlippedHUD)
          {
             this.inventory.x = 0;
@@ -261,97 +261,97 @@ package inventory_fla
       
       public function initInventorySlots() : *
       {
-         var _loc1_:* = 0;
-         var _loc2_:InventorySlot = null;
-         var _loc3_:Point = null;
-         _loc1_ = 0;
-         while(_loc1_ < 6)
+         var i:* = 0;
+         var mc:InventorySlot = null;
+         var ipt:Point = null;
+         i = 0;
+         while(i < 6)
          {
-            _loc2_ = this.inventory.items["Item" + _loc1_] as InventorySlot;
-            _loc2_.addEventListener(MouseEvent.ROLL_OVER,this.onInventoryRollOver);
-            _loc2_.addEventListener(MouseEvent.ROLL_OUT,this.onInventoryRollOut);
-            _loc2_.addEventListener(MouseEvent.MOUSE_DOWN,this.onInventoryDown);
-            _loc2_.addEventListener(MouseEvent.MOUSE_UP,this.onInventoryUp);
-            _loc2_.itemSlot = _loc1_;
-            _loc2_.stash = false;
-            _loc2_.overState.visible = false;
-            _loc2_.dragState.visible = false;
-            _loc3_ = new Point(_loc2_.x,_loc2_.y);
-            _loc3_ = _loc2_.parent.localToGlobal(_loc3_);
-            this.gameAPI.SetupInventoryItemTooltip(_loc3_.x,_loc3_.y,_loc1_);
-            _loc1_++;
+            mc = this.inventory.items["Item" + i] as InventorySlot;
+            mc.addEventListener(MouseEvent.ROLL_OVER,this.onInventoryRollOver);
+            mc.addEventListener(MouseEvent.ROLL_OUT,this.onInventoryRollOut);
+            mc.addEventListener(MouseEvent.MOUSE_DOWN,this.onInventoryDown);
+            mc.addEventListener(MouseEvent.MOUSE_UP,this.onInventoryUp);
+            mc.itemSlot = i;
+            mc.stash = false;
+            mc.overState.visible = false;
+            mc.dragState.visible = false;
+            ipt = new Point(mc.x,mc.y);
+            ipt = mc.parent.localToGlobal(ipt);
+            this.gameAPI.SetupInventoryItemTooltip(ipt.x,ipt.y,i);
+            i++;
          }
       }
       
-      public function setInventoryItemInSlot(param1:int, param2:String, param3:Boolean) : *
+      public function setInventoryItemInSlot(slot:int, itemName:String, empty:Boolean) : *
       {
-         var _loc5_:MovieClip = null;
-         var _loc6_:MovieClip = null;
-         var _loc7_:MovieClip = null;
-         var _loc4_:InventorySlot = this.inventory.items["Item" + param1] as InventorySlot;
-         if(!_loc4_)
+         var s:MovieClip = null;
+         var t:MovieClip = null;
+         var u:MovieClip = null;
+         var mc:InventorySlot = this.inventory.items["Item" + slot] as InventorySlot;
+         if(!mc)
          {
             return;
          }
-         if(param3)
+         if(empty)
          {
-            _loc4_.itemName = "";
-            Globals.instance.LoadItemImage("emptyitembg",_loc4_.itemArt);
+            mc.itemName = "";
+            Globals.instance.LoadItemImage("emptyitembg",mc.itemArt);
          }
          else
          {
-            _loc4_.itemName = param2;
-            if(param2 == "radiance")
+            mc.itemName = itemName;
+            if(itemName == "radiance")
             {
-               _loc5_ = new s_Radiance();
-               _loc4_.itemArt.addChild(_loc5_);
+               s = new s_Radiance();
+               mc.itemArt.addChild(s);
             }
-            else if(param2 == "mjollnir")
+            else if(itemName == "mjollnir")
             {
-               _loc6_ = new s_mjollnir_anim();
-               _loc4_.itemArt.addChild(_loc6_);
+               t = new s_mjollnir_anim();
+               mc.itemArt.addChild(t);
             }
-            else if(param2 == "rapier")
+            else if(itemName == "rapier")
             {
-               _loc7_ = new s_rapier();
-               _loc4_.itemArt.addChild(_loc7_);
+               u = new s_rapier();
+               mc.itemArt.addChild(u);
             }
             else
             {
-               Globals.instance.LoadItemImage(param2,_loc4_.itemArt);
+               Globals.instance.LoadItemImage(itemName,mc.itemArt);
             }
             
             
          }
       }
       
-      public function onInventoryRollOver(param1:MouseEvent) : *
+      public function onInventoryRollOver(event:MouseEvent) : *
       {
-         param1.target.overState.visible = true;
-         var _loc2_:InventorySlot = param1.currentTarget as InventorySlot;
-         if(!_loc2_)
+         event.target.overState.visible = true;
+         var inventorySlot:InventorySlot = event.currentTarget as InventorySlot;
+         if(!inventorySlot)
          {
             return;
          }
          if(!DragManager.inDrag())
          {
-            this.gameAPI.ShowInventoryItemTooltip(_loc2_.itemSlot);
+            this.gameAPI.ShowInventoryItemTooltip(inventorySlot.itemSlot);
          }
       }
       
-      public function onInventoryRollOut(param1:MouseEvent) : *
+      public function onInventoryRollOut(event:MouseEvent) : *
       {
-         var _loc2_:InventorySlot = null;
-         param1.target.overState.visible = false;
-         if((param1.buttonDown) && !DragManager.inDrag())
+         var inventorySlot:InventorySlot = null;
+         event.target.overState.visible = false;
+         if((event.buttonDown) && !DragManager.inDrag())
          {
-            _loc2_ = param1.currentTarget as InventorySlot;
-            if(_loc2_)
+            inventorySlot = event.currentTarget as InventorySlot;
+            if(inventorySlot)
             {
-               if(_loc2_.itemName.length > 0)
+               if(inventorySlot.itemName.length > 0)
                {
-                  _loc2_.dragStart();
-                  _loc2_.dragState.visible = true;
+                  inventorySlot.dragStart();
+                  inventorySlot.dragState.visible = true;
                   if(this.userMenuScalar.visible == true)
                   {
                      this.hideUserMenu();
@@ -363,52 +363,52 @@ package inventory_fla
          this.gameAPI.HideInventoryItemTooltip();
       }
       
-      public function onInventoryDown(param1:MouseEventEx) : *
+      public function onInventoryDown(event:MouseEventEx) : *
       {
-         var _loc2_:InventorySlot = null;
-         if(param1.buttonIdx == 1 && !DragManager.inDrag())
+         var inventorySlot:InventorySlot = null;
+         if(event.buttonIdx == 1 && !DragManager.inDrag())
          {
-            _loc2_ = param1.currentTarget as InventorySlot;
-            if(!_loc2_)
+            inventorySlot = event.currentTarget as InventorySlot;
+            if(!inventorySlot)
             {
                return;
             }
-            this.gameAPI.OnInventoryItemRightClick(_loc2_.itemSlot);
+            this.gameAPI.OnInventoryItemRightClick(inventorySlot.itemSlot);
          }
       }
       
-      public function onInventoryUp(param1:MouseEventEx) : *
+      public function onInventoryUp(event:MouseEventEx) : *
       {
-         var _loc2_:InventorySlot = param1.currentTarget as InventorySlot;
-         if(!_loc2_)
+         var inventorySlot:InventorySlot = event.currentTarget as InventorySlot;
+         if(!inventorySlot)
          {
             return;
          }
-         if(!(param1.buttonIdx == 1) && !DragManager.inDrag())
+         if(!(event.buttonIdx == 1) && !DragManager.inDrag())
          {
-            this.gameAPI.OnInventoryItemPressed(_loc2_.itemSlot);
+            this.gameAPI.OnInventoryItemPressed(inventorySlot.itemSlot);
          }
       }
       
       public function initStashSlots() : *
       {
-         var _loc1_:* = 0;
-         var _loc2_:InventorySlot = null;
-         var _loc3_:Point = null;
-         var _loc4_:Point = null;
-         _loc1_ = 0;
-         while(_loc1_ < 6)
+         var i:* = 0;
+         var mc:InventorySlot = null;
+         var ipt:Point = null;
+         var ipt2:Point = null;
+         i = 0;
+         while(i < 6)
          {
-            _loc2_ = this.inventory.stash_anim.stash["Item" + _loc1_] as InventorySlot;
-            _loc2_.addEventListener(MouseEvent.ROLL_OVER,this.onStashRollOver);
-            _loc2_.addEventListener(MouseEvent.ROLL_OUT,this.onStashRollOut);
-            _loc2_.addEventListener(MouseEvent.MOUSE_DOWN,this.onStashDown);
-            _loc2_.itemSlot = _loc1_;
-            _loc2_.stash = true;
-            _loc2_.overState.visible = false;
-            _loc2_.dragState.visible = false;
-            _loc3_ = new Point(_loc2_.x,_loc2_.y);
-            _loc3_ = _loc2_.parent.localToGlobal(_loc3_);
+            mc = this.inventory.stash_anim.stash["Item" + i] as InventorySlot;
+            mc.addEventListener(MouseEvent.ROLL_OVER,this.onStashRollOver);
+            mc.addEventListener(MouseEvent.ROLL_OUT,this.onStashRollOut);
+            mc.addEventListener(MouseEvent.MOUSE_DOWN,this.onStashDown);
+            mc.itemSlot = i;
+            mc.stash = true;
+            mc.overState.visible = false;
+            mc.dragState.visible = false;
+            ipt = new Point(mc.x,mc.y);
+            ipt = mc.parent.localToGlobal(ipt);
             if(this.g_bFlippedHUD)
             {
                this.inventory.stash_anim.gotoAndStop(28);
@@ -417,8 +417,8 @@ package inventory_fla
             {
                this.inventory.stash_anim.gotoAndStop(6);
             }
-            _loc4_ = new Point(_loc2_.x,_loc2_.y);
-            _loc4_ = _loc2_.parent.localToGlobal(_loc4_);
+            ipt2 = new Point(mc.x,mc.y);
+            ipt2 = mc.parent.localToGlobal(ipt2);
             if(this.g_bFlippedHUD)
             {
                this.inventory.stash_anim.gotoAndStop(23);
@@ -427,55 +427,55 @@ package inventory_fla
             {
                this.inventory.stash_anim.gotoAndStop(1);
             }
-            this.gameAPI.SetupStashItemTooltip(_loc3_.x,_loc3_.y,_loc4_.x,_loc4_.y,_loc1_);
-            _loc1_++;
+            this.gameAPI.SetupStashItemTooltip(ipt.x,ipt.y,ipt2.x,ipt2.y,i);
+            i++;
          }
       }
       
-      public function setStashItemInSlot(param1:int, param2:String, param3:Boolean) : *
+      public function setStashItemInSlot(slot:int, itemName:String, empty:Boolean) : *
       {
-         var _loc4_:InventorySlot = this.inventory.stash_anim.stash["Item" + param1] as InventorySlot;
-         if(!_loc4_)
+         var mc:InventorySlot = this.inventory.stash_anim.stash["Item" + slot] as InventorySlot;
+         if(!mc)
          {
             return;
          }
-         if(!param3)
+         if(!empty)
          {
-            _loc4_.itemName = param2;
-            Globals.instance.LoadItemImage(param2,_loc4_.itemArt);
+            mc.itemName = itemName;
+            Globals.instance.LoadItemImage(itemName,mc.itemArt);
          }
          else
          {
-            _loc4_.itemName = "";
-            Globals.instance.LoadItemImage("emptyitembg",_loc4_.itemArt);
+            mc.itemName = "";
+            Globals.instance.LoadItemImage("emptyitembg",mc.itemArt);
          }
       }
       
-      public function onStashRollOver(param1:MouseEvent) : *
+      public function onStashRollOver(event:MouseEvent) : *
       {
-         param1.target.overState.visible = true;
-         var _loc2_:InventorySlot = param1.currentTarget as InventorySlot;
-         if(!_loc2_)
+         event.target.overState.visible = true;
+         var inventorySlot:InventorySlot = event.currentTarget as InventorySlot;
+         if(!inventorySlot)
          {
             return;
          }
          if(!DragManager.inDrag())
          {
-            this.gameAPI.ShowStashItemTooltip(_loc2_.itemSlot);
+            this.gameAPI.ShowStashItemTooltip(inventorySlot.itemSlot);
          }
       }
       
-      public function onStashRollOut(param1:MouseEvent) : *
+      public function onStashRollOut(event:MouseEvent) : *
       {
-         var _loc2_:InventorySlot = null;
-         param1.target.overState.visible = false;
-         if((param1.buttonDown) && !DragManager.inDrag())
+         var inventorySlot:InventorySlot = null;
+         event.target.overState.visible = false;
+         if((event.buttonDown) && !DragManager.inDrag())
          {
-            _loc2_ = param1.currentTarget as InventorySlot;
-            if(_loc2_)
+            inventorySlot = event.currentTarget as InventorySlot;
+            if(inventorySlot)
             {
-               _loc2_.dragStart();
-               _loc2_.dragState.visible = true;
+               inventorySlot.dragStart();
+               inventorySlot.dragState.visible = true;
                if(this.userMenuScalar.visible == true)
                {
                   this.hideUserMenu();
@@ -486,33 +486,33 @@ package inventory_fla
          this.gameAPI.HideStashItemTooltip();
       }
       
-      public function onStashDown(param1:MouseEventEx) : *
+      public function onStashDown(event:MouseEventEx) : *
       {
-         var _loc3_:* = 0;
-         var _loc2_:InventorySlot = param1.currentTarget as InventorySlot;
-         if(!_loc2_)
+         var stashSlot:* = 0;
+         var inventorySlot:InventorySlot = event.currentTarget as InventorySlot;
+         if(!inventorySlot)
          {
             return;
          }
-         if(param1.buttonIdx == 1 && !DragManager.inDrag())
+         if(event.buttonIdx == 1 && !DragManager.inDrag())
          {
-            _loc3_ = _loc2_.itemSlot + 6;
-            this.gameAPI.OnInventoryItemRightClick(_loc3_);
+            stashSlot = inventorySlot.itemSlot + 6;
+            this.gameAPI.OnInventoryItemRightClick(stashSlot);
          }
       }
       
-      public function grabAllStash(param1:Object) : *
+      public function grabAllStash(event:Object) : *
       {
          this.gameAPI.OnGrabAllStash();
       }
       
-      public function updateStash(param1:Boolean, param2:Boolean) : *
+      public function updateStash(stashVisible:Boolean, stashActive:Boolean) : *
       {
-         if(param1 == false)
+         if(stashVisible == false)
          {
             this.inventory.stash_anim.stash.gotoAndStop(1);
          }
-         else if(param2 == true)
+         else if(stashActive == true)
          {
             this.inventory.stash_anim.stash.gotoAndStop(10);
          }
@@ -523,45 +523,45 @@ package inventory_fla
          
       }
       
-      public function OnInventoryItemDraggedToSlot(param1:DragEvent) : *
+      public function OnInventoryItemDraggedToSlot(e:DragEvent) : *
       {
-         var _loc2_:InventorySlot = param1.dragTarget as InventorySlot;
-         if(_loc2_ == null)
+         var srcSlot:InventorySlot = e.dragTarget as InventorySlot;
+         if(srcSlot == null)
          {
             return;
          }
-         var _loc3_:* = 0;
-         var _loc4_:* = 0;
-         var _loc5_:InventorySlot = param1.dropTarget as InventorySlot;
-         if(_loc5_ == null)
+         var nSrc:* = 0;
+         var nDest:* = 0;
+         var destSlot:InventorySlot = e.dropTarget as InventorySlot;
+         if(destSlot == null)
          {
-            if(_loc2_.stash == true)
+            if(srcSlot.stash == true)
             {
-               _loc3_ = 6;
+               nSrc = 6;
             }
-            _loc3_ = _loc3_ + _loc2_.itemSlot;
-            this.gameAPI.OnInventoryItemDraggedToWorld(_loc3_);
+            nSrc = nSrc + srcSlot.itemSlot;
+            this.gameAPI.OnInventoryItemDraggedToWorld(nSrc);
          }
          else
          {
-            if(_loc2_.stash == true)
+            if(srcSlot.stash == true)
             {
-               _loc3_ = 6;
+               nSrc = 6;
             }
-            if(_loc5_.stash == true)
+            if(destSlot.stash == true)
             {
-               _loc4_ = 6;
+               nDest = 6;
             }
-            _loc3_ = _loc3_ + _loc2_.itemSlot;
-            _loc4_ = _loc4_ + _loc5_.itemSlot;
-            this.gameAPI.OnInventoryItemDraggedToSlot(_loc3_,_loc4_);
+            nSrc = nSrc + srcSlot.itemSlot;
+            nDest = nDest + destSlot.itemSlot;
+            this.gameAPI.OnInventoryItemDraggedToSlot(nSrc,nDest);
          }
-         _loc2_.dragState.visible = false;
+         srcSlot.dragState.visible = false;
       }
       
       public var ignoreClick:Boolean;
       
-      public function handleStageClick(param1:MouseEvent) : §void§
+      public function handleStageClick(event:MouseEvent) : §void§
       {
          if(this.userMenuScalar.visible)
          {
@@ -580,40 +580,40 @@ package inventory_fla
          }
       }
       
-      public function showItemMenu(param1:Boolean, param2:Boolean, param3:Boolean, param4:Boolean) : *
+      public function showItemMenu(bSell:Boolean, bDisassemble:Boolean, bShopInfo:Boolean, bDropFromStash:Boolean) : *
       {
-         var _loc5_:Array = [];
-         if(param3)
+         var menuItems:Array = [];
+         if(bShopInfo)
          {
-            _loc5_.push({
+            menuItems.push({
                "label":"#DOTA_InventoryMenu_ShowInShop",
                "option":3
             });
          }
-         if(param4)
+         if(bDropFromStash)
          {
-            _loc5_.push({
+            menuItems.push({
                "label":"#DOTA_InventoryMenu_DropFromStash",
                "option":4
             });
          }
-         if(param1)
+         if(bSell)
          {
-            _loc5_.push({
+            menuItems.push({
                "label":"#DOTA_InventoryMenu_Sell",
                "option":1
             });
          }
-         if(param2)
+         if(bDisassemble)
          {
-            _loc5_.push({
+            menuItems.push({
                "label":"#DOTA_InventoryMenu_Disassemble",
                "option":2
             });
          }
-         var _loc6_:IDataProvider = new DataProvider(_loc5_);
-         this.userMenuScalar.userMenu.dataProvider = _loc6_;
-         this.userMenuScalar.userMenu.rowCount = _loc5_.length;
+         var menuContents:IDataProvider = new DataProvider(menuItems);
+         this.userMenuScalar.userMenu.dataProvider = menuContents;
+         this.userMenuScalar.userMenu.rowCount = menuItems.length;
          this.userMenuScalar.visible = true;
          this.userMenuScalar.x = root.mouseX;
          this.userMenuScalar.y = root.mouseY + 10;
@@ -641,10 +641,10 @@ package inventory_fla
          this.userMenuScalar.visible = false;
       }
       
-      public function onUserMenuItemClick(param1:ListEvent) : *
+      public function onUserMenuItemClick(e:ListEvent) : *
       {
-         var _loc2_:int = param1.itemRenderer["data"]["option"];
-         switch(_loc2_)
+         var option:int = e.itemRenderer["data"]["option"];
+         switch(option)
          {
             case 1:
                this.gameAPI.OnSellItem();
@@ -662,101 +662,101 @@ package inventory_fla
          this.userMenuScalar.visible = false;
       }
       
-      public function onClearQuickBuyPressed(param1:MouseEvent) : *
+      public function onClearQuickBuyPressed(event:MouseEvent) : *
       {
          this.gameAPI.OnClearQuickBuy();
       }
       
-      public function setQuickBuyItem(param1:uint, param2:String, param3:Number, param4:Boolean) : *
+      public function setQuickBuyItem(slot:uint, itemName:String, color:Number, secretShop:Boolean) : *
       {
-         var _loc5_:CombineTreeItem = this.inventory.quickbuy["quickBuy" + param1];
-         if(!_loc5_)
+         var itemMC:CombineTreeItem = this.inventory.quickbuy["quickBuy" + slot];
+         if(!itemMC)
          {
             return;
          }
-         var _loc6_:Object = _loc5_.data;
-         if(!_loc6_)
+         var data:Object = itemMC.data;
+         if(!data)
          {
-            _loc6_ = new Object();
-            _loc6_.owned = false;
-            _loc6_.purchasable = false;
+            data = new Object();
+            data.owned = false;
+            data.purchasable = false;
          }
-         _loc6_.itemName = param2;
-         _loc6_.itemColor = param3;
-         _loc6_.secretShop = param4;
-         _loc6_.itemSlot = param1;
-         _loc5_.itemData = _loc6_;
-         _loc5_.visible = true;
+         data.itemName = itemName;
+         data.itemColor = color;
+         data.secretShop = secretShop;
+         data.itemSlot = slot;
+         itemMC.itemData = data;
+         itemMC.visible = true;
       }
       
-      public function setQuickBuyStockTimer(param1:String) : *
+      public function setQuickBuyStockTimer(timerText:String) : *
       {
-         this.inventory.quickbuy.stockTimer.text = param1;
+         this.inventory.quickbuy.stockTimer.text = timerText;
       }
       
-      public function onQuickBuyClick(param1:MouseEvent) : *
+      public function onQuickBuyClick(event:MouseEvent) : *
       {
          this.gameAPI.OnQuickBuyClick();
       }
       
-      public function onBuyButtonPress(param1:String, param2:uint, param3:int) : *
+      public function onBuyButtonPress(itemName:String, itemSlot:uint, purchaseOrigin:int) : *
       {
-         this.gameAPI.OnQuickBuyButtonClick(param2);
+         this.gameAPI.OnQuickBuyButtonClick(itemSlot);
       }
       
-      public function onSetQuickBuy(param1:String) : *
+      public function onSetQuickBuy(itemName:String) : *
       {
       }
       
-      public function onShowShopItemTooltip(param1:MovieClip) : *
+      public function onShowShopItemTooltip(itemMC:MovieClip) : *
       {
-         var _loc2_:String = param1.itemName;
-         if(_loc2_.length == 0)
+         var itemName:String = itemMC.itemName;
+         if(itemName.length == 0)
          {
             return;
          }
-         var _loc3_:Point = new Point(param1.x,param1.y);
+         var ipt:Point = new Point(itemMC.x,itemMC.y);
          if(this.g_bFlippedHUD)
          {
-            _loc3_.x = _loc3_.x + param1.width * 0.75;
+            ipt.x = ipt.x + itemMC.width * 0.75;
          }
-         _loc3_ = param1.parent.localToGlobal(_loc3_);
-         this.gameAPI.ShowQuickBuyItemTooltip(_loc3_.x,_loc3_.y,_loc2_);
+         ipt = itemMC.parent.localToGlobal(ipt);
+         this.gameAPI.ShowQuickBuyItemTooltip(ipt.x,ipt.y,itemName);
       }
       
-      public function onHideShopItemTooltip(param1:MovieClip) : *
+      public function onHideShopItemTooltip(itemMC:MovieClip) : *
       {
          this.gameAPI.HideQuickBuyItemTooltip();
       }
       
-      public function onShopItemDraggedToQuickBuy(param1:MovieClip, param2:String) : *
+      public function onShopItemDraggedToQuickBuy(dragTarget:MovieClip, itemName:String) : *
       {
-         if(!param2 || param2.length == 0)
+         if(!itemName || itemName.length == 0)
          {
             return;
          }
-         if(param1 == this.inventory.quickBuyDragTarget)
+         if(dragTarget == this.inventory.quickBuyDragTarget)
          {
-            this.gameAPI.OnAddQuickBuyItem(param2);
+            this.gameAPI.OnAddQuickBuyItem(itemName);
          }
          else
          {
-            this.gameAPI.OnAddStickySlotItem(param2);
+            this.gameAPI.OnAddStickySlotItem(itemName);
          }
       }
       
       public var inQuickBuyDrag:Boolean;
       
-      public function onDragStart(param1:DragEvent) : *
+      public function onDragStart(e:DragEvent) : *
       {
-         if((param1.dragData) && (param1.dragData.shopItemName))
+         if((e.dragData) && (e.dragData.shopItemName))
          {
             this.gameAPI.OnBeginDraggingQuickBuyItem();
             this.inQuickBuyDrag = true;
          }
       }
       
-      public function onDragEnd(param1:DragEvent) : *
+      public function onDragEnd(e:DragEvent) : *
       {
          if(this.inQuickBuyDrag)
          {
@@ -765,81 +765,81 @@ package inventory_fla
          }
       }
       
-      public function onReceivedXmasGift(param1:int) : *
+      public function onReceivedXmasGift(slot:int) : *
       {
-         var _loc2_:MovieClip = this.inventory.items["Item" + param1];
-         if(_loc2_ == null || _loc2_.greevilingGift == null)
+         var mc:MovieClip = this.inventory.items["Item" + slot];
+         if(mc == null || mc.greevilingGift == null)
          {
             return;
          }
-         _loc2_.greevilingGift.gotoAndPlay(2);
-         _loc2_.greevilingGift.visible = true;
+         mc.greevilingGift.gotoAndPlay(2);
+         mc.greevilingGift.visible = true;
       }
       
-      public function setEconItemInActionItemSlot(param1:String) : *
+      public function setEconItemInActionItemSlot(econItemImage:String) : *
       {
-         var _loc2_:MovieClip = this.inventory.actionItem.actionItem;
-         if(!_loc2_)
+         var slotMC:MovieClip = this.inventory.actionItem.actionItem;
+         if(!slotMC)
          {
             return;
          }
-         if(param1.length <= 0)
+         if(econItemImage.length <= 0)
          {
-            _loc2_.visible = false;
+            slotMC.visible = false;
             return;
          }
-         _loc2_.visible = true;
-         var _loc3_:* = "images/" + param1 + ".png";
-         Globals.instance.LoadImage(_loc3_,_loc2_.AbilityArt,true);
+         slotMC.visible = true;
+         var filename:* = "images/" + econItemImage + ".png";
+         Globals.instance.LoadImage(filename,slotMC.AbilityArt,true);
       }
       
-      public function onActionItemRollOver(param1:MouseEvent) : *
+      public function onActionItemRollOver(event:MouseEvent) : *
       {
-         param1.target.overState.visible = true;
-         var _loc2_:Point = new Point(param1.target.x,param1.target.y + param1.target.height * 0.3);
+         event.target.overState.visible = true;
+         var ipt:Point = new Point(event.target.x,event.target.y + event.target.height * 0.3);
          if(this.g_bFlippedHUD)
          {
-            _loc2_.x = _loc2_.x + param1.target.width;
+            ipt.x = ipt.x + event.target.width;
          }
-         _loc2_ = param1.currentTarget.parent.localToGlobal(_loc2_);
-         this.gameAPI.OnShowActionItemTooltip(_loc2_.x,_loc2_.y);
+         ipt = event.currentTarget.parent.localToGlobal(ipt);
+         this.gameAPI.OnShowActionItemTooltip(ipt.x,ipt.y);
       }
       
-      public function onActionItemRollOut(param1:MouseEvent) : *
+      public function onActionItemRollOut(event:MouseEvent) : *
       {
-         param1.target.overState.visible = false;
+         event.target.overState.visible = false;
          this.gameAPI.OnHideActionItemTooltip();
       }
       
-      public function onActionItemClicked(param1:MouseEventEx) : *
+      public function onActionItemClicked(event:MouseEventEx) : *
       {
-         this.gameAPI.OnActionItemClicked(param1.buttonIdx);
+         this.gameAPI.OnActionItemClicked(event.buttonIdx);
       }
       
-      public function getHighlightRectForElement(param1:String) : *
+      public function getHighlightRectForElement(elementName:String) : *
       {
-         var _loc4_:* = undefined;
-         var _loc5_:Point = null;
-         var _loc6_:* = NaN;
-         var _loc7_:* = NaN;
-         var _loc2_:Array = param1.split(".");
-         var _loc3_:MovieClip = this.inventory;
-         while(_loc2_.length > 0)
+         var childName:* = undefined;
+         var ipt:Point = null;
+         var w:* = NaN;
+         var h:* = NaN;
+         var splitString:Array = elementName.split(".");
+         var mc:MovieClip = this.inventory;
+         while(splitString.length > 0)
          {
-            _loc4_ = _loc2_.shift();
-            _loc3_ = _loc3_[_loc4_];
-            if(!_loc3_)
+            childName = splitString.shift();
+            mc = mc[childName];
+            if(!mc)
             {
                return;
             }
          }
-         if(_loc3_)
+         if(mc)
          {
-            _loc5_ = new Point(_loc3_.x,_loc3_.y);
-            _loc5_ = _loc3_.parent.localToGlobal(_loc5_);
-            _loc6_ = _loc3_.getRect(stage).width;
-            _loc7_ = _loc3_.getRect(stage).height;
-            this.gameAPI.OnHighlightElement(_loc5_.x,_loc5_.y,_loc6_,_loc7_);
+            ipt = new Point(mc.x,mc.y);
+            ipt = mc.parent.localToGlobal(ipt);
+            w = mc.getRect(stage).width;
+            h = mc.getRect(stage).height;
+            this.gameAPI.OnHighlightElement(ipt.x,ipt.y,w,h);
          }
       }
       

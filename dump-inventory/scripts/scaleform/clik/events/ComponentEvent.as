@@ -5,9 +5,9 @@ package scaleform.clik.events
    public class ComponentEvent extends Event
    {
       
-      public function ComponentEvent(param1:String, param2:Boolean = false, param3:Boolean = true)
+      public function ComponentEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true)
       {
-         super(param1,param2,param3);
+         super(type,bubbles,cancelable);
       }
       
       public static const STATE_CHANGE:String = "stateChange";

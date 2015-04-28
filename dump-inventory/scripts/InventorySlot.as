@@ -26,9 +26,9 @@ package
          return this._itemSlot;
       }
       
-      public function set itemSlot(param1:int) : §void§
+      public function set itemSlot(value:int) : §void§
       {
-         this._itemSlot = param1;
+         this._itemSlot = value;
       }
       
       private var _itemSlot:int;
@@ -38,9 +38,9 @@ package
          return this._itemName;
       }
       
-      public function set itemName(param1:String) : §void§
+      public function set itemName(value:String) : §void§
       {
-         this._itemName = param1;
+         this._itemName = value;
       }
       
       private var _itemName:String;
@@ -50,7 +50,7 @@ package
          return this._data;
       }
       
-      public function set data(param1:Object) : §void§
+      public function set data(value:Object) : §void§
       {
       }
       
@@ -61,7 +61,7 @@ package
          return this._content as Sprite;
       }
       
-      public function set content(param1:Sprite) : §void§
+      public function set content(value:Sprite) : §void§
       {
       }
       
@@ -72,9 +72,9 @@ package
          return this._stash;
       }
       
-      public function set stash(param1:Boolean) : §void§
+      public function set stash(value:Boolean) : §void§
       {
-         this._stash = param1;
+         this._stash = value;
       }
       
       private var _stash:Boolean;
@@ -90,19 +90,19 @@ package
          dispatchEvent(new DragEvent(DragEvent.DRAG_START,this._data,this,null,this._content));
       }
       
-      public function handleDropEvent(param1:DragEvent) : Boolean
+      public function handleDropEvent(e:DragEvent) : Boolean
       {
          return true;
       }
       
-      public function handleDragStartEvent(param1:DragEvent) : §void§
+      public function handleDragStartEvent(e:DragEvent) : §void§
       {
          this.content.visible = true;
       }
       
-      public function handleDragEndEvent(param1:DragEvent, param2:Boolean) : §void§
+      public function handleDragEndEvent(e:DragEvent, wasValidDrop:Boolean) : §void§
       {
-         root["OnInventoryItemDraggedToSlot"](param1);
+         root["OnInventoryItemDraggedToSlot"](e);
          this.content = null;
       }
       

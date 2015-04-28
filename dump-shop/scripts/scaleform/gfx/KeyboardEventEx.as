@@ -5,9 +5,9 @@ package scaleform.gfx
    public final class KeyboardEventEx extends KeyboardEvent
    {
       
-      public function KeyboardEventEx(param1:String)
+      public function KeyboardEventEx(type:String)
       {
-         super(param1);
+         super(type);
       }
       
       public var controllerIdx:uint = 0;

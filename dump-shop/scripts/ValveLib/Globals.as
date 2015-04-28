@@ -26,12 +26,12 @@ package ValveLib
       
       public static var instance:Globals = null;
       
-      public static function Create(param1:MovieClip) : *
+      public static function Create(level:MovieClip) : *
       {
          if(instance == null)
          {
             instance = new Globals();
-            instance.Init(param1);
+            instance.Init(level);
          }
          return instance;
       }
@@ -52,19 +52,19 @@ package ValveLib
       
       public var cachedImageData:Object;
       
-      public function Init(param1:MovieClip) : *
+      public function Init(level:MovieClip) : *
       {
          InputDelegate.getInstance().externalInputHandler = this.customInputHandler;
-         this.Level0 = param1;
-         param1.stage.scaleMode = StageScaleMode.NO_SCALE;
-         param1.stage.align = StageAlign.TOP_LEFT;
+         this.Level0 = level;
+         level.stage.scaleMode = StageScaleMode.NO_SCALE;
+         level.stage.align = StageAlign.TOP_LEFT;
          if(this.resizeManager == null)
          {
             this.resizeManager = new ResizeManager();
-            this.resizeManager.AuthoredWidth = param1.stage.stageWidth;
-            this.resizeManager.AuthoredHeight = param1.stage.stageHeight;
+            this.resizeManager.AuthoredWidth = level.stage.stageWidth;
+            this.resizeManager.AuthoredHeight = level.stage.stageHeight;
             this.resizeManager.OnStageResize();
-            param1.stage.addEventListener(Event.RESIZE,this.onStageResize);
+            level.stage.addEventListener(Event.RESIZE,this.onStageResize);
          }
          if(UIComponent.sdkVersion != "4.2.23")
          {
@@ -72,7 +72,7 @@ package ValveLib
          }
       }
       
-      public function onStageResize(param1:Event) : *
+      public function onStageResize(evt:Event) : *
       {
          if(this.resizeManager)
          {
@@ -80,124 +80,124 @@ package ValveLib
          }
       }
       
-      public function debugPrintChildren(param1:*, param2:Boolean = true, param3:Number = 0) : *
+      public function debugPrintChildren(mc:*, recurse:Boolean = true, tabDepth:Number = 0) : *
       {
-         var _loc4_:* = NaN;
-         var _loc5_:DisplayObject = null;
-         if(param1 == null)
+         var i:* = NaN;
+         var child:DisplayObject = null;
+         if(mc == null)
          {
             return;
          }
-         _loc4_ = 0;
-         while(_loc4_ < param1.numChildren)
+         i = 0;
+         while(i < mc.numChildren)
          {
-            _loc5_ = param1.getChildAt(_loc4_);
-            trace(this.debugTabs(param3),_loc5_.name,_loc5_,"(",_loc5_.visible,_loc5_.x,_loc5_.y,_loc5_.width,_loc5_.height,")");
-            if((param2) && _loc5_ is DisplayObjectContainer)
+            child = mc.getChildAt(i);
+            trace(this.debugTabs(tabDepth),child.name,child,"(",child.visible,child.x,child.y,child.width,child.height,")");
+            if((recurse) && child is DisplayObjectContainer)
             {
-               this.debugPrintChildren(_loc5_,true,param3 + 1);
+               this.debugPrintChildren(child,true,tabDepth + 1);
             }
-            _loc4_++;
+            i++;
          }
       }
       
-      public function parentFrontpageCellToFrontpage(param1:MovieClip) : *
+      public function parentFrontpageCellToFrontpage(frontpageCell:MovieClip) : *
       {
-         var _loc3_:DisplayObjectContainer = null;
-         var _loc4_:MovieClip = null;
-         var _loc5_:MovieClip = null;
-         var _loc6_:* = 0;
-         var _loc2_:* = Globals.instance.Level0.getChildByName("frontpage_loader");
-         if(_loc2_ != null)
+         var frontpageMovie:DisplayObjectContainer = null;
+         var frontpage:MovieClip = null;
+         var contentMC:MovieClip = null;
+         var i:* = 0;
+         var frontpageLoader:* = Globals.instance.Level0.getChildByName("frontpage_loader");
+         if(frontpageLoader != null)
          {
-            _loc3_ = _loc2_.getChildAt(0) as DisplayObjectContainer;
-            if(_loc3_ != null)
+            frontpageMovie = frontpageLoader.getChildAt(0) as DisplayObjectContainer;
+            if(frontpageMovie != null)
             {
-               _loc4_ = _loc3_.getChildByName("frontpage") as MovieClip;
-               if((_loc4_) && !(_loc4_.ScrollViewContainer.content.getChildByName(param1.name) == null))
+               frontpage = frontpageMovie.getChildByName("frontpage") as MovieClip;
+               if((frontpage) && !(frontpage.ScrollViewContainer.content.getChildByName(frontpageCell.name) == null))
                {
-                  _loc5_ = _loc4_.ScrollViewContainer.content.getChildByName(param1.name).content;
-                  _loc6_ = _loc5_.numChildren - 1;
-                  while(_loc6_ >= 0)
+                  contentMC = frontpage.ScrollViewContainer.content.getChildByName(frontpageCell.name).content;
+                  i = contentMC.numChildren - 1;
+                  while(i >= 0)
                   {
-                     _loc5_.removeChildAt(_loc6_);
-                     _loc6_--;
+                     contentMC.removeChildAt(i);
+                     i--;
                   }
-                  _loc5_.addChild(param1);
-                  param1.x = 0;
-                  param1.y = 0;
+                  contentMC.addChild(frontpageCell);
+                  frontpageCell.x = 0;
+                  frontpageCell.y = 0;
                }
             }
          }
       }
       
-      public function debugPrintParent(param1:*) : *
+      public function debugPrintParent(mc:*) : *
       {
-         if(param1 == null)
+         if(mc == null)
          {
             return;
          }
-         var _loc2_:* = 0;
-         while(param1 != null)
+         var tabDepth:* = 0;
+         while(mc != null)
          {
-            trace(this.debugTabs(_loc2_),param1.name,param1 + " (width,height " + param1.width + ", " + param1.height + " - (scale " + param1.scaleX + ", " + param1.scaleY + ")");
-            var param1:* = param1.parent;
-            _loc2_++;
+            trace(this.debugTabs(tabDepth),mc.name,mc + " (width,height " + mc.width + ", " + mc.height + " - (scale " + mc.scaleX + ", " + mc.scaleY + ")");
+            var mc:* = mc.parent;
+            tabDepth++;
          }
       }
       
-      public function debugTabs(param1:Number) : String
+      public function debugTabs(tabDepth:Number) : String
       {
-         var _loc3_:* = NaN;
-         var _loc2_:* = "";
-         _loc3_ = 0;
-         while(_loc3_ < param1)
+         var i:* = NaN;
+         var s:String = "";
+         i = 0;
+         while(i < tabDepth)
          {
-            _loc2_ = _loc2_ + "   ";
-            _loc3_++;
+            s = s + "   ";
+            i++;
          }
-         return _loc2_;
+         return s;
       }
       
-      public function RequestElement(param1:String, param2:Number, param3:Object) : *
+      public function RequestElement(elementID:String, depth:Number, gameAPI:Object) : *
       {
-         var _loc4_:ElementLoader = null;
-         if(param2 != 0.0)
+         var elementLoader:ElementLoader = null;
+         if(depth != 0.0)
          {
-            this.ElementDepths[param1] = param2;
+            this.ElementDepths[elementID] = depth;
          }
-         if((this.ElementDepths) && (this.ElementDepths[param1]))
+         if((this.ElementDepths) && (this.ElementDepths[elementID]))
          {
-            _loc4_ = this["Loader_" + param1] as ElementLoader;
-            if(_loc4_ == null)
+            elementLoader = this["Loader_" + elementID] as ElementLoader;
+            if(elementLoader == null)
             {
-               _loc4_ = new ElementLoader();
-               this["Loader_" + param1] = _loc4_;
+               elementLoader = new ElementLoader();
+               this["Loader_" + elementID] = elementLoader;
             }
-            _loc4_.Init(this.Level0,param3,this.ElementDepths[param1],param1);
+            elementLoader.Init(this.Level0,gameAPI,this.ElementDepths[elementID],elementID);
          }
       }
       
-      public function RemoveElement(param1:MovieClip) : *
+      public function RemoveElement(mc:MovieClip) : *
       {
-         var _loc2_:String = null;
-         var _loc3_:ElementLoader = null;
-         if(param1 == null)
+         var loaderName:String = null;
+         var elementLoader:ElementLoader = null;
+         if(mc == null)
          {
             trace("RemoveElement: mc is null");
             return;
          }
-         trace("RemoveElement " + param1 + " ID = " + param1["elementName"]);
-         if(param1["gameAPI"].OnUnload(param1))
+         trace("RemoveElement " + mc + " ID = " + mc["elementName"]);
+         if(mc["gameAPI"].OnUnload(mc))
          {
-            _loc2_ = "Loader_" + param1["elementName"];
-            trace(" Looking up element loader: " + _loc2_);
-            _loc3_ = this[_loc2_] as ElementLoader;
-            if(_loc3_ != null)
+            loaderName = "Loader_" + mc["elementName"];
+            trace(" Looking up element loader: " + loaderName);
+            elementLoader = this[loaderName] as ElementLoader;
+            if(elementLoader != null)
             {
-               _loc3_.Unload();
-               this[_loc2_] = null;
-               _loc3_ = null;
+               elementLoader.Unload();
+               this[loaderName] = null;
+               elementLoader = null;
             }
             else
             {
@@ -210,67 +210,67 @@ package ValveLib
          }
       }
       
-      public function SetElementDepth(param1:MovieClip, param2:Number) : *
+      public function SetElementDepth(element:MovieClip, depth:Number) : *
       {
-         var _loc9_:Loader = null;
-         if(param1 == null || !param1.hasOwnProperty("elementName"))
+         var otherLoader:Loader = null;
+         if(element == null || !element.hasOwnProperty("elementName"))
          {
-            trace("SetElementDepth failed. First argument has no elementName: " + param1);
+            trace("SetElementDepth failed. First argument has no elementName: " + element);
             return;
          }
-         var _loc3_:String = param1["elementID"];
-         var _loc4_:String = "Loader_" + _loc3_;
-         var _loc5_:ElementLoader = this[_loc4_] as ElementLoader;
-         if(_loc5_ == null || _loc5_.loader == null)
+         var elementID:String = element["elementID"];
+         var loaderName:String = "Loader_" + elementID;
+         var elementLoader:ElementLoader = this[loaderName] as ElementLoader;
+         if(elementLoader == null || elementLoader.loader == null)
          {
-            trace("SetElementDepth failed. Couldn\'t find elementLoader called " + _loc4_);
+            trace("SetElementDepth failed. Couldn\'t find elementLoader called " + loaderName);
             return;
          }
-         if(_loc5_.loader.parent != this.Level0)
+         if(elementLoader.loader.parent != this.Level0)
          {
-            trace("SetElementDepth failed. Loader " + _loc4_ + " is not a child of Level0");
+            trace("SetElementDepth failed. Loader " + loaderName + " is not a child of Level0");
             return;
          }
-         this.ElementDepths[_loc3_] = param2;
-         var _loc6_:Number = -1;
-         var _loc7_:Number = this.Level0.numChildren;
-         var _loc8_:Number = 0;
-         while(_loc8_ < _loc7_)
+         this.ElementDepths[elementID] = depth;
+         var targetChildIndex:Number = -1;
+         var numChild:Number = this.Level0.numChildren;
+         var i:Number = 0;
+         while(i < numChild)
          {
-            if(this.Level0.getChildAt(_loc8_) is Loader)
+            if(this.Level0.getChildAt(i) is Loader)
             {
-               _loc9_ = this.Level0.getChildAt(_loc8_) as Loader;
-               if(_loc9_.tabIndex > param2)
+               otherLoader = this.Level0.getChildAt(i) as Loader;
+               if(otherLoader.tabIndex > depth)
                {
-                  _loc6_ = _loc8_;
+                  targetChildIndex = i;
                   break;
                }
             }
-            _loc8_++;
+            i++;
          }
-         if(_loc6_ == -1)
+         if(targetChildIndex == -1)
          {
             trace("SetElementDepth failed. Couldn\'t find an appropriate index to achieve the specified depth.");
             return;
          }
-         this.Level0.setChildIndex(_loc5_.loader,_loc6_);
+         this.Level0.setChildIndex(elementLoader.loader,targetChildIndex);
       }
       
-      public function SetConvars(param1:Object) : *
+      public function SetConvars(vars:Object) : *
       {
-         var _loc2_:String = null;
-         var _loc3_:* = undefined;
-         for(_loc2_ in param1)
+         var name:String = null;
+         var val:* = undefined;
+         for(name in vars)
          {
-            _loc3_ = param1[_loc2_];
-            if(_loc3_ != undefined)
+            val = vars[name];
+            if(val != undefined)
             {
-               switch(typeof _loc3_)
+               switch(typeof val)
                {
                   case "string":
                   case "number":
                   case "boolean":
-                     this.GameInterface.SetConvar(_loc2_,_loc3_);
+                     this.GameInterface.SetConvar(name,val);
                      continue;
                   default:
                      continue;
@@ -283,44 +283,44 @@ package ValveLib
          }
       }
       
-      public function TraceObject(param1:Object, param2:String) : *
+      public function TraceObject(o:Object, whitespace:String) : *
       {
-         var _loc4_:* = NaN;
-         var _loc5_:* = NaN;
-         var _loc6_:String = null;
-         if(!param2)
+         var count:* = NaN;
+         var len:* = NaN;
+         var name:String = null;
+         if(!whitespace)
          {
-            var param2:* = "";
+            var whitespace:String = "";
          }
-         var _loc3_:* = param2 + "  ";
-         if(typeof param1 == "object")
+         var newwhitespace:* = whitespace + "  ";
+         if(typeof o == "object")
          {
-            if(param1 is Array)
+            if(o is Array)
             {
-               trace(param2 + "[");
-               _loc4_ = 0;
-               _loc5_ = param1.length;
-               while(_loc4_ < _loc5_)
+               trace(whitespace + "[");
+               count = 0;
+               len = o.length;
+               while(count < len)
                {
-                  this.TraceObject(param1[_loc4_],_loc3_);
-                  _loc4_ = _loc4_ + 1;
+                  this.TraceObject(o[count],newwhitespace);
+                  count = count + 1;
                }
-               trace(param2 + "]");
+               trace(whitespace + "]");
             }
             else
             {
-               trace(param2 + "{");
-               for(_loc6_ in param1)
+               trace(whitespace + "{");
+               for(name in o)
                {
-                  trace(_loc3_ + _loc6_ + "=");
-                  this.TraceObject(param1[_loc6_],_loc3_);
+                  trace(newwhitespace + name + "=");
+                  this.TraceObject(o[name],newwhitespace);
                }
-               trace(param2 + "}");
+               trace(whitespace + "}");
             }
          }
          else
          {
-            trace(param2 + "  " + param1.toString());
+            trace(whitespace + "  " + o.toString());
          }
       }
       
@@ -339,343 +339,343 @@ package ValveLib
          return this.PlatformCode == 2;
       }
       
-      public function LoadMiniHeroImage(param1:String, param2:MovieClip) : *
+      public function LoadMiniHeroImage(heroName:String, targetMC:MovieClip) : *
       {
-         if(param1 == null || param1.length == 0)
+         if(heroName == null || heroName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/miniheroes/" + param1 + ".png",param2,false);
+         this.LoadImage("images/miniheroes/" + heroName + ".png",targetMC,false);
       }
       
-      public function LoadEconBrandImage(param1:String, param2:MovieClip) : *
+      public function LoadEconBrandImage(brandName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(brandName == null || brandName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/" + param1 + ".png",param2,false);
+         this.LoadImage("images/" + brandName + ".png",targetMC,false);
       }
       
-      public function LoadHeroImage(param1:String, param2:MovieClip) : *
+      public function LoadHeroImage(heroName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(heroName == null || heroName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/heroes/" + param1 + ".png",param2,false);
+         this.LoadImage("images/heroes/" + heroName + ".png",targetMC,false);
       }
       
-      public function LoadItemImage(param1:String, param2:MovieClip) : *
+      public function LoadItemImage(itemName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(itemName == null || itemName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/items/" + param1 + ".png",param2,false);
+         this.LoadImage("images/items/" + itemName + ".png",targetMC,false);
       }
       
-      public function LoadEconItemImage(param1:String, param2:MovieClip) : *
+      public function LoadEconItemImage(itemName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(itemName == null || itemName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/" + param1 + ".png",param2,false);
+         this.LoadImage("images/" + itemName + ".png",targetMC,false);
       }
       
-      public function LoadHeroModelImage(param1:String, param2:MovieClip) : *
+      public function LoadHeroModelImage(heroName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(heroName == null || heroName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/heroes_full/" + param1 + ".png",param2,false);
+         this.LoadImage("images/heroes_full/" + heroName + ".png",targetMC,false);
       }
       
       public var NumAvatars = 11;
       
-      public function LoadAvatarImage(param1:Number, param2:MovieClip) : *
+      public function LoadAvatarImage(avatarNum:Number, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         var _loc4_:* = "images/dashboard/avatars/avatar_puck.png";
-         switch(param1)
+         var imageName:String = "images/dashboard/avatars/avatar_puck.png";
+         switch(avatarNum)
          {
             case 0:
-               _loc4_ = "images/dashboard/avatars/avatar_creep.png";
+               imageName = "images/dashboard/avatars/avatar_creep.png";
                break;
             case 1:
-               _loc4_ = "images/dashboard/avatars/avatar_crystal_maiden.png";
+               imageName = "images/dashboard/avatars/avatar_crystal_maiden.png";
                break;
             case 2:
-               _loc4_ = "images/dashboard/avatars/avatar_kunkka.png";
+               imageName = "images/dashboard/avatars/avatar_kunkka.png";
                break;
             case 3:
-               _loc4_ = "images/dashboard/avatars/avatar_faceless_void.png";
+               imageName = "images/dashboard/avatars/avatar_faceless_void.png";
                break;
             case 4:
-               _loc4_ = "images/dashboard/avatars/avatar_furion.png";
+               imageName = "images/dashboard/avatars/avatar_furion.png";
                break;
             case 5:
-               _loc4_ = "images/dashboard/avatars/avatar_juggernaut.png";
+               imageName = "images/dashboard/avatars/avatar_juggernaut.png";
                break;
             case 6:
-               _loc4_ = "images/dashboard/avatars/avatar_bloodseeker.png";
+               imageName = "images/dashboard/avatars/avatar_bloodseeker.png";
                break;
             case 7:
-               _loc4_ = "images/dashboard/avatars/avatar_lich.png";
+               imageName = "images/dashboard/avatars/avatar_lich.png";
                break;
             case 8:
-               _loc4_ = "images/dashboard/avatars/avatar_axe.png";
+               imageName = "images/dashboard/avatars/avatar_axe.png";
                break;
             case 9:
-               _loc4_ = "images/dashboard/avatars/avatar_pudge.png";
+               imageName = "images/dashboard/avatars/avatar_pudge.png";
                break;
             case 10:
-               _loc4_ = "images/dashboard/avatars/avatar_puck.png";
+               imageName = "images/dashboard/avatars/avatar_puck.png";
                break;
          }
-         this.LoadImage(_loc4_,param2,false);
+         this.LoadImage(imageName,targetMC,false);
       }
       
-      public function LoadAbilityImage(param1:String, param2:MovieClip) : *
+      public function LoadAbilityImage(abilityName:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(abilityName == null || abilityName.length == 0)
          {
             return;
          }
-         this.LoadImage("images/spellicons/" + param1 + ".png",param2,false);
+         this.LoadImage("images/spellicons/" + abilityName + ".png",targetMC,false);
       }
       
-      public function LoadTeamLogo(param1:String, param2:MovieClip) : *
+      public function LoadTeamLogo(image:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         if(param1 == null || param1.length == 0)
+         var i:* = 0;
+         if(image == null || image.length == 0)
          {
-            var param1:* = "team_radiant";
+            var image:String = "team_radiant";
          }
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         this.LoadImage("images/teams/" + param1 + ".png",param2,false);
+         this.LoadImage("images/teams/" + image + ".png",targetMC,false);
       }
       
-      public function LoadTournamentPlayerImage(param1:String, param2:MovieClip) : *
+      public function LoadTournamentPlayerImage(playerImage:String, targetMC:MovieClip) : *
       {
-         var _loc3_:* = 0;
-         _loc3_ = param2.numChildren - 1;
-         while(_loc3_ >= 0)
+         var i:* = 0;
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc3_);
-            _loc3_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(playerImage == null || playerImage.length == 0)
          {
             return;
          }
-         this.LoadImage("images/players/" + param1 + ".png",param2,false);
+         this.LoadImage("images/players/" + playerImage + ".png",targetMC,false);
       }
       
-      public function LoadImage(param1:String, param2:MovieClip, param3:Boolean) : *
+      public function LoadImage(imageName:String, targetMC:MovieClip, bResize:Boolean) : *
       {
-         this.LoadImageWithCallback(param1,param2,param3,null);
+         this.LoadImageWithCallback(imageName,targetMC,bResize,null);
       }
       
-      public function RemoveImageFromCache(param1:String) : *
+      public function RemoveImageFromCache(imageName:String) : *
       {
-         if(this.cachedImageData[param1] != null)
+         if(this.cachedImageData[imageName] != null)
          {
-            this.cachedImageData[param1] = null;
+            this.cachedImageData[imageName] = null;
          }
       }
       
-      public function LoadImageWithFallback(param1:String, param2:MovieClip, param3:Boolean, param4:String) : *
+      public function LoadImageWithFallback(imageName:String, targetMC:MovieClip, bResize:Boolean, fallbackImageName:String) : *
       {
-         param2["fallback_image"] = param4;
-         param2["fallback_resize"] = param3;
-         this.LoadImageWithCallback(param1,param2,param3,null);
+         targetMC["fallback_image"] = fallbackImageName;
+         targetMC["fallback_resize"] = bResize;
+         this.LoadImageWithCallback(imageName,targetMC,bResize,null);
       }
       
-      public function imageLoadError(param1:Event) : *
+      public function imageLoadError(e:Event) : *
       {
-         var _loc2_:MovieClip = param1.target.loader.parent as MovieClip;
-         if(!(_loc2_ == null) && !(_loc2_["fallback_image"] == undefined) && _loc2_["fallback_image"].length > 0)
+         var targetMC:MovieClip = e.target.loader.parent as MovieClip;
+         if(!(targetMC == null) && !(targetMC["fallback_image"] == undefined) && targetMC["fallback_image"].length > 0)
          {
-            this.LoadImageWithCallback(_loc2_["fallback_image"],_loc2_,_loc2_["fallback_resize"],null);
+            this.LoadImageWithCallback(targetMC["fallback_image"],targetMC,targetMC["fallback_resize"],null);
          }
       }
       
-      public function LoadImageWithCallback(param1:String, param2:MovieClip, param3:Boolean, param4:Function) : *
+      public function LoadImageWithCallback(imageName:String, targetMC:MovieClip, bResize:Boolean, callbackFunc:Function) : *
       {
-         var _loc5_:* = 0;
-         var _loc6_:Loader = null;
-         var _loc7_:Bitmap = null;
-         if((param3) && param2["originalWidth"] == null)
+         var i:* = 0;
+         var loader:Loader = null;
+         var img:Bitmap = null;
+         if((bResize) && targetMC["originalWidth"] == null)
          {
-            param2["originalWidth"] = param2.width / param2.scaleX;
-            param2["originalHeight"] = param2.height / param2.scaleY;
+            targetMC["originalWidth"] = targetMC.width / targetMC.scaleX;
+            targetMC["originalHeight"] = targetMC.height / targetMC.scaleY;
          }
-         _loc5_ = param2.numChildren - 1;
-         while(_loc5_ >= 0)
+         i = targetMC.numChildren - 1;
+         while(i >= 0)
          {
-            param2.removeChildAt(_loc5_);
-            _loc5_--;
+            targetMC.removeChildAt(i);
+            i--;
          }
-         if(param1 == null || param1.length == 0)
+         if(imageName == null || imageName.length == 0)
          {
             return;
          }
-         if(this.cachedImageData[param1] == null)
+         if(this.cachedImageData[imageName] == null)
          {
-            _loc6_ = new Loader();
-            _loc6_["imageName"] = param1;
-            _loc6_["resize"] = param3;
-            _loc6_["callbackfunc"] = param4;
-            _loc6_.load(new URLRequest(param1));
-            _loc6_.visible = false;
-            param2.addChild(_loc6_);
-            _loc6_.contentLoaderInfo.addEventListener(Event.COMPLETE,this.imageLoadComplete);
-            _loc6_.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.imageLoadError);
+            loader = new Loader();
+            loader["imageName"] = imageName;
+            loader["resize"] = bResize;
+            loader["callbackfunc"] = callbackFunc;
+            loader.load(new URLRequest(imageName));
+            loader.visible = false;
+            targetMC.addChild(loader);
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.imageLoadComplete);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.imageLoadError);
          }
          else
          {
-            _loc7_ = new Bitmap(this.cachedImageData[param1],"auto",true);
-            _loc7_.smoothing = true;
-            param2.addChild(_loc7_);
-            if(param3)
+            img = new Bitmap(this.cachedImageData[imageName],"auto",true);
+            img.smoothing = true;
+            targetMC.addChild(img);
+            if(bResize)
             {
-               _loc7_.width = param2["originalWidth"];
-               _loc7_.height = param2["originalHeight"];
+               img.width = targetMC["originalWidth"];
+               img.height = targetMC["originalHeight"];
             }
-            if(param4 != null)
+            if(callbackFunc != null)
             {
-               param4(_loc7_);
+               callbackFunc(img);
             }
          }
       }
       
-      public function PrecacheImage(param1:String) : *
+      public function PrecacheImage(imageName:String) : *
       {
-         if(param1 == null || param1.length == 0)
+         if(imageName == null || imageName.length == 0)
          {
             return true;
          }
-         if(this.cachedImageData[param1] != null)
+         if(this.cachedImageData[imageName] != null)
          {
-            trace(param1 + " already precached");
+            trace(imageName + " already precached");
             return true;
          }
-         var _loc2_:Loader = new Loader();
-         _loc2_["imageName"] = param1;
-         _loc2_.load(new URLRequest(param1));
-         _loc2_.contentLoaderInfo.addEventListener(Event.COMPLETE,this.precacheImageComplete);
-         trace(param1 + " was NOT precached");
+         var loader:Loader = new Loader();
+         loader["imageName"] = imageName;
+         loader.load(new URLRequest(imageName));
+         loader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.precacheImageComplete);
+         trace(imageName + " was NOT precached");
          return false;
       }
       
-      public function precacheImageComplete(param1:Event) : *
+      public function precacheImageComplete(e:Event) : *
       {
-         param1.target.removeEventListener(Event.COMPLETE,this.precacheImageComplete);
-         var _loc2_:Bitmap = param1.target.content as Bitmap;
-         this.cachedImageData[param1.target.loader["imageName"]] = _loc2_.bitmapData;
+         e.target.removeEventListener(Event.COMPLETE,this.precacheImageComplete);
+         var img:Bitmap = e.target.content as Bitmap;
+         this.cachedImageData[e.target.loader["imageName"]] = img.bitmapData;
       }
       
-      public function imageLoadComplete(param1:Event) : *
+      public function imageLoadComplete(e:Event) : *
       {
-         var _loc3_:Function = null;
-         param1.target.removeEventListener(Event.COMPLETE,this.imageLoadComplete);
-         var _loc2_:Bitmap = param1.target.content as Bitmap;
-         this.cachedImageData[param1.target.loader["imageName"]] = _loc2_.bitmapData;
-         _loc2_.smoothing = true;
-         if(param1.target.loader["resize"])
+         var callback:Function = null;
+         e.target.removeEventListener(Event.COMPLETE,this.imageLoadComplete);
+         var img:Bitmap = e.target.content as Bitmap;
+         this.cachedImageData[e.target.loader["imageName"]] = img.bitmapData;
+         img.smoothing = true;
+         if(e.target.loader["resize"])
          {
-            if(!(param1.target.loader.parent == null) && !(param1.target.content == null))
+            if(!(e.target.loader.parent == null) && !(e.target.content == null))
             {
-               param1.target.content.width = param1.target.loader.parent["originalWidth"];
-               param1.target.content.height = param1.target.loader.parent["originalHeight"];
+               e.target.content.width = e.target.loader.parent["originalWidth"];
+               e.target.content.height = e.target.loader.parent["originalHeight"];
             }
          }
-         param1.target.loader.visible = true;
-         if(param1.target.loader["callbackfunc"])
+         e.target.loader.visible = true;
+         if(e.target.loader["callbackfunc"])
          {
-            _loc3_ = param1.target.loader["callbackfunc"];
-            _loc3_(param1.target.content);
+            callback = e.target.loader["callbackfunc"];
+            callback(e.target.content);
          }
       }
       
-      public function customInputHandler(param1:String, param2:Number, param3:* = null) : *
+      public function customInputHandler(type:String, code:Number, value:* = null) : *
       {
       }
       
-      public function getFrameNumberFromLabel(param1:MovieClip, param2:String) : int
+      public function getFrameNumberFromLabel(targetMC:MovieClip, labelName:String) : int
       {
-         var _loc3_:Scene = param1.currentScene;
-         var _loc4_:* = 0;
-         while(_loc4_ < _loc3_.labels.length)
+         var scene:Scene = targetMC.currentScene;
+         var i:* = 0;
+         while(i < scene.labels.length)
          {
-            if(_loc3_.labels[_loc4_].name == param2)
+            if(scene.labels[i].name == labelName)
             {
-               return _loc3_.labels[_loc4_].frame;
+               return scene.labels[i].frame;
             }
-            _loc4_++;
+            i++;
          }
          return -1;
       }
       
-      public function setMouseInputEnabled(param1:MovieClip, param2:Boolean) : §void§
+      public function setMouseInputEnabled(targetMC:MovieClip, bEnable:Boolean) : §void§
       {
-         InteractiveObjectEx.setHitTestDisable(param1,!param2);
+         InteractiveObjectEx.setHitTestDisable(targetMC,!bEnable);
       }
    }
 }

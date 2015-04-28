@@ -18,7 +18,7 @@ package
          return this._data;
       }
       
-      public function set data(param1:Object) : §void§
+      public function set data(value:Object) : §void§
       {
       }
       
@@ -29,28 +29,28 @@ package
          return this._content;
       }
       
-      public function set content(param1:Sprite) : §void§
+      public function set content(value:Sprite) : §void§
       {
       }
       
       protected var _content:Sprite;
       
-      public function handleDropEvent(param1:DragEvent) : Boolean
+      public function handleDropEvent(e:DragEvent) : Boolean
       {
-         var _loc2_:* = param1.dragData;
-         if(_loc2_)
+         var data:* = e.dragData;
+         if(data)
          {
-            root["onShopItemDraggedToSuggestedItems"](this,_loc2_.shopItemName);
+            root["onShopItemDraggedToSuggestedItems"](this,data.shopItemName);
             return true;
          }
          return false;
       }
       
-      public function handleDragStartEvent(param1:DragEvent) : §void§
+      public function handleDragStartEvent(e:DragEvent) : §void§
       {
       }
       
-      public function handleDragEndEvent(param1:DragEvent, param2:Boolean) : §void§
+      public function handleDragEndEvent(e:DragEvent, wasValidDrop:Boolean) : §void§
       {
       }
    }

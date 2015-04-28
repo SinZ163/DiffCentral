@@ -3,28 +3,28 @@ package scaleform.clik.utils
    public class Padding extends Object
    {
       
-      public function Padding(... rest)
+      public function Padding(... args)
       {
          super();
-         switch(rest.length)
+         switch(args.length)
          {
             case 0:
                break;
             case 1:
-               this.top = this.right = this.bottom = this.left = Number(rest[0]);
+               this.top = this.right = this.bottom = this.left = Number(args[0]);
                break;
             case 2:
-               this.top = this.bottom = Number(rest[0]);
-               this.right = this.left = Number(rest[1]);
+               this.top = this.bottom = Number(args[0]);
+               this.right = this.left = Number(args[1]);
                break;
             case 4:
-               this.top = Number(rest[0]);
-               this.right = Number(rest[1]);
-               this.bottom = Number(rest[2]);
-               this.left = Number(rest[3]);
+               this.top = Number(args[0]);
+               this.right = Number(args[1]);
+               this.bottom = Number(args[2]);
+               this.left = Number(args[3]);
                break;
             default:
-               throw new Error("Padding can not have " + rest.length + " values");
+               throw new Error("Padding can not have " + args.length + " values");
          }
       }
       

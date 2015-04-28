@@ -36,9 +36,9 @@ package
          return this._itemData;
       }
       
-      public function set itemData(param1:Object) : §void§
+      public function set itemData(value:Object) : §void§
       {
-         this._itemData = param1;
+         this._itemData = value;
          this.update();
       }
       
@@ -90,14 +90,14 @@ package
          this.itemImage.visible = true;
          Globals.instance.LoadItemImage(this._itemData.itemImageName,this.itemImage);
          this.itemDisabled = false;
-         var _loc1_:* = new MovieClip();
-         _loc1_.height = 32;
-         _loc1_.width = 48;
-         _loc1_.scaleX = 1;
-         _loc1_.scaleY = 1;
-         Globals.instance.LoadItemImage(this._itemData.itemImageName,_loc1_);
-         _loc1_.visible = false;
-         content = _loc1_;
+         var contentMC:* = new MovieClip();
+         contentMC.height = 32;
+         contentMC.width = 48;
+         contentMC.scaleX = 1;
+         contentMC.scaleY = 1;
+         Globals.instance.LoadItemImage(this._itemData.itemImageName,contentMC);
+         contentMC.visible = false;
+         content = contentMC;
          if(this.itemNameLabel)
          {
             this.itemNameLabel.textColor = this._itemData.itemColor;
@@ -125,9 +125,9 @@ package
          this.mouseDown = false;
       }
       
-      private function baseButtonPress(param1:MouseEventEx) : *
+      private function baseButtonPress(event:MouseEventEx) : *
       {
-         if(param1.buttonIdx == 1)
+         if(event.buttonIdx == 1)
          {
             root["onBuyButtonPressShopItem"](this.itemName);
             return;
@@ -135,31 +135,31 @@ package
          root["onSetQuickBuy"](this.itemName,1);
       }
       
-      override protected function handleMouseRollOver(param1:MouseEvent) : §void§
+      override protected function handleMouseRollOver(event:MouseEvent) : §void§
       {
-         super.handleMouseRollOver(param1);
+         super.handleMouseRollOver(event);
          root["onShowShopItemTooltip"](this);
          this.rowHighlight.visible = true;
       }
       
       var mouseDown:Boolean;
       
-      override protected function handleMouseRollOut(param1:MouseEvent) : §void§
+      override protected function handleMouseRollOut(event:MouseEvent) : §void§
       {
-         var _loc2_:Object = null;
-         var _loc3_:DragEvent = null;
+         var dragData:Object = null;
+         var dragStartEvent:DragEvent = null;
          root["onHideShopItemTooltip"](this);
-         super.handleMouseRollOut(param1);
+         super.handleMouseRollOut(event);
          this.rowHighlight.visible = false;
          if(this.mouseDown)
          {
             cleanupDragListeners();
-            _loc2_ = {"shopItemName":this.itemName};
+            dragData = {"shopItemName":this.itemName};
             content.x = 0;
             content.y = 0;
-            _loc3_ = new DragEvent(DragEvent.DRAG_START,_loc2_,this,null,content);
-            dispatchEvent(new DragEvent(DragEvent.DRAG_START,_loc2_,this,null,content));
-            this.handleDragStartEvent(_loc3_);
+            dragStartEvent = new DragEvent(DragEvent.DRAG_START,dragData,this,null,content);
+            dispatchEvent(new DragEvent(DragEvent.DRAG_START,dragData,this,null,content));
+            this.handleDragStartEvent(dragStartEvent);
             this.mouseDown = false;
          }
          if(currentFrame == 2)
@@ -171,21 +171,21 @@ package
          }
       }
       
-      override protected function handleMouseMove(param1:MouseEvent) : §void§
+      override protected function handleMouseMove(e:MouseEvent) : §void§
       {
       }
       
-      override public function handleDropEvent(param1:DragEvent) : Boolean
+      override public function handleDropEvent(e:DragEvent) : Boolean
       {
          return false;
       }
       
-      override public function handleDragStartEvent(param1:DragEvent) : §void§
+      override public function handleDragStartEvent(e:DragEvent) : §void§
       {
          content.visible = true;
       }
       
-      override public function handleDragEndEvent(param1:DragEvent, param2:Boolean) : §void§
+      override public function handleDragEndEvent(e:DragEvent, wasValidDrop:Boolean) : §void§
       {
          content.visible = false;
          content.x = 0;
@@ -193,33 +193,33 @@ package
          addChild(content);
       }
       
-      override protected function handleMouseDown(param1:MouseEvent) : §void§
+      override protected function handleMouseDown(e:MouseEvent) : §void§
       {
-         var _loc2_:MouseEventEx = param1 as MouseEventEx;
-         if((_loc2_) && _loc2_.buttonIdx == 0)
+         var ex:MouseEventEx = e as MouseEventEx;
+         if((ex) && ex.buttonIdx == 0)
          {
             this.mouseDown = true;
          }
-         super.handleMouseDown(param1);
+         super.handleMouseDown(e);
       }
       
-      override protected function handleMouseUp(param1:MouseEvent) : §void§
+      override protected function handleMouseUp(e:MouseEvent) : §void§
       {
-         var _loc2_:MouseEventEx = param1 as MouseEventEx;
-         if((_loc2_) && _loc2_.buttonIdx == 0)
+         var ex:MouseEventEx = e as MouseEventEx;
+         if((ex) && ex.buttonIdx == 0)
          {
             this.mouseDown = false;
          }
-         super.handleMouseUp(param1);
+         super.handleMouseUp(e);
       }
       
-      public function setDisabled(param1:Boolean) : §void§
+      public function setDisabled(bDisabled:Boolean) : §void§
       {
-         var _loc2_:ColorMatrixFilter = null;
-         if(param1)
+         var saturation:ColorMatrixFilter = null;
+         if(bDisabled)
          {
-            _loc2_ = new ColorMatrixFilter([0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.0,0.0,0.0,1,0]);
-            this.itemImage.filters = [_loc2_];
+            saturation = new ColorMatrixFilter([0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.33,0.33,0.33,0,0,0.0,0.0,0.0,1,0]);
+            this.itemImage.filters = [saturation];
             this.itemNameLabel.textColor = 7829367;
          }
          else
@@ -227,7 +227,7 @@ package
             this.itemImage.filters = [];
             this.itemNameLabel.textColor = 16777215;
          }
-         this.itemDisabled = param1;
+         this.itemDisabled = bDisabled;
       }
       
       function frame1() : *

@@ -83,10 +83,10 @@ package scaleform.clik.controls
          return super.enabled;
       }
       
-      override public function set enabled(param1:Boolean) : §void§
+      override public function set enabled(value:Boolean) : §void§
       {
-         super.enabled = param1;
-         mouseChildren = param1;
+         super.enabled = value;
+         mouseChildren = value;
          super.tabEnabled = false;
          tabChildren = _focusable;
          this.setState(this.defaultState);
@@ -97,9 +97,9 @@ package scaleform.clik.controls
          return _focusable;
       }
       
-      override public function set focusable(param1:Boolean) : §void§
+      override public function set focusable(value:Boolean) : §void§
       {
-         _focusable = param1;
+         _focusable = value;
          if(!_focusable && (this.enabled))
          {
             tabChildren = false;
@@ -120,10 +120,10 @@ package scaleform.clik.controls
          return this._text;
       }
       
-      public function set text(param1:String) : §void§
+      public function set text(value:String) : §void§
       {
          this._isHtml = false;
-         this._text = param1;
+         this._text = value;
          invalidateData();
       }
       
@@ -132,10 +132,10 @@ package scaleform.clik.controls
          return this._text;
       }
       
-      public function set htmlText(param1:String) : §void§
+      public function set htmlText(value:String) : §void§
       {
          this._isHtml = true;
-         this._text = param1;
+         this._text = value;
          invalidateData();
       }
       
@@ -144,9 +144,9 @@ package scaleform.clik.controls
          return this._defaultText;
       }
       
-      public function set defaultText(param1:String) : §void§
+      public function set defaultText(value:String) : §void§
       {
-         this._defaultText = param1;
+         this._defaultText = value;
          invalidateData();
       }
       
@@ -155,12 +155,12 @@ package scaleform.clik.controls
          return this._displayAsPassword;
       }
       
-      public function set displayAsPassword(param1:Boolean) : §void§
+      public function set displayAsPassword(value:Boolean) : §void§
       {
-         this._displayAsPassword = param1;
+         this._displayAsPassword = value;
          if(this.textField != null)
          {
-            this.textField.displayAsPassword = param1;
+            this.textField.displayAsPassword = value;
          }
       }
       
@@ -169,12 +169,12 @@ package scaleform.clik.controls
          return this._maxChars;
       }
       
-      public function set maxChars(param1:uint) : §void§
+      public function set maxChars(value:uint) : §void§
       {
-         this._maxChars = param1;
+         this._maxChars = value;
          if(this.textField != null)
          {
-            this.textField.maxChars = param1;
+            this.textField.maxChars = value;
          }
       }
       
@@ -183,14 +183,14 @@ package scaleform.clik.controls
          return this._editable;
       }
       
-      public function set editable(param1:Boolean) : §void§
+      public function set editable(value:Boolean) : §void§
       {
-         this._editable = param1;
+         this._editable = value;
          if(this.textField != null)
          {
             this.textField.type = (this._editable) && (this.enabled)?TextFieldType.INPUT:TextFieldType.DYNAMIC;
          }
-         this.focusable = param1;
+         this.focusable = value;
       }
       
       override public function get tabEnabled() : Boolean
@@ -198,9 +198,9 @@ package scaleform.clik.controls
          return this.textField.tabEnabled;
       }
       
-      override public function set tabEnabled(param1:Boolean) : §void§
+      override public function set tabEnabled(value:Boolean) : §void§
       {
-         this.textField.tabEnabled = param1;
+         this.textField.tabEnabled = value;
       }
       
       override public function get tabIndex() : int
@@ -208,9 +208,9 @@ package scaleform.clik.controls
          return this.textField.tabIndex;
       }
       
-      override public function set tabIndex(param1:int) : §void§
+      override public function set tabIndex(value:int) : §void§
       {
-         this.textField.tabIndex = param1;
+         this.textField.tabIndex = value;
       }
       
       public function get actAsButton() : Boolean
@@ -218,14 +218,14 @@ package scaleform.clik.controls
          return this._actAsButton;
       }
       
-      public function set actAsButton(param1:Boolean) : §void§
+      public function set actAsButton(value:Boolean) : §void§
       {
-         if(this._actAsButton == param1)
+         if(this._actAsButton == value)
          {
             return;
          }
-         this._actAsButton = param1;
-         if(param1)
+         this._actAsButton = value;
+         if(value)
          {
             addEventListener(MouseEvent.ROLL_OVER,this.handleRollOver,false,0,true);
             addEventListener(MouseEvent.ROLL_OUT,this.handleRollOut,false,0,true);
@@ -242,12 +242,12 @@ package scaleform.clik.controls
          return this._alwaysShowSelection;
       }
       
-      public function set alwaysShowSelection(param1:Boolean) : §void§
+      public function set alwaysShowSelection(value:Boolean) : §void§
       {
-         this._alwaysShowSelection = param1;
+         this._alwaysShowSelection = value;
          if(this.textField != null)
          {
-            this.textField.alwaysShowSelection = param1;
+            this.textField.alwaysShowSelection = value;
          }
       }
       
@@ -261,28 +261,28 @@ package scaleform.clik.controls
          return !this.enabled?"disabled":focused?"focused":"default";
       }
       
-      public function appendText(param1:String) : §void§
+      public function appendText(value:String) : §void§
       {
-         this._text = this._text + param1;
+         this._text = this._text + value;
          this._isHtml = false;
          invalidateData();
       }
       
-      public function appendHtml(param1:String) : §void§
+      public function appendHtml(value:String) : §void§
       {
-         this._text = this._text + param1;
+         this._text = this._text + value;
          this._isHtml = true;
          invalidateData();
       }
       
-      override public function handleInput(param1:InputEvent) : §void§
+      override public function handleInput(event:InputEvent) : §void§
       {
-         if(param1.handled)
+         if(event.handled)
          {
             return;
          }
-         var _loc2_:InputDetails = param1.details;
-         if(_loc2_.value == InputValue.KEY_DOWN || _loc2_.value == InputValue.KEY_HOLD)
+         var details:InputDetails = event.details;
+         if(details.value == InputValue.KEY_DOWN || details.value == InputValue.KEY_HOLD)
          {
             return;
          }
@@ -364,7 +364,7 @@ package scaleform.clik.controls
          this.textField.addEventListener(FocusEvent.FOCUS_IN,this.handleTextFieldFocusIn,false,0,true);
       }
       
-      protected function handleTextFieldFocusIn(param1:FocusEvent) : §void§
+      protected function handleTextFieldFocusIn(e:FocusEvent) : §void§
       {
          FocusHandler.getInstance().setFocus(this);
       }
@@ -410,39 +410,39 @@ package scaleform.clik.controls
          }
       }
       
-      protected function setState(... rest) : §void§
+      protected function setState(... states) : §void§
       {
-         var _loc4_:String = null;
-         var _loc5_:String = null;
-         if(rest.length == 1)
+         var onlyState:String = null;
+         var thisState:String = null;
+         if(states.length == 1)
          {
-            _loc4_ = rest[0].toString();
-            if(!(this._state == _loc4_) && (_labelHash[_loc4_]))
+            onlyState = states[0].toString();
+            if(!(this._state == onlyState) && (_labelHash[onlyState]))
             {
-               this._state = this._newFrame = _loc4_;
+               this._state = this._newFrame = onlyState;
                invalidateState();
             }
             return;
          }
-         var _loc2_:uint = rest.length;
-         var _loc3_:uint = 0;
-         while(_loc3_ < _loc2_)
+         var l:uint = states.length;
+         var i:uint = 0;
+         while(i < l)
          {
-            _loc5_ = rest[_loc3_].toString();
-            if(_labelHash[_loc5_])
+            thisState = states[i].toString();
+            if(_labelHash[thisState])
             {
-               this._state = this._newFrame = _loc5_;
+               this._state = this._newFrame = thisState;
                invalidateState();
                break;
             }
-            _loc3_++;
+            i++;
          }
       }
       
       protected function updateAfterStateChange() : §void§
       {
-         var _loc1_:uint = 0;
-         var _loc2_:uint = 0;
+         var numControllers:uint = 0;
+         var i:uint = 0;
          if(!initialized)
          {
             return;
@@ -452,15 +452,15 @@ package scaleform.clik.controls
          {
             if(Extensions.isScaleform)
             {
-               _loc1_ = Extensions.numControllers;
-               _loc2_ = 0;
-               while(_loc2_ < _loc1_)
+               numControllers = Extensions.numControllers;
+               i = 0;
+               while(i < numControllers)
                {
-                  if(FocusManager.getFocus(_loc2_) == this)
+                  if(FocusManager.getFocus(i) == this)
                   {
-                     FocusManager.setFocus(this.textField,_loc2_);
+                     FocusManager.setFocus(this.textField,i);
                   }
-                  _loc2_++;
+                  i++;
                }
             }
             else
@@ -470,7 +470,7 @@ package scaleform.clik.controls
          }
       }
       
-      protected function handleRollOver(param1:MouseEvent) : §void§
+      protected function handleRollOver(event:MouseEvent) : §void§
       {
          if((focused) || !this.enabled)
          {
@@ -479,7 +479,7 @@ package scaleform.clik.controls
          this.setState("over");
       }
       
-      protected function handleRollOut(param1:MouseEvent) : §void§
+      protected function handleRollOut(event:MouseEvent) : §void§
       {
          if((focused) || !this.enabled)
          {
@@ -488,15 +488,15 @@ package scaleform.clik.controls
          this.setState("out","default");
       }
       
-      protected function handleMouseDown(param1:MouseEvent) : §void§
+      protected function handleMouseDown(event:MouseEvent) : §void§
       {
          if((focused) || !this.enabled)
          {
             return;
          }
-         if(param1 is MouseEventEx)
+         if(event is MouseEventEx)
          {
-            FocusManager.setFocus(this.textField,(param1 as MouseEventEx).mouseIdx);
+            FocusManager.setFocus(this.textField,(event as MouseEventEx).mouseIdx);
          }
          else
          {
@@ -504,7 +504,7 @@ package scaleform.clik.controls
          }
       }
       
-      protected function handleTextChange(param1:Event) : §void§
+      protected function handleTextChange(event:Event) : §void§
       {
          this._text = this._isHtml?this.textField.htmlText:this.textField.text;
          dispatchEvent(new Event(Event.CHANGE));

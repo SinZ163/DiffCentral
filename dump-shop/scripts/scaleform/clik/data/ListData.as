@@ -3,12 +3,12 @@ package scaleform.clik.data
    public class ListData extends Object
    {
       
-      public function ListData(param1:uint, param2:String = "Empty", param3:Boolean = false)
+      public function ListData(index:uint, label:String = "Empty", selected:Boolean = false)
       {
          super();
-         this.index = param1;
-         this.label = param2;
-         this.selected = param3;
+         this.index = index;
+         this.label = label;
+         this.selected = selected;
       }
       
       public var index:uint = 0;
