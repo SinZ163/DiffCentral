@@ -1,0 +1,15 @@
+
+#Image
+{
+	max-width: 800px;
+	max-height: 600px;
+	horizontal-align: center;
+}
+
+#Message
+{
+	margin-top: 20px;
+	width: 600px;
+	horizontal-align: center;
+	text-align: center;
+}

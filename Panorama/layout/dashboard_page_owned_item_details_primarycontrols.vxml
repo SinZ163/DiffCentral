@@ -1,0 +1,10 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_owned_item_details_primarycontrols.vcss_c" />
+	</styles>
+
+	<DOTAPageOwnedItemDetailsPrimaryControls>
+	</DOTAPageOwnedItemDetailsPrimaryControls>
+</root>

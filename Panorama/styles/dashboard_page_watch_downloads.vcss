@@ -1,0 +1,21 @@
+
+
+#DOTAWatchDownloadsPage
+{
+	flow-children: down;
+
+	margin-top: 150px;
+	horizontal-align: center;
+	
+	padding-left: 220px;
+	padding-right: 220px;
+
+	width: 100%;
+	height: 100%;
+}
+
+Label
+{
+	color: blue;
+	font-size: 20px;
+}

@@ -1,0 +1,13 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_watch_downloads.vcss_c" />
+	</styles>
+
+	<DOTAWatchDownloadsPage class="DashboardPage">
+
+		<Label text="Downloads" />
+		
+	</DOTAWatchDownloadsPage>
+</root>

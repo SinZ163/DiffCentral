@@ -1,0 +1,286 @@
+
+TournamentDetailsGameElement
+{
+	width: 100%;
+	height: 60px;
+
+	horizontal-align: center;
+
+	flow-children: right;
+	margin-left: 16px;
+	margin-right: 16px;
+
+	border-bottom: 1px solid #aaaaaa22;
+
+	opacity: 1.0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+}
+
+TournamentDetailsGameElement.Display
+{
+	opacity: 1.0;
+}
+
+TournamentDetailsGameElement.FirstElement
+{
+	border-top: 1px solid #aaaaaa22;
+}
+
+TournamentDetailsGameElement.FirstElement.Live
+{
+	border-top: 1px solid #64c39022;
+}
+
+TournamentDetailsGameElement.Live
+{
+	background-color: #64c39004;
+	border-bottom: 1px solid #64c39022;
+}
+
+#Teams
+{
+	width: 530px;
+	vertical-align: center;
+
+	flow-children: right;
+}
+
+.TeamSpacer
+{
+	width: fill-parent-flow( 1.0 );
+}
+
+#RadiantTeam 
+{
+	horizontal-align: right;
+}
+
+#DireTeam
+{
+	horizontal-align: left;
+}
+
+.Team
+{
+	vertical-align: middle;
+
+	flow-children: right;
+}
+
+Label.TeamName
+{
+	vertical-align: middle;
+	color: #cccccc;
+	font-size: 20px;
+}
+
+.Logo
+{
+	width: 64px;
+	height: 38px;
+
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+#Versus
+{
+	vertical-align: middle;
+}
+
+Label#Versus,
+Label#Date,
+Label#BestOf,
+Label#Spectators
+{
+	font-size: 16px;
+	font-weight: thin;
+	color: #666666;
+}
+
+#Date
+{
+	width: 150px;
+	margin-left: 20px;
+
+	vertical-align: middle;
+}
+
+#BestOf
+{
+	vertical-align: middle;
+}
+
+#Spectators
+{
+	vertical-align: middle;
+}
+
+.Live #BestOf
+{
+	visibility: collapse;
+}
+
+#Spectators
+{
+	visibility: collapse;
+}
+
+.Live #Spectators
+{
+	visibility: visible;
+}
+
+#WatchPanel
+{
+	width: fill-parent-flow( 1.0 );
+	horizontal-align: right;
+	vertical-align: middle;
+	visibility: collapse;
+}
+
+.CanWatch #WatchPanel
+{
+	visibility: visible;
+}
+
+#WatchSingle
+{
+	horizontal-align: right;
+	margin-right: 10px;
+	width: 160px;
+	min-width: 160px;
+	height: 36px;
+
+	vertical-align: middle;
+}
+
+#WatchSingle Label
+{
+	width: 100%;
+	font-size: 17px;
+	text-transform: uppercase;
+	text-align: center;
+	margin-top: 3px;
+}
+
+.IsDownloading #WatchSingle,
+.IsDownloading.Bo3 #WatchMultiple3,
+.IsDownloading.Bo5 #WatchMultiple5,
+.IsDataPending #WatchSingle,
+.IsDataPending.Bo3 #WatchMultiple3,
+.IsDataPending.Bo5 #WatchMultiple5,
+.IsDecompressing #WatchSingle,
+.IsDecompressing.Bo3 #WatchMultiple3,
+.IsDecompressing.Bo5 #WatchMultiple5
+{
+	visibility: collapse;
+}
+
+#PendingData,
+#Downloading,
+#Decompressing
+{
+	width: 180px;
+	horizontal-align: right;
+	margin-right: 20px;
+}
+
+
+Label#PendingData,
+Label#Downloading,
+Label#Decompressing
+
+{
+	text-align: center;
+}
+
+#PendingData
+{
+	visibility: collapse;
+}
+
+.IsDataPending #PendingData
+{
+	visibility: visible;
+}
+
+#Downloading
+{
+	visibility: collapse;
+}
+
+.IsDownloading #Downloading
+{
+	visibility: visible;
+}
+
+#Decompressing
+{
+	visibility: collapse;
+}
+
+.IsDecompressing #Decompressing
+{
+	visibility: visible;
+}
+
+.Bo3 #WatchSingle,
+.Bo5 #WatchSingle
+{
+	visibility: collapse;
+}
+
+.Bo3 #WatchMultiple3,
+.Bo5 #WatchMultiple5
+{
+	visibility: visible;
+}
+
+DropDown#WatchMultiple3,
+DropDown#WatchMultiple5
+{
+	horizontal-align: right;
+	margin-right: 10px;
+
+	width:160px;
+	height: 36px;
+
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5a6c75 ), to( #3d4a50 ) );
+	border: 1px solid black;
+	
+	padding: 5px 10px 5px 10px;
+	border-top: 1px solid #ffffff44;
+	border-right: 1px solid #4e5b60;
+	border-left: 1px solid #4e5b60;
+	border-bottom: 1px solid #00000088;
+	
+	transition-property: background-color, wash-color;
+	transition-delay: 0.0s;
+	transition-duration: 0.1s;
+	transition-timing-function: linear;
+
+	visibility: collapse;
+}
+
+DropDown#WatchMultiple3 Label,
+DropDown#WatchMultiple5 Label
+{
+	color: white;
+	font-size: 17px;
+	text-transform: uppercase;
+	horizontal-align: center;
+	vertical-align: middle;
+
+	margin-right: 0px;
+	margin-left: 0px;
+
+	text-align: center;
+}
+
+.WatchDropDownMenu
+{
+	width: 160px;
+}
