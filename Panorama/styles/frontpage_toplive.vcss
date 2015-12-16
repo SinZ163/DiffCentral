@@ -58,7 +58,8 @@ FrontpageTopLiveButton:hover .DOTATodayCellHeader
 #Teams,
 #Spectators,
 #UnrankedMMR,
-#Time
+#Time,
+#Score
 {
 	opacity: 0.0;
 
@@ -79,9 +80,19 @@ FrontpageTopLiveButton:hover .DOTATodayCellHeader
 .UnrankedMatch #Spectators,
 .RankedMatch #Time,
 .LeagueMatch #Time,
-.UnrankedMatch #Time
+.UnrankedMatch #Time,
+.RankedMatch #Score,
+.LeagueMatch #Score,
+.UnrankedMatch #Score
 {
 	opacity: 1.0;
+}
+
+.NoScore.RankedMatch #Score,
+.NoScore.LeagueMatch #Score,
+.NoScore.UnrankedMatch #Score
+{
+	opacity: 0.0;
 }
 
 #RankedMMR,
@@ -96,7 +107,8 @@ FrontpageTopLiveButton:hover .DOTATodayCellHeader
 	vertical-align: bottom;
 }
 
-#Time
+#Time,
+#Score
 {
 	horizontal-align: right;
 	vertical-align: bottom;
@@ -132,7 +144,6 @@ FrontpageTopLiveButton:hover .DOTATodayCellHeader
 
 #Team1
 {
-	background-image: url("s2r://panorama/images/temp/temp_team1_png.vtex");
 	horizontal-align: left;
 	margin-left: 62px;
 	transform: translateZ( 120px ) translateX( -110px ) translateY( 20px ) rotateY( 40deg ) rotateX( 3deg ) rotateZ( 0deg );	
@@ -140,18 +151,20 @@ FrontpageTopLiveButton:hover .DOTATodayCellHeader
 
 #Team2
 {
-	background-image: url("s2r://panorama/images/temp/temp_team2_png.vtex");	
 	horizontal-align: right;
 	margin-right: 62px;
 	transform: translateZ( 120px ) translateX( 110px ) translateY( 20px ) rotateY( -40deg ) rotateX( 3deg ) rotateZ( 0deg );
 }
 
+.Team1Visible #Team1,
+.Team2Visible #Team2
+{
+	visibility: visible;
+}
+
 .TeamLogo
 {
-	background-image: url("s2r://panorama/images/temp/temp_team2_png.vtex");
-	background-size: contain;
-	background-position: center center;
-	background-repeat: no-repeat;
+	background-color: black;
 	width: 106px;
 	height: width-percentage( 56.25% );
 	vertical-align: center;

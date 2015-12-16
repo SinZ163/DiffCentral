@@ -367,17 +367,61 @@ DOTALoadingScreenPlayer #PlayerEventCrestImage
 	}
 }
 
+.Tip
+{
+    //max-width: 45%;
+    min-height: 48px;
+    margin-bottom: 20px;
+    horizontal-align: center;
+    vertical-align: bottom;
+    padding-left: 64px;
+    padding-right: 64px;
+
+    color: white;
+    text-align: left;
+	font-size: 24px;
+	font-weight: thin;
+	letter-spacing: 2px;
+    text-shadow: 1px 1px 2px #000000; 
+}
+
+.LoadingRoot.HideTips .Tip
+{
+    visibility: collapse;
+}
+
+.ChatTipBox
+{
+    width: 100%;
+    height: fit-children;
+    flow-children: down;
+    vertical-align: bottom;
+}
+
 #LoadingScreenChat
 {
-    margin: 20px;
+	width: 700px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     horizontal-align: left;
-    vertical-align: bottom;
 
 	transform: translateX( -20px );
 	opacity: 0.0;
 
 	transition-property: transform, opacity;
 	transition-duration: 0.5s;
+}
+
+.AspectRatio4x3 #LoadingScreenChat
+{
+	width: 600px;
+	margin-left: 0px;
+}
+
+.AspectRatio5x4 #LoadingScreenChat
+{
+	width: 530px;
+	margin-left: 0px;
 }
 
 /* Chat is hitchy if we show it while actually loading, so keep it hidden then */

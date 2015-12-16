@@ -750,12 +750,12 @@ Label.PlayerName
 
 .RadiantTint
 {
-	wash-color: #66dd66;
+	wash-color: #609c50;
 }
 
 .DireTint
 {
-	wash-color: #dd6666;
+	wash-color: #ce461e;
 }
 
 /* FOOTER */

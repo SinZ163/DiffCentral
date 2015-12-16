@@ -5,7 +5,7 @@
 		<include src="s2r://panorama/styles/popups/popup_tournament_details.vcss_c" />
 	</styles>
 
-	<PopupTournamentDetails popupbackground="blur">
+	<PopupTournamentDetails popupbackground="blur" acceptsfocus="true">
 
 		<Panel id="Header">
 
@@ -16,33 +16,32 @@
 					<Label id="TournamentName" text="{s:league_name}"/>
 					<Label id="TournamentDetails" text ="{s:league_description}"/>
 				</Panel>
-			</Panel>
-			
-			<Button id="CloseButton" class="CloseButton" onactivate="DOTAPopupButtonClicked()"/>
-
-			<Button id="CompendiumButton" onactivate="DOTAWatchTournamentDetailsCompendium()">
-				<Image id="CompendiumLogo" src="s2r://panorama/images/status_icons/compendium_psd.vtex"/>
-				<Label id="CompendiumLabel" text="#DOTA_WatchTournament_Compendium"/>
-			</Button>
-			
-			<Panel id="PrizePoolPanel">
-				<Label id="PrizePoolValue" text="{s:prize_pool_amount}"/>
-				<Label id="PrizePoolLabel" text="#DOTA_WatchTournaments_PrizePoolLabel"/>
+				<Button id="CloseButton" class="CloseButton" onactivate="DOTAPopupButtonClicked()"/>
 			</Panel>
 
-			<Panel id="PurchaseButtons">
-				<Button id="Purchase" class="PopupButton Green PurchaseButton" onactivate="DOTAWatchTournamentDetailsPurchase()">
-					<Label text="#DOTA_WatchTournaments_PrizePoolTicketPrice"/>
+			<Panel id="BottomContainer">
+				<Button id="CompendiumButton" onactivate="DOTAWatchTournamentDetailsCompendium()">
+					<Image id="CompendiumLogo" src="s2r://panorama/images/status_icons/compendium_psd.vtex"/>
+					<Label id="CompendiumLabel" text="#DOTA_WatchTournament_Compendium"/>
 				</Button>
-				<Button id="Activate" class="PopupButton Blue ActivateButton" onactivate="DOTAWatchTournamentDetailsActivate()">
-					<Label text="#DOTA_WatchTournaments_PrizePoolActivate"/>
-				</Button>
-			</Panel>
-			
+
+				<Panel id="BottomRight">
+					<Panel id="PrizePoolPanel">
+						<Label id="PrizePoolValue" text="{s:prize_pool_amount}"/>
+						<Label id="PrizePoolLabel" text="#DOTA_WatchTournaments_PrizePoolLabel"/>
+					</Panel>
+					<Button id="Purchase" class="PopupButton Green PurchaseButton" onactivate="DOTAWatchTournamentDetailsPurchase()">
+						<Label text="#DOTA_WatchTournaments_PrizePoolTicketPrice"/>
+					</Button>
+					<Button id="Activate" class="PopupButton Blue ActivateButton" onactivate="DOTAWatchTournamentDetailsActivate()">
+						<Label text="#DOTA_WatchTournaments_PrizePoolActivate"/>
+					</Button>
+				</Panel>
+			</Panel>			
 		</Panel>
 
 		<Panel id="LiveGames">
-			<Label id="LiveGamesLabel" text="LIVE GAMES IN PROGRESS"/>
+			<Label id="LiveGamesLabel" text="#DOTA_WatchTournament_Live"/>
 
 
 			<Panel id="LiveGamesList">
@@ -51,7 +50,7 @@
 		</Panel>
 
 		<Panel id="RecentGames">
-			<Label id="RecentGamesLabel" text="RECENT GAMES"/>
+			<Label id="RecentGamesLabel" text="#DOTA_WatchTournament_Recent"/>
 
 			<Panel id="RecentGamesList">
 				<!-- Dynamically filled with TournmentDetailsGameElement -->

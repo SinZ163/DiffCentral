@@ -120,3 +120,16 @@
 	color: white;
 	text-align: center;
 }
+
+
+#PreviewInfuser
+{
+	margin-top: 8px;
+}
+
+#PreviewInfuser Label
+{
+	text-transform: uppercase;
+	font-size: 18px;
+}
+

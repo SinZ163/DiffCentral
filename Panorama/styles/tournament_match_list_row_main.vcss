@@ -1,0 +1,212 @@
+
+TournamentMatchListRowMain
+{
+	width: 100%;
+	height: 58px;
+
+	background-color: #1a2024;
+
+	margin-right: 14px;
+	margin-left: 12px;
+
+	border-top: 1px solid #0f1316;
+
+	flow-children: right;
+}
+
+TournamentMatchListRowMain Label
+{
+	color: #637877;
+	font-weight: thin;
+	font-size: 17px;
+}
+
+TournamentMatchListRowMain.LastOfSeries
+{
+	margin-bottom: 4px;
+}
+
+#StageAndMatchInfo
+{
+	width: 220px;
+	padding-right: 20px;
+
+	vertical-align: middle;
+
+	margin-left: 20px;
+}
+
+#Teams
+{
+	width: 500px;
+	height: 32px;
+
+	vertical-align: middle;
+
+	flow-children: right;
+}
+
+#Teams Label
+{
+	vertical-align: middle;
+}
+
+.TeamPanel
+{
+	width: 240px;
+	height: 100%;
+}
+
+.TeamAndLogo
+{
+	flow-children: right;
+}
+
+.TeamName
+{
+	max-width: 180px;
+}
+
+#Team1 .TeamAndLogo
+{
+	horizontal-align: right;
+}
+
+#Team2 .TeamAndLogo
+{
+	horizontal-align:left;
+}
+
+.TeamLogo
+{
+	width: 32px;
+	height: 52px;
+
+	margin-left: 12px;
+	margin-right: 12px;
+
+	vertical-align: middle;
+}
+
+#VS
+{
+	font-size: 15px;
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+#Buttons
+{
+	horizontal-align: right;
+	vertical-align: center;
+
+	flow-children: right;
+	
+	min-width:140px;
+
+	padding-left: 50px;
+	padding-right: 6px;
+}
+
+#WatchReplayButton,
+#DetailsButton,
+#WatchLiveButton,
+#MatchTime
+{
+	visibility: collapse;
+}
+
+.Downloading.CompletedGame #WatchReplayButton,
+.Downloading.CompletedGame #DetailsButton,
+.Downloading.LiveGame #WatchLiveButton,
+.Downloading.UpcomingGame #MatchTime,
+.Decompressing.CompletedGame #WatchReplayButton,
+.Decompressing.CompletedGame #DetailsButton,
+.Decompressing.LiveGame #WatchLiveButton,
+.Decompressing.UpcomingGame #MatchTime
+{
+	visibility: collapse;
+}
+
+.LiveGame #WatchLiveButton,
+.CompletedGame #WatchReplayButton,
+.CompletedGame #DetailsButton,
+.UpcomingGame #MatchTime
+{
+	visibility: visible;
+}
+
+#MatchTime
+{
+	margin-right: 4px;
+}
+
+#DownloadingLabel,
+#DecompressingLabel
+{
+	text-align: center;
+	width: 250px;
+
+	visibility: collapse;
+}
+
+.Downloading #DownloadingLabel,
+.Decompressing #DecompressingLabel
+{
+	visibility: visible;
+}
+
+.FlatGreyButton
+{
+	background-color: #222a2e;
+
+	height: 32px;
+
+	margin-left: 4px;
+	margin-right: 4px;
+
+	transition-property: background-color;
+	transition-duration: 0.05s;
+	transition-timing-function: ease-in-out;
+}
+
+.FlatGreyButton Label
+{
+	transition-property: color;
+	transition-duration: 0.05s;
+	transition-timing-function: ease-in-out;
+
+	color: #cccccc;
+
+	margin-top: 8px;
+	margin-bottom: 6px;
+
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 80px;
+
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 15px;
+	letter-spacing: 1.5px;
+}
+
+.FlatGreyButton:hover
+{
+	background-color: #323a3e;
+}
+
+.FlatGreyButton:hover Label
+{
+	color: #eeeeee;
+}
+
+.FlatGreyButton:active
+{
+	background-color: #525a5e;
+}
+
+.FlatGreyButton:active Label
+{
+	color: white;
+}

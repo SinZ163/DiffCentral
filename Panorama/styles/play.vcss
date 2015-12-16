@@ -3,7 +3,7 @@
 
 @define sectionbg_inactive: #222629;
 @define sectionbg_active: gradient( linear, 0% 0%, 0% 100%, from( #3e474b ), to( #282e2d ) );
-
+@define HalloweenHue: -35deg;
 
 DOTAPlay
 {
@@ -430,6 +430,7 @@ DOTAPlay.FindingMatch #PlayButton, DOTAPlay.CanDisconnect #PlayButton, DOTAPlay.
 
 }
 
+
 DOTAPlay.FindingMatch #Searching
 {
 	visibility: visible;    
@@ -473,6 +474,11 @@ DOTAPlay.MatchingRestriction #FXSearching
 	transition-timing-function: ease-in;
 }
 
+.HalloweenActive #FXSearching
+{
+	hue-rotation: HalloweenHue;
+}
+
 #FXSearchingParticles
 {
 	width: 100%;
@@ -503,6 +509,11 @@ DOTAPlay.Connecting #SearchSettingsContainer
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( transparent ), to( #59B0D222 ) );
 	opacity-mask: url("s2r://panorama/images/masks/gradient_rightleft_png.vtex")1;
 	border-top: 1px solid #59B0D212;
+}
+
+.HalloweenActive .SearchGradient
+{
+	hue-rotation: HalloweenHue;
 }
 
 #SearchSettings
@@ -570,6 +581,12 @@ DOTAPlay.ReturningToQueue #ReturningToQueue
 	border-top: 1px solid #59B0D277;
 	border-bottom: 1px solid #59B0D277;
 }
+
+.HalloweenActive #SearchBackground
+{
+	hue-rotation: HalloweenHue;
+}
+
 
 #SearchLabelContainer
 {
@@ -675,49 +692,37 @@ DOTAPlay.SearchingCountVisible #SearchingCount
 	background-size: 400px 667px;
 	background-position: 0% 0%;
 	background-repeat: no-repeat;
-	opacity: 0;
-	saturation: 0.0;
-	horizontal-align: right;
-	transform: translateX( -361px );
-	blur: gaussian( 13, 0.1 , 20 );
+	opacity: 0.35;
+	saturation: 0.55;
 
-	transition-property: opacity, saturation, transform, blur;
+	transition-property: opacity, background-image;
 	transition-duration: .4s;
 	transition-timing-function: ease-in-out;
 }
 
-#BackgroundNormal
+.SectionVisible_Normal .PlayTabBackgroundImage
 {
 	background-image: url("s2r://panorama/images/textures/playtabbg_normal_psd.vtex");
 }
 
-#BackgroundRanked
+.SectionVisible_Ranked .PlayTabBackgroundImage
 {
 	background-image: url("s2r://panorama/images/textures/playtabbg_ranked_psd.vtex");
 }
 
-#Background1v1
+.SectionVisible_1v1 .PlayTabBackgroundImage
 {
 	background-image: url("s2r://panorama/images/textures/playtabbg_1v1_psd.vtex");
 }
 
-#BackgroundBots
+.SectionVisible_PracticeBots .PlayTabBackgroundImage
 {
 	background-image: url("s2r://panorama/images/textures/playtabbg_bots_psd.vtex");
 }
 
-.SectionVisible_Normal #BackgroundNormal, .SectionVisible_Ranked #BackgroundRanked, .SectionVisible_1v1 #Background1v1, .SectionVisible_PracticeBots #BackgroundBots
-{
-	opacity: 0.35;
-	saturation: 0.55;
-	blur: gaussian( 0, 0 , 0 );
-}
-
-.LobbySelectorVisible.SectionVisible_Normal #BackgroundNormal, .LobbySelectorVisible.SectionVisible_Ranked #BackgroundRanked, .LobbySelectorVisible.SectionVisible_1v1 #Background1v1, .LobbySelectorVisible.SectionVisible_PracticeBots #BackgroundBots, .LobbyVisible.SectionVisible_Normal #BackgroundNormal, .LobbyVisible.SectionVisible_Ranked #BackgroundRanked, .LobbyVisible.SectionVisible_1v1 #Background1v1, .LobbyVisible.SectionVisible_PracticeBots #BackgroundBots
+.LobbySelectorVisible .PlayTabBackgroundImage
 {
 	opacity: 0;
-	transform: translateX( 0px );
-	blur: gaussian( 13, 0.1 , 20 );
 }
 
 #PlaySlideOutBackground
@@ -734,7 +739,7 @@ DOTAPlay.SearchingCountVisible #SearchingCount
 	transition-timing-function: ease-in-out;
 }
 
-.AspectRatio5x4.DBLobbyVisible #PlaySlideOutBackground
+.AspectRatio5x4.DBLobbyVisible #PlaySlideOutBackground, .AspectRatio5x4.DBLobbySelectorVisible #PlaySlideOutBackground
 {
 	width: 670px;
 }

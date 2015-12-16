@@ -68,7 +68,7 @@
 			<Image id="DownloadedIcon" class="BottomLeftIcon" />
 			<Image id="WatchedIcon" class="BottomLeftIcon" />
 			<Panel id="PurchaseButton">
-				<Label id="PurchasePrice" text="#DOTA_WatchReplays_Purchase"/>
+				<Label id="PurchasePrice" text="{g:dota_item_price:ticket_itemdef}"/>
 			</Panel>
 		</Panel>    
 	</DOTAWatchReplayGameElement>

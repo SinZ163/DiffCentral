@@ -86,6 +86,11 @@ DOTAControlsLibrary
 	flow-children: right;
 }
 
+#ZooButtons .ButtonBevel.Activated
+{
+	sound: "ui_select_arrow", "ui_hero_hat_select";
+}
+
 #ZooText
 {
 	flow-children: down;
@@ -463,6 +468,12 @@ DOTAScenePanel
 	width: 520px;
 	height: 520px;
 	transform: translateX(-100px) translateY(0px);
+}
+
+#ZooHUD
+{
+	width: 1920px;
+	height: 1080px;
 }
 
 .DropLabel
@@ -847,8 +858,29 @@ Button.CustomButton:disabled Label
 
 #FriendPicker
 {
-	max-width: 300px;
+	width: 300px;
 	height: 250px;
+}
+
+#BackgroundImageTest
+{
+	width: 100px;
+	height: 100px;
+
+	background-color: black;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	background-image: url("s2r://panorama/images/compendium/compendiumcoins_ti5_png.vtex");
+
+	transition-property: background-image;
+	transition-duration: 5.0s;
+}
+
+#BackgroundImageTest.ChangeBackgroundImage
+{
+	background-image: url("s2r://panorama/images/compendium/compendiumcoins_fallmajor_png.vtex");
 }
 
 #PlayButton
@@ -863,5 +895,12 @@ Button.CustomButton:disabled Label
 }
 
 //----------------------------------------------
+// Hacky Image Compile
 
+.Precache
+{
+	background-image: url("s2r://panorama/images/front_page/axecomic_png.vtex");
+	visibility: collapse;
+}
 
+//----------------------------------------------

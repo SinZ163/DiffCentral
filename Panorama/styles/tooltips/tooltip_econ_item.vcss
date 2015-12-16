@@ -341,6 +341,16 @@
 	padding-left: 6px;
 }
 
+#GiftDedication
+{
+    visibility: collapse;
+}
+
+#Gift.HasDedication #GiftDedication
+{
+    visibility: visible;
+}
+
 #GiftDedication Label
 {	
 	//color: #9bb7e0;

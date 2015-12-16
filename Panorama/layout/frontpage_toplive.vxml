@@ -15,12 +15,12 @@
 			</Panel>
 		</Panel>
 		<Panel class="OverlayGradient"/>
-		<Image id="Team1" class="TeamLogo"/>
-		<Image id="Team2" class="TeamLogo"/>
+		<DOTAUGCImage id="Team1" class="TeamLogo"/>
+		<DOTAUGCImage id="Team2" class="TeamLogo"/>
 		<Label id="RankedMMR" class="GameInfo" text="#DOTA_WatchLive_ParticipantsMMR" html="true"/>
 		<Label id="UnrankedMMR" class="GameInfo" text="#DOTA_WatchLive_ParticipantsUnranked" html="true"/>
 		<Label id="Teams" class="GameInfo" text="#DOTA_WatchLive_ParticipantsVs" html="true"/>
-		<Label id="Time" text="{t:d:duration}" />
+		<Label id="Score" text="{i:radiant_score} - {i:dire_score}" />
 		<Label id="Spectators" text="#DOTA_WatchLive_CountSpec" />
 		<Label class="DOTATodayCellHeader" text="#DOTA_Frontpage_WatchLive_Title" />
 	</FrontpageTopLiveButton>
