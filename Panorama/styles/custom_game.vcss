@@ -175,6 +175,22 @@ DOTACustomGame.ShowAuthor #Author
 	visibility: visible;
 }
 
+
+DOTACustomGame #LastUpdated
+{
+    color: #c2bdbd;
+    font-size: 16px;
+    margin-left: 12px;
+    margin-top: 36px;
+    opacity: 1.0;
+    visibility: collapse;
+}
+
+DOTACustomGame.ShowLastUpdated #LastUpdated
+{
+    visibility: visible;
+}
+
 ToggleButton#FavoriteStar
 {
     padding: 0px 0px;
@@ -643,6 +659,151 @@ DOTACustomGame.SuggestedGame #LobbyCount
     opacity: 1.0;
 }
 
+// -- alternate style for ActiveGame -----------------------------------------
+
+DOTACustomGame.ActiveGame
+{
+	tooltip-position: left;
+	tooltip-body-position: 50% 0%;
+    tooltip-arrow-position: 18% 40%;
+    width: 100%;
+}
+
+DOTACustomGame.ActiveGame .GameImageContainer
+{
+    width: 67px;
+    height: 50px;
+    margin-top: 10px;
+	margin-left: 12px;
+	//margin-bottom: 4px;
+	wash-color: #808F8D55;
+    //border-radius: 4px;
+    //border: 1px solid #4D5A5E;
+    transition-duration: 0.2s;
+	z-index: 2;
+}
+
+DOTACustomGame.ActiveGame #TopLayerPanel
+{
+    visibility: visible;
+}
+
+
+
+DOTACustomGame.ActiveGame:hover .GameImageContainer
+{
+	wash-color: none;
+}
+
+
+DOTACustomGame.ActiveGame:hover #GameImage
+{
+	pre-transform-scale2d: 1.0;
+}
+DOTACustomGame.ActiveGame #GameImage
+{
+    transition-duration: 0.2s;
+}
+
+
+DOTACustomGame.ActiveGame .CustomGameCell
+{
+    height: 72px;
+    width: 95.5%;
+    //margin-bottom: 10px;
+    //border-radius: 6px;
+    //border: 1px solid #9BCAF400;
+	border-top: 1px solid #88888822;
+
+	transition-property: background-color, border;
+	transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+
+}
+
+DOTACustomGame.ActiveGame:hover .CustomGameCell
+{
+}
+
+DOTACustomGame.ActiveGame #CustomGameCellFooter
+{
+    padding-left: 78px;
+	width: 100%;
+    height: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #00000055 ), to( #00000099 ) );
+}
+
+DOTACustomGame.ActiveGame .CustomGameCell:hover #CustomGameCellFooter
+{
+    height: 72px;
+}
+
+DOTACustomGame.ActiveGame #GameName
+{
+    color: #c2e9e9;
+    font-size: 17px;
+    font-weight: thin;
+    margin-left: 12px;
+    vertical-align: middle;
+    margin-top: 0px;
+    text-transform: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    height: 43px;
+    width: 275px;
+
+	transition-property: color;
+	transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+
+}
+
+DOTACustomGame.ActiveGame:hover #GameName
+{
+	color: white;
+}
+
+DOTACustomGame.ActiveGame #CustomGameCellFooter:hover
+{
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #000000dd ), to( #000000 ) );
+}
+
+
+DOTACustomGame.ActiveGame #GameDescription
+{
+    font-size: 14px;
+    visibility: collapse;
+}
+
+DOTACustomGame.ActiveGame #LobbyCount
+{
+    color: #c2bdbd;
+    font-size: 14px;
+    margin-left: 2px;
+    margin-top: 22px;
+    opacity: 1.0;
+}
+
+DOTACustomGame.ActiveGame #LastUpdated
+{
+    color: #888888;
+    font-size: 14px;
+    margin-left: 12px;
+    margin-top: 38px;
+}
+
+// -- alternate style for GameOfTheDay -----------------------------------------
+
+DOTACustomGame.GameOfTheDay #CustomGameCellFooter
+{
+    width: 100%;
+	height: 34px;
+	//background-color: #000000cc;
+}
+
 // -- alternate style for Carousel --
 
 DOTACustomGame.Carousel
@@ -730,7 +891,7 @@ DOTACustomGame.Carousel #CustomGameCellFooter
 
 DOTACustomGame.Carousel .CustomGameCell:hover #CustomGameCellFooter
 {
-    height: 136px;
+    height: 140px;
 }
 
 DOTACustomGame.Carousel #GameName

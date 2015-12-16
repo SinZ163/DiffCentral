@@ -14,26 +14,29 @@
         <Panel id="ItemEditContainer" class="TopBottomFlow" >
           <Panel id="EconTooltipHeader" class="ItemRarityBackgroundColor ItemRarity_rare">
              <Panel class="EconItemTitleBar">
-              <Panel class="BrandPanel">
+               <Panel class="BrandPanel">
 					      <Label class="EconBrandName" text="#DOTA_tooltip_econ_item_partner"/>	 
 					      <Image id="EconBrandIcon" scaling="stretch-to-cover-preserve-aspect"/>
 			        </Panel>
               <Panel class="ItemHeader" >               
                 <DOTAEconItem id="EditedItemIcon"/>
                 <Panel id="ItemNameSection" class="TopBottomFlow">
-                  <Panel id="NameHeader" class="LeftRightFlow">
-                    <Label id="OriginalName" text="#DOTA_econ_item_details_original_name_label" />
-                    <Label id="Name" text="#DOTA_tooltip_econ_item_name" />
+                  <Panel class="LeftRightFlow" >
+                    <Panel class="NameHeader LeftRightFlow">
+                      <Label id="OriginalName" text="#DOTA_econ_item_details_original_name_label" />
+                      <Label id="Name" text="#DOTA_econ_item_details_original_item_name" />
+                    </Panel>
+                    <Button class="NameResetButton ControlIconButton EditButton" onactivate="DOTAItemResetName()"  onmouseover="DOTAShowTextTooltip( #DOTA_econ_item_details_reset_name )" onmouseout="DOTAHideTextTooltip()"/>
                   </Panel>
                   <Panel class="LeftRightFlow">
-                    <Panel class="NoFlow">
-                      <TextEntry id="EditNameField" class="ItemEditEntry"/>
-                    </Panel>
-                    <Button class="NameChangeButton ControlIconButton EditButton" onactivate="DOTAItemChangeName()" />
+                    <Label class="ItemName" text="#DOTA_econ_item_details_item_name" />
+                    <Panel class="InfoIcon" onmouseover="DOTAShowTextTooltip( #DOTA_ItemNameChange_Tooltip )" onmouseout="DOTAHideTextTooltip()"/>
+                    <Button class="NameChangeButton ControlIconButton EditButton" onactivate="DOTAItemChangeName()"  onmouseover="DOTAShowTextTooltip( #DOTA_econ_item_details_edit_name )" onmouseout="DOTAHideTextTooltip()"/>
                   </Panel>
                   <Label id="Set" html="true" text="#DOTA_tooltip_econ_item_set" />
                 </Panel>
               </Panel>
+              <Button class="CloseButton" onactivate="DOTAOwnedItemDetailsExit()" />
             </Panel>
             <Panel id="RarityStripe"/>
               <Panel id="Banner" >
@@ -51,14 +54,30 @@
             </Panel>
           </Panel>
           <Panel id="ItemEditBody" class="TopDownFlow">
-           <Panel id="EquipStatePanel" class="EditSection TopBottomFlow">
-              <Panel class="EditSectionFooter LeftRightFlow">
+            <Panel id="EquipStatePanel" class="EditSection TopBottomFlow">
+              <Panel class="EditSectionHeader LeftRightFlow">
                 <Label class="HeaderText" text="#DOTA_econ_item_details_equip_header"/>
                 <Button id="ToggleEquipButton" class="ButtonBevel" onactivate="DOTAItemToggleEquipState()" >
                   <Label text="#DOTA_econ_item_details_toggle_equip_state"/>
                 </Button>
               </Panel>
-            </Panel>            
+            </Panel>
+            <Panel class="PurgatoryPanel EditSection TopBottomFlow">
+              <Panel class="EditSectionHeader LeftRightFlow">
+                <Panel class="PurgatoryHeader LeftRightFlow">
+                  <Label class="HeaderText" text="#DOTA_econ_item_details_purgatory_header"/>
+                  <Panel class="InfoIcon" onmouseover="DOTAShowTextTooltip( #DOTA_Purgatory_Tooltip )" onmouseout="DOTAHideTextTooltip()"/>
+                </Panel>
+                <Panel class="DoubleButton">
+                  <Button class="ButtonBevel" onactivate="DOTAItemPurgatoryRefund()" >
+                    <Label text="#DOTA_econ_item_details_purgatory_refund"/>
+                  </Button>
+                  <Button class="ButtonBevel" onactivate="DOTAItemPurgatoryFinalize()" >
+                    <Label text="#DOTA_econ_item_details_purgatory_finalize"/>
+                  </Button>
+                </Panel>
+              </Panel>
+            </Panel>
             <Panel id="RareSocketPanel" class="EditSection TopBottomFlow">
               <Panel class="EditSectionHeader LeftRightFlow">
                 <Label class="HeaderText" text="#DOTA_econ_item_details_rare_sockets_header"/>
@@ -102,16 +121,13 @@
                   <Label class="GiftFrom" text="#DOTA_econ_item_details_gift_label" />                  
                   <Label class="GifterName" text="#DOTA_tooltip_econ_item_gifter" html="true" />
                 </Panel>                
-                <Button class="ButtonBevel">
-                  <Label text="#DOTA_econ_item_details_gift_clear_gifter"/>
-                </Button>
               </Panel>
               <Panel class="EditRow" >
                 <Panel id="GiftDedicationBody">
                   <Label text="#DOTA_tooltip_econ_item_gift_dedication"/>
                 </Panel>
-                <Button class="ButtonBevel">
-                  <Label text="#DOTA_econ_item_details_gift_clear_dedication"/>
+                <Button class="ButtonBevel" onactivate="DOTAItemResetGifterAttributes()" >
+                  <Label text="#DOTA_econ_item_details_gift_clear_attributes"/>
                 </Button>
               </Panel>
             </Panel>
@@ -126,18 +142,19 @@
             </Panel>
             
             <Panel class="EditSection TopBottomFlow">
-              <Panel class="EditSectionHeader">
+              <Panel class="EditSectionHeader LeftRightFlow">
                 <Label class="HeaderText" text="#DOTA_econ_item_details_description_header"/>
+                <Panel class="InfoIcon" onmouseover="DOTAShowTextTooltip( #DOTA_ItemDescChange_Tooltip )" onmouseout="DOTAHideTextTooltip()"/>
               </Panel>
               <Panel class="EditRow">
                 <Label class="Description" html="true" text="#DOTA_econ_item_details_item_description"/>
               </Panel>
-              <Panel class="EditSectionFooter Hidden">
+              <Panel class="EditSectionFooter">
                 <Panel class="DoubleButton">
-                  <Button class="ButtonBevel HalfSizeButton ModCharge">
+                  <Button class="ResetDescription ButtonBevel HalfSizeButton ModCharge" onactivate="DOTAItemResetDescription()">
                     <Label text="#DOTA_econ_item_details_description_reset"/>
                   </Button>
-                  <Button class="ButtonBevel HalfSizeButton ModCharge">
+                  <Button class="ButtonBevel HalfSizeButton ModCharge" onactivate="DOTAItemChangeDescription()">
                     <Label text="#DOTA_econ_item_details_description_edit"/>
                   </Button>
                 </Panel>
@@ -150,17 +167,11 @@
              <Button class="FooterButton ButtonBevel" onactivate="DOTAOwnedItemDetailsGoToLoadout()">
                 <Label text="#DOTA_econ_item_details_go_to_loadout"/>
               </Button>
-              <Button class="FooterButton ButtonBevel" onactivate="DOTAOwnedItemDetailsExit()">
-                <Label text="#DOTA_Close"/>
-              </Button>
             </Panel>
           </Panel>
         </Panel>
         <Panel id="EconItemOverlayAutograph">
           <Image id="AutographImage" src="s2r://panorama/images/econ/autographs/281316113_png.vtex" scaling="stretch-to-fit-preserve-aspect"/>
-        </Panel>
-        <Panel id="EconItemEquipped">
-          <Image id="EquippedIcon" src="s2r://panorama/images/status_icons/econtooltip_equipped_psd.vtex" scaling="stretch-to-fit-preserve-aspect"/>
         </Panel>
       </Panel>
     </Panel>
@@ -168,7 +179,7 @@
   <!--
 			<Panel id="Modifiers">
 				<Panel class="EconTooltipSectionTitle">
-					<Label text="Modifiers"/>
+					<Label text="#DOTA_econ_item_details_modifiers"/>
 					<Panel class="SectionTitleBar"/>
 				</Panel>
 				<Panel id="ModifiersList" class="ListContainer">
@@ -183,10 +194,6 @@
 					<Panel id="hud_skin" class="ListedModifier">
 						<Panel id="ModifierIcon_Animation" class="ModifierIcon"/>
 						<Label text="#DOTA_tooltip_econ_item_modifier_HUD"/>
-					</Panel>
-					<Panel id="healthbar_offset" class="ListedModifier">
-						<Panel id="ModifierIcon_Animation" class="ModifierIcon"/>
-						<Label text="#DOTA_tooltip_econ_item_modifier_health_bar"/>
 					</Panel>
 					<Panel id="ability_name" class="ListedModifier">
 						<Panel id="ModifierIcon_Animation" class="ModifierIcon"/>

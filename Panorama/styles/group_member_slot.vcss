@@ -33,7 +33,7 @@ DOTAGroupMemberSlot #FriendImageContainer
     height: 48px;
 	vertical-align: top;
     box-shadow: #00000088 -3px -3px 6px 6px;
-    overflow: noclip;
+    overflow: clip;
 }
 
 .FriendMenu DOTAGroupMemberSlot #FriendImageContainer
@@ -527,3 +527,15 @@ DOTAGroupMemberSlot.NonFriend #FriendImage
 }
 
 */
+
+DOTAActiveFriendLobby.CustomGameDetailPage #FriendAvatarImage
+{
+	width: 40px;
+	height: 40px;
+}
+
+DOTAActiveFriendLobby.CustomGameDetailPage #FriendImageContainer
+{
+	width: 40px;
+	height: 40px;
+}

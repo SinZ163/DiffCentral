@@ -3,27 +3,35 @@
     <include src="s2r://panorama/styles/dotastyles.vcss_c" />
     <include src="s2r://panorama/styles/popups/popups_shared.vcss_c" />
     <include src="s2r://panorama/styles/popups/popup_partner_purchase.vcss_c" />
+    <include src="s2r://panorama/styles/controls/control_purchase_button.vcss_c" />
   </styles>
 
   <PopupPartnerPurchase class="PopupPanel Hidden" defaultfocus="PurchaseButton" popupbackground="dim">
-    <Label id="ItemName" class="PopupTitle" />
-    <Image id="ItemImage" scaling="stretch-to-cover-preserve-aspect" />
+    <Label class="PopupTitle"  text="#DOTA_ConfirmPurchaseTitle" />
+    <Panel class="LeftRightFlow" >
+      <Panel class="ItemTitleSpacer" />
+      <Label class="ItemTitleName" text="#DOTA_PartnerPurchase_ItemName_Title" />
+      <Label class="ItemTitleQuantity" text="#DOTA_PartnerPurchase_ItemCount_Title" />
+      <Label class="ItemTitlePrice" text="#DOTA_PartnerPurchase_ItemPrice_Title" />
+    </Panel>     
+    <Panel id="LineItems" >
+      <!-- Filled in dynamically -->
+    </Panel>
     
     <Panel class="PopupButtonRow">
-      <Button id="PurchaseButton" class="PopupButton" onactivate="DOTAPartnerPurchase(true)">
-        <Label id="PurchaseButtonLabel" text="#DOTA_PartnerPurchase_Purchase" />
-      </Button>
-      <Button class="PopupButton" onactivate="DOTAPartnerPurchase(false)">
+      <PurchaseButton id="PurchaseButton" onactivate="DOTAPartnerPurchase( true )" />
+      <Panel class="Spacer" />
+      <Button class="CancelPurchase PurchaseItemButton" onactivate="DOTAPartnerPurchase( false )" >
         <Label text="#Cancel" />
       </Button>
     </Panel>
 
     <Panel class="PopupButtonRow">
-      <Button id="RechargeButton" class="PopupButton" onactivate="DOTAPartnerPurchaseRecharge()">
+      <Label class="Balance" text="#DOTA_PartnerPurchase_Balance" />
+      <Button class="RechargeButton PopupButton" onactivate="DOTAPartnerPurchaseRecharge()">
         <Label text="#DOTA_PartnerPurchase_Recharge" />
       </Button>
     </Panel>
 
-    <Label id="Balance" text="#DOTA_PartnerPurchase_Balance" />
   </PopupPartnerPurchase>
 </root>

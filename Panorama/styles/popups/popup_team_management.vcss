@@ -574,16 +574,6 @@ DropDown.SmallerDropdown Label
     vertical-align: middle;
 }
 
-.TeamKickMemberButton
-{
-    horizontal-align: right;
-}
-
-.TeamKickMemberButton:hover
-{
-    color: #FFFFFF;
-}
-
 .TeamRosterAvatarImage
 {
     height: 48px;
@@ -643,7 +633,8 @@ DropDown.SmallerDropdown Label
 
 #TeamSearchInviteTextEntry
 {
-    width: 250px;
+    width: 320px;
+    padding-right: 0px;
 }
 
 #TeamInvitePlayerContainer
@@ -665,4 +656,75 @@ DropDown.SmallerDropdown Label
     width: 14px;
     tooltip-position: right;
 	tooltip-body-position: 0% 50%;
+}
+
+.TeamAdminControls
+{
+    height: fit-children;
+    horizontal-align: right;
+    width: 125px;
+    flow-children: down;
+    vertical-align: middle;
+}
+
+#AdminControls Label
+{
+    horizontal-align: right;
+    font-size: 14px;
+}
+
+#AdminControls Label:hover
+{
+    color: #FFFFFF;
+}
+
+#TeamInviteAvatarImage
+{
+    horizontal-align: right;
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+}
+
+#TeamInviteAutocompleteOption
+{
+    width: 320px;
+    height: 35px;
+	flow-children: right;
+	background-color: #3d4448;
+	color: #e1e1e1;
+	font-size: 28px;
+	z-index: 0;
+	opacity: 1.0;
+    
+	border-top: 1px solid #00000066;
+	border-bottom: 1px solid #00000066;
+	
+    transition-property: background-color;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+}
+
+#TeamInviteAutocompleteOption:hover, #TeamInviteAutocompleteOption:focus
+{
+    background-color: #585e62;
+}
+
+#TeamInviteAutocompleteOption Label
+{
+    width: fill-parent-flow(1.0);
+	padding-left: 16px;
+
+	color: #ffffff99;
+	font-size: 18px;
+	font-weight: normal;
+    vertical-align: middle;
+}
+
+#TeamAutocompleteAvatarImage 
+{
+    width: 32px;
+    height: 32px;
+    tooltip-position: left;
+    vertical-align: middle;
 }

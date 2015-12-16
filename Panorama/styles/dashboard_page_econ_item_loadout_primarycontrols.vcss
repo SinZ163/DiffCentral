@@ -76,6 +76,28 @@ DOTAPageHeroLoadoutPrimaryControls
     visibility: collapse;
 }
 
+/* The label that says 'In Maybe Box', which is seen for items in purgatory */
+.EquippedItemSetPurgatory
+{
+	horizontal-align: right;
+	color: #8d8d8d;
+	margin-right: 10px;
+    visibility: collapse;
+}
+
+#EquippedItemSetGroup.InPurgatory .EquippedItemSetPurgatory
+{
+    visibility: visible;
+}
+
+#PreviewingItemSetLabel 
+{
+	horizontal-align: right;
+	color: #8d8d8d;
+	margin-right: 10px;
+    visibility: visible;
+}
+
 /* The label that says 'Eqipped', which we remove when we are previewing something you don't own */
 #EquippedItemSetLabel
 {
@@ -234,10 +256,9 @@ DOTAPageHeroLoadoutPrimaryControls
 {
     font-size: 24px;
 	font-weight: medium;
-    color: #ffffffff;
+    color: #ffffffb4;
 	padding-top: -3px;
 	margin-right: 6px;
-	opacity: 0.7;
 }
 
 #EquippedItemStyleSelector 
@@ -284,7 +305,7 @@ DOTAPageHeroLoadoutPrimaryControls
 {
 	padding-top: -3px;
 	margin-right: 10px;
-	opacity: 0.3;
+	color: #ffffff4d;
 	visibility: collapse;
 }
 
@@ -360,6 +381,79 @@ RadioButton#ItemFilterName .RadioBox
 #EquippedItemFilterSelector RadioButton 
 {
 	margin-left: 5px;
+}
+	
+@keyframes 'pulseglowhover'
+{
+	0%
+	{
+		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
+	}
+	
+	50%
+	{
+		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
+	}
+	
+	100%
+	{
+		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
+	}
+}
+
+.LoadoutButton
+{
+	horizontal-align: right;
+	margin-top: 3px;
+	margin-right: 10px;
+	vertical-align: center;
+    padding: 5px 30px 2px 30px;
+	min-width: 208px;
+	//background-color: #00000088;
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #88888899 ), to( #99999922 ) );
+	transition-property: background-color;
+	transition-duration: .1s;
+	wash-color: #cccccc;	
+	visibility: collapse;
+	height: 39px;
+
+	transition-property: background-color;
+	transition-duration: .2s;
+	animation-name: pulseglow;
+	animation-duration: 2.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	box-shadow: fill #002a6677 -4px -4px 8px 9px;
+}
+
+.LoadoutButton:hover 
+{
+	animation-name: pulseglowhover;
+	animation-duration: 2.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	box-shadow: fill #002a66 -4px -4px 8px 9px;
+}
+
+.LoadoutButton:active
+{
+    brightness: 1.5;
+}
+
+.LoadoutButton Label
+{
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+	color: white;
+    //color: #8d8d8d;
+    vertical-align: middle;
+	horizontal-align: center;
+}
+
+.LoadoutButton:hover Label
+{
+    color: white;
 }
 
 /* These are where the purchase buttons start */
@@ -542,107 +636,32 @@ RadioButton#ItemFilterName .RadioBox
 	margin-right: 10px;
 }
 
-
-#SingleItemShuffleButton 
-{
-	horizontal-align: right;
-	margin-top: 3px;
-	margin-right: 10px;
-	vertical-align: center;
-    padding: 5px 30px 2px 30px;
-	min-width: 208px;
-	//background-color: #00000088;
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #88888899 ), to( #99999922 ) );
-	transition-property: background-color;
-	transition-duration: .1s;
-	wash-color: #cccccc;	
-	visibility: collapse;
-	height: 39px;
-}
-
 .DOTAEconItemPage.GlobalItem #EquippedItemSetGroup.Owned #SingleItemShuffleButton
 {
 	visibility: visible;
-	transition-property: background-color;
-	transition-duration: .2s;
-	animation-name: pulseglow;
-	animation-duration: 2.5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	box-shadow: fill #002a6677 -4px -4px 8px 9px;
 }
 
 .DOTAEconItemPage.GlobalItem #EquippedItemSetGroup.Owned #SingleItemShuffleButton:hover
 {
 	visibility: visible;
-	//background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
-	animation-name: pulseglowhover;
-	animation-duration: 2.5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	box-shadow: fill #002a66 -4px -4px 8px 9px;
-}
-	
-#SingleItemShuffleButton Label
-{
-    font-size: 24px;
-    font-weight: normal;
-    text-transform: uppercase;
-	color: white;
-    //color: #8d8d8d;
-    vertical-align: middle;
-	horizontal-align: center;
 }
 
-#SingleItemShuffleButton:hover Label
+.DOTAEconItemPage.GlobalItem #EquippedItemSetGroup.Owned.InPurgatory #SingleItemShuffleButton
 {
-    color: white;
-}
-
-#SingleItemShuffleButton:hover 
-{
-	animation-name: pulseglowhover;
-	animation-duration: 2.5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	box-shadow: fill #002a66 -4px -4px 8px 9px;
-}
-
-#CustomizeButton:active
-{
-    wash-color: #eeeeee;
-}
-
-#CustomizeButton 
-{
-	horizontal-align: right;
-	margin-top: 3px;
-	margin-right: 10px;
-	vertical-align: center;
-    padding: 5px 30px 2px 30px;
-	min-width: 208px;
-	//background-color: #00000088;
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #88888899 ), to( #99999922 ) );
-	transition-property: background-color;
-	transition-duration: .1s;
-	wash-color: #cccccc;	
 	visibility: collapse;
-	height: 39px;
 }
 
 #EquippedItemSetGroup.Owned #CustomizeButton
 {
 	visibility: visible;
-	transition-property: background-color;
-	transition-duration: .2s;
-	animation-name: pulseglow;
-	animation-duration: 2.5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	box-shadow: fill #002a6677 -4px -4px 8px 9px;
 }
 
 #EquippedItemSetGroup.ShuffleContainsOnlyDefaultItem #CustomizeButton
+{
+	visibility: collapse;
+}
+
+#EquippedItemSetGroup.InPurgatory #CustomizeButton
 {
 	visibility: collapse;
 }
@@ -684,40 +703,6 @@ RadioButton#ItemFilterName .RadioBox
 	box-shadow: fill #002a66 -4px -4px 8px 9px;
 }
 
-@keyframes 'pulseglowhover'
-{
-	0%
-	{
-		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
-	}
-	
-	50%
-	{
-		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
-	}
-	
-	100%
-	{
-		background-color: gradient( linear, 0% 0%, 0% 100%, from( #80c2ff ), to( #67aeff44 ) );
-	}
-}
-	
-#CustomizeButton Label
-{
-    font-size: 24px;
-    font-weight: normal;
-    text-transform: uppercase;
-	color: white;
-    //color: #8d8d8d;
-    vertical-align: middle;
-	horizontal-align: center;
-}
-
-#CustomizeButton:hover Label
-{
-    color: white;
-}
-
 #CustomizeButton:hover 
 {
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #888888 ), to( #999999 ) );
@@ -729,13 +714,17 @@ RadioButton#ItemFilterName .RadioBox
 	animation-name: none;
 	box-shadow: none;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #888888 ), to( #999999 ) );
-	
-	
 }
 
-#CustomizeButton:active
+/* The purgatory related buttons */
+#EquippedItemSetGroup.InPurgatory .RefundButton
 {
-    wash-color: #eeeeee;
+    visibility: visible;
+}
+
+#EquippedItemSetGroup.InPurgatory .FinalizeButton
+{
+    visibility: visible;
 }
 
 /* The details mode button */
@@ -772,60 +761,8 @@ RadioButton#ItemFilterName .RadioBox
 	visibility: visible;
 }
 
-#DemoButton
+/* Temporarily hide this until I fix the owned item details page*/
+#EquippedItemSetGroup.Owned #DetailsButton
 {
-    /* Hacky, but useful until we update camera positions */
-    //transform: translateX( -605px ) translateY( -139px );
-
-    /* border: 1px solid black; */
-	padding: 4px 50px 1px 20px;
-    margin-left: 0px;
-	margin-top: 10px;
-    vertical-align: bottom;
-    //horizontal-align: right;
-    /* margin-left: 20px; */
-    /* background-color: gradient( linear, 0% 0%, 0% 100%, from( #333333 ), to( #666666 ) ); */
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #5A615Ecc ), to( #879695cc ));
-    background-image: url("s2r://panorama/images/control_icons/arrow_top_right_png.vtex");
-	
-	box-shadow: fill #002a6644 -4px -4px 8px 9px;
-	
-	border-top: 1px solid #ffffff44;
-	border-right: 1px solid #00000088;
-	border-left: 1px solid #ffffff44;
-	border-bottom: 1px solid #00000088;
-	
-    background-repeat: no-repeat;
-    background-size: 17px 17px;
-    background-position: 87% 50%;
-	transition-property: background-color;
-	transition-duration: .2s;
-
-    wash-color: #99999922;
-}
-
-#DemoButton:hover
-{
-    
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #5f6663 ), to( #b4c2c1 ));
-}
-
-#DemoButton:active
-{
-    wash-color: #ffffff;
-}
-
-#DemoButton Label
-{
-    font-size: 24px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #d5d7d7;
-    vertical-align: middle;
-}
-
-#DemoButton:hover Label
-{
-    color: white;
+	visibility: collapse;
 }

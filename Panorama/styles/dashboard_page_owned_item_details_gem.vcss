@@ -145,47 +145,52 @@
 }
 
 /* Add Gem only visible when the socket is empty */
-.GemContainer.EmptySocket #AddGem
+.GemContainer.EmptySocket:not(.GemContainer.InPurgatory) #AddGem
 {
     visibility: visible;    
 }
 
-.GemContainer.RareGemSocket.FullSocket #ReplaceGem
+.GemContainer.RareGemSocket.FullSocket:not(.GemContainer.InPurgatory) #ReplaceGem
 {
     visibility: visible;    
 }
 
-/* Extract Gem only visible when the socket is full and reste is not enabled */
-.GemContainer.FullSocket #ExtractGem
+/* Extract Gem only visible when the socket is full and reset is not enabled */
+.GemContainer.FullSocket:not(.GemContainer.InPurgatory) #ExtractGem
 {
     visibility: visible;    
 }
    
-.GemContainer.FullSocket.ResetEnabled #ExtractGem
+.GemContainer.FullSocket.ResetEnabled:not(.GemContainer.InPurgatory) #ExtractGem
 {
     visibility: collapse;    
 }
         
-.GemContainer.FullSocket.RareGemSocket #ExtractGem
+.GemContainer.FullSocket.RareGemSocket:not(.GemContainer.InPurgatory) #ExtractGem
 {
     visibility: collapse;    
 }
  
 /* Small version of Extract Gem only visible when the socket is full and reset is enabled */
-.GemContainer.FullSocket #ExtractGemShort
+.GemContainer.FullSocket:not(.GemContainer.InPurgatory) #ExtractGemShort
 {
     visibility: collapse;    
 }
 
-.GemContainer.FullSocket.ResetEnabled #ExtractGemShort
+.GemContainer.FullSocket.ResetEnabled:not(.GemContainer.InPurgatory) #ExtractGemShort
 {
     visibility: visible;    
 }
 
 /* ResetEnabled Gem only visible when the socket is full and reset is enabled */
-.GemContainer.FullSocket.ResetEnabled #ResetGem
+.GemContainer.FullSocket.ResetEnabled:not(.GemContainer.InPurgatory) #ResetGem
 {
     visibility: visible;    
+}
+
+.GemContainer.InPurgatory .UnavailableButton
+{
+    visibility: visible;
 }
 
 .GemContainer .ButtonBevel

@@ -20,7 +20,7 @@
 		</Panel>
 		 
 		<Panel class="PopupButtonRow">
-			<Button id="AcceptButton" class="PopupButton">
+			<Button id="AcceptButton" class="PopupButton" onactivate="DOTAPopupButtonClicked( DOTAAcceptGiftUwrap() )">
 				<Label text="#dota_gift_received_accept" />
 			</Button>
 			<Button class="PopupButton" onactivate="DOTAPopupButtonClicked()">

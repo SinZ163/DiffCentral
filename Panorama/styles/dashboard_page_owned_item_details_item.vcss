@@ -101,6 +101,8 @@
 #EconBrandIcon
 {
     height: 100%;
+    margin: 28px;
+    vertical-align: center;
 	horizontal-align: right;
 }
 
@@ -115,6 +117,20 @@
 	height: fit-children;
 	width: fill-parent-flow( 1.0 );
     vertical-align: center;
+}
+
+/* Close button */
+#ItemEdit .CloseButton
+{
+	vertical-align: top;
+	horizontal-align: right;
+	background-color: #000000FF;
+	transition-property: background-color;
+}
+
+#ItemEdit .CloseButton:hover
+{
+	background-color: #000000;
 }
 
 #ItemEdit #RarityStripe
@@ -147,31 +163,16 @@
 	box-shadow: fill #00000088 -4px -4px 8px 9px;
 }
 	
-.ItemEditEntry
+.ItemName
 {
-	width: 440px;
-	height: 42px;
-	border: 1px solid #1B272D;
-	background-color: #000000aa;
-}
-
-.ItemEditEntry Label
-{
-    font-size: 28px;
-	font-weight: thin;
-}
-
-#EditNameField
-{
+    padding-top: 4px;
 	font-size: 28px;
 	color: white;
 	padding-left: 8px;
+    margin-right: 4px;
 	background-color: #00000033;
-}
-
-#EditNameField:disabled
-{
-    color: #aaaaaaff;
+	width: 425px;
+	height: 42px;
 }
 
 .EditButton
@@ -187,7 +188,6 @@
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #35594A ), to( #35594A ) );
 }	
 
-
 .EditButton:hover
 {
 	wash-color: white;
@@ -200,23 +200,54 @@
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #2F805B ), to( #35594A ) );
 }
 
+.NameHeader
+{
+    width: 455px;
+    margin-right: 4px;
+}
 
-#NameHeader Label
+.NameHeader Label
 {
     font-size: 18px;
 	font-weight: thin;
 	margin-left: 0px;
 }
 
-#NameHeader #Name
+.NameHeader #Name
 {
+    font-size: 18px;
     margin-top: 0px;
+	margin-left: 0px;
 }
 
-DOTAOwnedItemDetailsPage.HideOriginalName #NameHeader
+.NameResetButton.EditButton
+{
+    height: 100%;
+    width: 42px;
+    margin-left: 5px;
+    horizontal-align: right;
+    vertical-align: center;
+	background-image: url("s2r://panorama/images/control_icons/ellipsis_psd.vtex");
+	background-size: 70% 140%;
+	background-position: 55% 50%;
+    margin-bottom: 3px;
+}
+
+.Root.InPurgatory .NameResetButton
 {
     visibility: collapse;
 }
+
+.Root.InPurgatory .NameChangeButton
+{
+    visibility: collapse;
+}
+
+DOTAOwnedItemDetailsPage.HideOriginalName .NameHeader
+{
+    visibility: collapse;
+}
+
 
 #ItemEdit #Set
 {
@@ -291,17 +322,6 @@ DOTAOwnedItemDetailsPage.HideOriginalName #NameHeader
 	margin: 0px;
 }
 
-#ItemEdit #EconItemEquipped
-{
-	visibility: collapse;
-	opacity: .1;
-}
-
-DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
-{
-	visibility: visible;
-}
-
 #ItemEditBody
 {
 	height: fill-parent-flow( 1.0 );
@@ -346,12 +366,6 @@ DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
 	background-color: #15191C;
 	margin: 0px;
 	margin-bottom: 2px;
-}
-
-/* Hide this until it's implemented */
-.NameChangeButton
-{
-    visibility: collapse;
 }
 
 .Root.IsNotSocketable #SocketPanel
@@ -405,17 +419,61 @@ DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
 	margin-left: 12px;
 }
 
+#EquipStatePanel
+{
+    visibility: visible;
+}
+
+.Root.InPurgatory #EquipStatePanel
+{
+    visibility: collapse;
+}
+
 #EquipStatePanel .EditSectionHeader
 {
-	height: 60px;
+	height: fit-children;
 	width: 100%;
 }
 
-#EquipStatePanel .HeaderText
+#EquipStatePanel .EditSectionHeader .HeaderText
 {
     vertical-align: center;
 }
 
+/* Related to the purgatory control panel */
+.PurgatoryPanel
+{
+    visibility: collapse;
+}
+
+.Root.InPurgatory .PurgatoryPanel
+{
+    visibility: visible;
+}
+
+.PurgatoryPanel .EditSectionHeader
+{
+	width: 100%;
+	height: fit-children;
+	margin-top: -4px;
+}
+
+.PurgatoryPanel .HeaderText
+{
+    vertical-align: center;
+}
+
+.PurgatoryPanel .DoubleButton
+{
+    margin: 0px;
+}
+
+.PurgatoryHeader
+{
+    vertical-align: center;
+}
+
+ /* Related to the gifting section */
 .GiftDate
 {
 	vertical-align: bottom;
@@ -456,10 +514,20 @@ DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
     margin-bottom: 0px;
 }
 
+.Root.InPurgatory #GiftPanel
+{
+    visibility: collapse;
+}
+
 .EditSectionFooter
 {
 	width: 100%;
 	margin-top: -4px;
+}
+
+.Root.InPurgatory .EditSectionFooter
+{
+    visibility: collapse;
 }
 
 .EditSectionFooter.Hidden
@@ -486,6 +554,15 @@ DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
 }
 
 .EditSectionHeader .InfoIcon
+{
+	horizontal-align: left;
+	margin-right: 0px;
+    margin-bottom: 0px;
+    vertical-align: center;
+	wash-color: #919294;
+}
+
+.PurgatoryHeader .InfoIcon 
 {
 	horizontal-align: left;
 	margin-right: 0px;
@@ -552,6 +629,16 @@ DOTAOwnedItemDetailsPage.Equipped #ItemEdit #EconItemEquipped
 .Description
 {
 	padding: 16px;
+}
+
+.ResetDescription
+{
+    visibility: collapse;
+}
+
+.Root.HasCustomDescription .ResetDescription
+{
+    visibility: visible;
 }
 
 .DoubleButton

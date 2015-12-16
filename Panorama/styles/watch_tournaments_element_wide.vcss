@@ -63,7 +63,7 @@ Label#TournamentName
 {
 	color: #cccccc;
 	font-size: 28px;
-	letter-spacing: 2px;
+	letter-spacing: 0.5px;
 }
 
 Label#TournamentDetails
@@ -189,9 +189,7 @@ Button#Compendium:active
 }
 
 
-.PopupButton.PurchaseButton,
-.PopupButton.ViewButton,
-.PopupButton.ActivateButton
+.ViewButton
 {
 	horizontal-align: right;
 	margin-right: 0px;
@@ -200,31 +198,13 @@ Button#Compendium:active
 	height: 40px;
 }
 
-.NoPrizePool .PopupButton.PurchaseButton,
-.NoPrizePool .PopupButton.ViewButton,
-.NoPrizePool .PopupButton.ActivateButton
+.NoPrizePool .PopupButton.ViewButton
 {
-	margin-top: 20px;
+	margin-top: 18px;
 }
 
-.CanWatch .PopupButton.ViewButton,
-.CanActivate .PopupButton.ActivateButton,
-.PopupButton.PurchaseButton
-{
-	visibility: visible;
-}
 
-.PopupButton.ViewButton,
-.PopupButton.ActivateButton,
-.CanWatch .PopupButton.PurchaseButton,
-.CanActivate .PopupButton.PurchaseButton
-{
-	visibility: collapse;
-}
-
-.PopupButton.ViewButton Label,
-.PopupButton.PurchaseButton Label,
-.PopupButton.ActivateButton Label
+.PopupButton.ViewButton Label
 {
 	margin-top: 2px;
 	font-size: 17px;

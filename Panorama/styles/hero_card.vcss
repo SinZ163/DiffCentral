@@ -213,6 +213,8 @@ DOTAHeroCard.FirstColumn.FirstRow.Expanded:disabled #Contents    { transform: de
     vertical-align: middle;
     horizontal-align: center;
 
+    overflow: noclip;
+
     transform: imageDefaultScale3d;
 
     transition-property: transform;
@@ -291,34 +293,6 @@ DOTAHeroCard.Expanded #HeroName
 DOTAHeroCard.Expanded:disabled #HeroName
 {
     opacity: 0.0;
-}
-
-#HeroAbilities
-{
-	visibility: collapse;
-    vertical-align: bottom;
-    width: 100%;
-    flow-children: right;
-    background-color: black;
-
-    height: 21%; /* todo(ericl): should be able to remove this, but layout bug(?) is preventing */
-
-    /* Use a negative margin the same size */
-    margin: contentBorderSizeNegative;
-
-    padding: 0px 2px;
-
-    transform: translateY( 20px );
-    opacity: 0.0;
-
-    transition-property: transform, opacity;
-    transition-duration: 0.2s;
-}
-
-#HeroAbilities.Visible
-{
-    transform: translateY( 0px );
-    opacity: 1.0;
 }
 
 DOTAAbilityImage

@@ -46,6 +46,7 @@ DOTACustomGamePage
 .ImagesColumn
 {
 	width: 643px;
+
 	margin-top: 36px;
 	margin-right: 45px;
 	flow-children: down;
@@ -431,6 +432,8 @@ HorizontalScrollBar
 
 #GameImageContainer
 {
+	width: 643px;
+	height: 482px;
 }
 
 #FavoritesContainer

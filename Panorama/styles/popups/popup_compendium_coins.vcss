@@ -97,12 +97,13 @@ PopupCompendiumCoins
 
 #CoinBank
 {
-	width: 120px;
+	min-width: 135px;
+	margin-right: 10px;
 }
 
 #CoinsGained
 {
-	width: 100px;
+	min-width: 100px;
 }
 
 #CoinPlus

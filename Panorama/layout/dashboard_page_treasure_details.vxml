@@ -10,7 +10,7 @@
 
 		<DOTAScenePanel id="PreviewRays" class="MainPreviewRays" map="scenes/loadout_preview_rays" camera="camera_1" hittest="false"/>
 		<Panel id="TreasureContentsContainer">
-			<Carousel id="TreasureContents" panels-visible="15" focus="center">
+			<Carousel id="TreasureContents" panels-visible="15" focus="center" clipaftertransform="true">
 				<!-- filled in dynamically -->
 			</Carousel>
 		</Panel>
@@ -18,6 +18,8 @@
 
 		<DOTAScenePanel id="ItemReceivedParticles" map="scenes/treasure_opening" camera="shot_camera" hittest="false" />
 
+		<Panel id="ItemPreviewTempContainer" />
+		
 		<Panel id="TreasureControls">
 			<Panel class="TreasureControlsRow">
 				<Panel id="ReceivedItem">
@@ -44,10 +46,12 @@
 					<Panel />
 				</Button>
 				<Button id="ItemDetailsButton">
-					<Label id="UnitName" text="{s:unit_name}" />
 					<Panel id="ItemDetailsRow">
-						<Label id="ItemName" text="{g:dota_item_name:item_def}" />
+						<Label id="UnitName" text="{s:unit_name}" />
+						<Panel class="FillWidth" />
+						<Panel id="InspectIcon" />
 					</Panel>
+					<Label id="ItemName" text="{g:dota_item_name:item_def}" />
 					<Panel id="ItemRarityBand" class="ItemRarityBackgroundColor" />
 				</Button>
 				<Button id="NextItemButton" class="ButtonBevel SwitchItemButton" onactivate="MovePanelRight( TreasureContents, 1 )">
@@ -148,23 +152,18 @@
 				
 				<Panel id="TreasurePurchaseRow" class="TreasureDetailsRow">
 					<Button id="TreasurePurchaseButton" class="PurchaseButton ColoredButton" onactivate="DOTAPurchaseSelectedTreasure()" 
-							onmouseover="DOTAShowSelectedOpenTreasureTooltip(); AddStyle( Hover ); AddStyle( TreasurePriceButton, Hover );"
-							onmouseout="DOTAHideOpenTreasureTooltip(); RemoveStyle( Hover ); RemoveStyle( TreasurePriceButton, Hover );">
-						<Label text="#DOTA_Treasure_Purchase" />
-					</Button>
-					<DropDown id="TreasureQuantityDropDown" class="ColoredButton">
-						<!-- Filled in dynamically -->
-					</DropDown>
-					<Button id="TreasurePriceButton" class="PriceButton ColoredButton" onactivate="DOTAPurchaseSelectedTreasure()"
-							onmouseover="DOTAShowSelectedOpenTreasureTooltip(); AddStyle( Hover ); AddStyle( TreasurePurchaseButton, Hover );"
-							onmouseout="DOTAHideOpenTreasureTooltip(); RemoveStyle( Hover ); RemoveStyle( TreasurePurchaseButton, Hover );">
-
-						<Panel id="TreasurePriceContents">
+							onmouseover="DOTAShowSelectedOpenTreasureTooltip();" onmouseout="DOTAHideOpenTreasureTooltip();">
+						<Panel id="PurchaseButtonContents">
+							<Label text="#DOTA_Treasure_Purchase" />
 							<Label id="TreasurePriceLabel" text="{s:treasure_price}" />
 							<Panel id="TreasureCurrencyIcon" />
 						</Panel>
-
 					</Button>
+					
+					<DropDown id="TreasureQuantityDropDown" class="ColoredButton">
+						<!-- Filled in dynamically -->
+					</DropDown>
+					
 				</Panel>
 
 				<Panel id="EventPurchaseRow" class="TreasureDetailsRow">
@@ -195,15 +194,16 @@
 				
 				<Panel id="CharmPurchaseRow" class="TreasureDetailsRow">
 					<Button id="CharmPurchaseButton" class="PurchaseButton ColoredButton" onactivate="DOTAPurchaseSelectedCharm()">
-						<Label text="#DOTA_Treasure_CharmPurchase" />
+						<Panel id="CharmButtonContents" >
+							<Label text="#DOTA_Treasure_CharmPurchase" />
+							<Label id="CharmButtonPrice" text="{g:dota_item_price:charm_item_def}" />
+						</Panel>
 					</Button>
-					<Panel id="CharmsOwned" class="ColoredButton">
+					
+					<Panel id="CharmsOwned" >
 						<DOTAEconItemImage id="CharmImage" scaling="stretch-to-cover-preserve-aspect" />
 						<Label id="CharmsOwnedCount" text="{d:charms_owned_count}" />
 					</Panel>
-					<Button id="CharmPriceButton" class="PriceButton ColoredButton" onactivate="DOTAPurchaseSelectedCharm()">
-						<Label text="{g:dota_item_price:charm_item_def}" />
-					</Button>
 				</Panel>
 			</Panel>
 			
@@ -243,6 +243,7 @@
 			</Panel>
 
 			<Panel id="ViewControls">
+				
 				<RadioButton id="FullPreviewButton" group="treasure_view" onactivate="DOTASetTreasureFullPreview( true )" />
 				<RadioButton id="DetailsViewButton" group="treasure_view" onactivate="DOTASetTreasureFullPreview( false )" />
 			</Panel>

@@ -26,11 +26,9 @@
 
 		<Panel id="PlaySlideOut" oncancel="DOTAPlayPanelCloseButtonClicked(false)">
 			<Button id="BackgroundClickCatcher" hittest="true" onactivate="DOTAClosePlayTab()" />
-			<Panel id="PlaySlideOutBackground"/>
-			<Panel id="BackgroundNormal" class="PlayTabBackgroundImage"/>
-			<Panel id="BackgroundRanked" class="PlayTabBackgroundImage"/>
-			<Panel id="Background1v1" class="PlayTabBackgroundImage"/>
-			<Panel id="BackgroundBots" class="PlayTabBackgroundImage"/>
+			<Panel id="PlaySlideOutBackground">
+				<Panel class="PlayTabBackgroundImage"/>
+			</Panel>
 
 			<Panel id="LowPriGlow"/>
 			<Panel id="LobbySelectorContent">
@@ -56,7 +54,7 @@
 				</Button>
 				<Button id="CreateLobbyShortcutButton" class="LobbyButton" onactivate="DOTACreateLobby()">
 					<Panel class="PrivateLobbyButtonIcon"/>
-					<Label text="Create Lobby"/>
+					<Label text="#DOTA_Create_Lobby"/>
 				</Button>
 				<Panel class="Lobbydivider Divider" />
 				<Panel id="CustomGamesSection" class="PlayTabSection">

@@ -78,6 +78,11 @@ DOTAProfileCard
 	transition-timing-function: ease-in-out;
 }
 
+.HalloweenActive #ContentsMain
+{
+	wash-color: #61FFAA33;
+}
+
 #LeftColumn #ContentsMain
 {
 	margin-left: 30px;
@@ -601,8 +606,13 @@ DOTAProfileCard.Loading #ProfileBadge, DOTAProfileCard.Loading #ProfileBadgeBack
 	transition-property: box-shadow, brightness;
 	transition-duration: 0.15s;
 	transition-timing-function: ease-in-out;
-	
 }
+
+.HalloweenActive #CompendiumPanel
+{
+	wash-color: #61FFAA33;
+}
+
 
 #CompendiumNotOwned,
 #CompendiumComingSoon,
@@ -860,8 +870,7 @@ DOTAProfileCard.Loading #ProfileBadge, DOTAProfileCard.Loading #ProfileBadgeBack
 }
 
 .SelfEventUpsell #CompendiumBook,
-.SelfEventUpsell #CompendiumNotOwned,
-.SelfEventUpsell #BuyCompendium
+.SelfEventUpsell #CompendiumNotOwned
 {
 	visibility: visible;
 }
@@ -875,8 +884,7 @@ DOTAProfileCard.Loading #ProfileBadge, DOTAProfileCard.Loading #ProfileBadgeBack
 
 .SelfEventActive #CompendiumBook,
 .SelfEventActive #CompendiumDetails,
-.SelfEventActive #SpendCoins,
-.SelfEventActive #BuyLevels
+.SelfEventActive #SpendCoins
 {
 	visibility: visible;
 }

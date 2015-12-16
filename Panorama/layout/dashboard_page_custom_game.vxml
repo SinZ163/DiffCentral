@@ -41,7 +41,7 @@
 				</Panel>
 				<Panel class="NoDedicatedServerSupportPadding" />
   			<Panel id="LastUpdated" class="UpdatedBlock">
-  				<Label text="#DOTA_Custom_Game_Last_Updated" html="true" class="StatsDescLabelLeft" />
+  				<Label text="#DOTA_Custom_Game_Last_Updated_String" html="true" class="StatsDescLabelLeft" />
   			</Panel>
 				<Panel id="DedicatedServerSupport">
 					<Label text="#DOTA_Custom_Game_Dedicated_Servers" />

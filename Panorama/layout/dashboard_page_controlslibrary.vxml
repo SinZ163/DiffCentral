@@ -11,7 +11,7 @@
 
 		<Panel id="ZooTabContents">
 			<Panel id="ZooButtons" class="ZooTab TabVisible">
-
+				<Panel class="Precache"/>
 				<Panel class="TopBottomFlow">
 					<Panel class="LeftRightFlow">
 						<Panel class="ZooGroup Wide">
@@ -21,11 +21,11 @@
 							<Button class="PopupButton">
 								<Label text="PopupButton"/>
 							</Button>
-							<Button class="PopupButton Blue">
-								<Label text="Popup Blue" />
+							<Button class="PopupButton Blue" onactivate="DOTAShowReferencePage(file://{resources}/layout/leaf_pages/dashboard_page_debut_arc_warden.xml)">
+								<Label text="Arc Warden" />
 							</Button>
-							<Button class="PopupButton Green">
-								<Label text="Popup Green" />
+							<Button class="PopupButton Green" onactivate="DOTAShowReferencePage(file://{resources}/layout/leaf_pages/dashboard_page_debut_arcana_zeus.xml)">
+								<Label text="Zeus Arcana" />
 							</Button>
 							<Button class="PopupButton">
 								<Label class="Capital" text="Popup Caps" />
@@ -35,9 +35,11 @@
 								<Label text="BlueButton" />
 							</Button>
 
+							<TextButton text="Sound Test" onactivate="PlaySoundEffect( ui_select_arrow ); AsyncEvent( 2.0, PlaySoundEffect( ui_hero_hat_select ) );" />
+
 							<Panel id="PlayEffects" acceptsinput="false">
 								<Button id="PlayButton" tabindex="auto" selectionpos="auto" acceptsinput="true" class="CustomButton" onactivate="DOTAItemReceivedButtonClicked()">
-								<Label class="PlayLabel" text="Glow Button" />
+									<Label class="PlayLabel" text="Glow Button" />
 								</Button>
 							</Panel>
 
@@ -105,6 +107,15 @@
 					<Panel class="LeftRightFlow">
 						<Panel class="ZooGroup">
 							<DOTAFriendPicker id="FriendPicker"/>
+						</Panel>
+
+						<Panel class="ZooGroup">
+							<Label text="Background Image Test" />
+							<Panel id="BackgroundImageTest" onactivate="ToggleStyle( ChangeBackgroundImage )" />
+						</Panel>
+
+						<Panel class="ZooGroup">
+							<DOTAPunchCard maxstamps="5" currentstamps="3" rewardtext="Bonus" />
 						</Panel>
 					</Panel>
 
@@ -393,6 +404,12 @@
 						</Button>
 					</Panel>
 				</FrontpageCarousel>
+				
+				<FrontpageCarousel>
+					<Panel id="CarouselCells">
+						<FrontpageVideoStream class="DOTATodayCell DOTATodayCellLarge" account-id="85501006" league-id="3671"/>
+					</Panel>
+				</FrontpageCarousel>				
 
 				<!--FrontpageTopLiveButton class="DOTATodayCell DOTATodayCellMargins">
 				</FrontpageTopLiveButton-->

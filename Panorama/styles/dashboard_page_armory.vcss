@@ -209,58 +209,24 @@ DOTAArmoryPage
 	//transition-timing-function: ease-in-out;
 }
 
-.ItemSubCategory .ItemSubCategoryLabel.Activated
-{
-	animation-name: ItemSubCategoryLabelAnimation;
-	animation-duration: 1.0s;
-	animation-delay: 0.10s;
-	animation-timing-function: linear;
-	animation-iteration-count: 1;
-}
-
-@keyframes 'ItemSubCategoryLabelAnimation'
-{
-	0%
-	{
-		wash-color: #888888;
-	}
-	
-	25%
-	{
-		wash-color: white;	
-	}
-
-	90%
-	{
-		wash-color: white;
-	}
-
-	100%
-	{
-		wash-color: #888888;
-	}
-}
-
-
-//.ItemSubCategory:hover .ItemSubCategoryLabel
-//{
-//	wash-color: white;
-//}
-
-
-.ItemSubCategoryLabel
+#ArmoryGridContainer Label.ItemSubCategoryLabel
 {
 	min-width: 120px;
 	margin-right: 12px;
 	font-size: 20px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
-	wash-color: #888888;
+	color: #888888;
 	//border: 1px solid green;
 
-	transition-property: wash-color, opacity;
+	transition-property: opacity;
 	transition-duration: 0.2s;
 	transition-timing-function: ease-in-out;
+}
+
+.ItemSubCategoryLabel.Active:hover
+{
+	brightness: 2.0;
 }
 
 
@@ -763,7 +729,7 @@ DOTAEconItem.New
 	horizontal-align: right;
 	width: 100%;
 	margin-left: 32px;
-	visibility: collapse;
+	visibility: visible;
 }
 
 .CurrentSeason.Season_FallMajor2015 #Fall2015Crafting

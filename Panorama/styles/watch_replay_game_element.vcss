@@ -360,7 +360,7 @@
 
 .IsPurchasable #PurchaseButton
 {
-	//visibility: visible;
+	visibility: visible;
 }
 
 #PurchaseButton:hover

@@ -85,6 +85,6 @@
 .ShowSeason.Season_FallMajor2015 #TreasureSeasonLabel,
 .ShowSeason.Season_FallMajor2015 .TreasureSeasonBar
 {
-	background-color: #6b9a15;
-	color: white;
+	background-color: #c3d563;
+	color: black;
 }
