@@ -9,8 +9,8 @@
 
 		function checkPromoActive()
 		{
-			// Remove the PromoActive class after January 31st, 2015. The multiply by 1000 is because Date.now() is in milliseconds.
-			var promoExpireTimestamp = 1454284800 * 1000;
+			// Remove the PromoActive class after December 31st, 2015. The multiply by 1000 is because Date.now() is in milliseconds.
+			var promoExpireTimestamp = 1451606400 * 1000;
 			if ( Date.now() > promoExpireTimestamp )
 			{
 				$( '#MainContainer' ).RemoveClass( 'PromoActive' );
@@ -22,7 +22,7 @@
 	<DOTAReferencePage class="DashboardPage BGDark" onpagesetupsuccess="checkPromoActive()">
 
 		<Panel id="MainContainer" class="ArcanaZeus PromoActive">
-			<Panel id="TakeoverPageLeft" class="TakeOverPage" onactivate="">
+			<Panel id="TakeoverPageLeft" class="TakeOverPage">
 				<Panel id="DebutBackgroundImage"/>
 				<Panel id="ModelBackground"/>
 				<DOTAScenePanel id="Model" map="backgrounds/hero_showcase_arcana_zeus" camera="hero_camera" light="hero_light" renderdeferred="false"/>
@@ -43,19 +43,21 @@
 								<Panel class="Bullet"/>
 								<Label text="#Debut_Arcana_Zeus_Feature1"/>
 							</Panel>
-							<Movie class="VideoPanel" src="file://{resources}/videos/promo/feature1.webm" controls="none" repeat="true" autoplay="onload" />
+							<Movie class="VideoPanel" src="file://{resources}/videos/promo/tempest1.webm" controls="none" repeat="true" autoplay="onload" />
 
 							<Panel class="BulletList LeftRightFlow">
 								<Panel class="Bullet"/>
 								<Label text="#Debut_Arcana_Zeus_Feature2"/>
 							</Panel>							
-							<Movie class="VideoPanel" src="file://{resources}/videos/promo/feature2.webm" controls="none" repeat="true" autoplay="onload" />
+
+							<Movie class="VideoPanel" src="file://{resources}/videos/promo/tempest2.webm" controls="none" repeat="true" autoplay="onload" />
 
 							<Panel class="BulletList LeftRightFlow">
 								<Panel class="Bullet"/>
 								<Label text="#Debut_Arcana_Zeus_Feature3"/>
 							</Panel>
-							<Movie class="VideoPanel" src="file://{resources}/videos/promo/feature3.webm" controls="none" repeat="true" autoplay="onload" />
+
+							<Movie class="VideoPanel" src="file://{resources}/videos/promo/tempest3.webm" controls="none" repeat="true" autoplay="onload" />
 
 							<Panel class="BulletList LeftRightFlow">
 								<Panel class="Bullet"/>
@@ -95,8 +97,8 @@
 					<Panel id="FooterPanel">
 						<Panel id="Buttons" class="LeftRightFlow">
 							<DemoModeButton class="SmallDemoButton PreviewMode" category="#DOTA_HeroLoadout_ArcanaFilterName" onactivate="DOTADemoHero( npc_dota_hero_zuus, 20844 )" />
-              <Panel class="DemoSpacer" />
-							<PurchaseButton itemdef="20844" onactivate="DOTAPurchaseItem( 20844, takeover )" />
+							<Panel class="DemoSpacer" />
+							<DOTAPurchaseButton itemdef="20844" itemsource="takeover" />
 						</Panel>			
 					</Panel>					
 					<Button class="CloseButton" onactivate="DOTANavigateBack()"/>

@@ -5,7 +5,7 @@
 		<include src="s2r://panorama/styles/popups/popup_matchmaking_language.vcss_c" />
 	</styles>
 
-  <PopupMatchmakingLanguage class="Hidden PopupPanel" defaultfocus="TestContainer" hittest="false" popupbackground="dim" >
+  <PopupMatchmakingLanguage class="Hidden PopupPanel" defaultfocus="TestContainer" popupbackground="dim" >
 
     <Panel class="TopBottomFlow LanguageContainer">
       <Label text="#dota_matchmaking_language_title" class="DialogTitle PopupTitle" />
@@ -23,10 +23,10 @@
     </Panel>
 
     <Panel class="ButtonFooter">
-      <Button id="OKButton" class="PopupButton" onactivate="DOTAPopupButtonClicked( DOTAMatchmakingLanguageApply() )">
+      <Button id="OKButton" class="PopupButton" onactivate="UIPopupButtonClicked( DOTAMatchmakingLanguageApply() )">
         <Label text="#UI_OK"/>
       </Button>      
-      <Button id="CancelButton" class="PopupButton" onactivate="DOTAPopupButtonClicked()">
+      <Button id="CancelButton" class="PopupButton" onactivate="UIPopupButtonClicked()">
         <Label text="#UI_Cancel" />
       </Button>		
     </Panel>

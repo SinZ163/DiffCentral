@@ -5,18 +5,18 @@
 		<include src="s2r://panorama/styles/popups/popup_splash_ad.vcss_c" />
 	</styles>
 
-	<PopupSplashAd class="PopupPanel Hidden" popupbackground="dim" oncancel="DOTAPopupButtonClicked()">
+	<PopupSplashAd class="PopupPanel Hidden" popupbackground="dim" oncancel="UIPopupButtonClicked()">
 		<Panel id="MainPanel">
 			<Panel id="TopHalfImage" >
 				<Panel id="Background_AxeImmortal" class="BackgroundPromoArt"/>
-				<Button class="CloseButton" onactivate="DOTAPopupButtonClicked()"/>
+				<Button class="CloseButton" onactivate="UIPopupButtonClicked()"/>
 			</Panel>
 			<Panel id="Footer">
 				<Label id="Title" class="PopupTitle" text="#DOTA_SplashAd_AxeImmortal_Title" html="true"/>
 				<Label id="Message" text="#DOTA_SplashAd_AxeImmortal_Body" html="true"/>
 				<Label id="MessageNotOwned" text="#DOTA_SplashAd_AxeImmortal_Body" html="true"/>
 				<Panel id="Buttons" class="PopupButtonRow" >
-					<Button id="ViewDetailsButton" class="ButtonBevel" onactivate="">
+					<Button id="ViewDetailsButton" class="ButtonBevel">
 						<Label text="#DOTA_View_Details"/>
 					</Button>
 								

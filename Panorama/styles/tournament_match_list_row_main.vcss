@@ -36,6 +36,72 @@ TournamentMatchListRowMain.LastOfSeries
 	margin-left: 20px;
 }
 
+.SpoilerRevealed #Team1,
+.SpoilerRevealed #Team2,
+.SpoilerRevealed #VS,
+.SpoilerBlocked #SpoilerBlocker
+{
+	visibility: visible;
+}
+
+.SpoilerBlocked #Team1,
+.SpoilerBlocked #Team2,
+.SpoilerBlocked #VS,
+.SpoilerRevealed #SpoilerBlocker
+{
+	visibility: collapse;
+}
+
+#SpoilerBlocker
+{
+	horizontal-align: center;
+	vertical-align: center;
+
+	width: 200px;
+	height: 40px;
+
+}
+
+#SpoilerBlocker Image
+{
+	wash-color: #788a8a;
+
+	horizontal-align: center;
+	vertical-align: center;
+
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+	opacity: 1.0;
+}
+
+#SpoilerReveal
+{
+	width: 100%;
+	height: 100%;
+
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+	opacity: 0.0;
+}
+
+#SpoilerReveal Label
+{
+	color: white;
+	horizontal-align: center;
+}
+
+#SpoilerBlocker:hover #SpoilerReveal
+{
+	opacity: 1.0;
+}
+
+#SpoilerBlocker:hover Image
+{
+	opacity: 0.0;
+}
+
 #Teams
 {
 	width: 500px;
@@ -104,13 +170,25 @@ TournamentMatchListRowMain.LastOfSeries
 	
 	min-width:140px;
 
-	padding-left: 50px;
+	padding-left: 6px;
 	padding-right: 6px;
+}
+
+#MVPButton
+{
+    width: 28px;
+    height: 28px;
+    border: 4px;
+    margin-right: 16px;
+    box-shadow: -1px -1px 2px 2px #ffffff22;
+    vertical-align: center;
+    visibility: collapse;
 }
 
 #WatchReplayButton,
 #DetailsButton,
 #WatchLiveButton,
+#MVPButton,
 #MatchTime
 {
 	visibility: collapse;
@@ -134,6 +212,11 @@ TournamentMatchListRowMain.LastOfSeries
 .UpcomingGame #MatchTime
 {
 	visibility: visible;
+}
+
+.MVPEnabled.CompletedGame #MVPButton
+{
+    visibility: visible;
 }
 
 #MatchTime

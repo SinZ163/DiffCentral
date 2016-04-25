@@ -5,7 +5,7 @@
 		<include src="s2r://panorama/styles/popups/popup_broadcast_channel_edit.vcss_c" />
 	</styles>
 
-	<PopupBroadcastChannelEdit class="Hidden PopupPanel" defaultfocus="TestContainer" hittest="false" popupbackground="dim" >
+	<PopupBroadcastChannelEdit class="Hidden PopupPanel" defaultfocus="TestContainer" popupbackground="dim" >
 
 		<Panel class="BroadcastPopup TopBottomFlow">
 			<Label text="#dota_popup_broadcast_channel_edit_title" class="DialogTitle PopupTitle" />
@@ -23,10 +23,10 @@
 		</Panel>
 
 		<Panel class="ButtonFooter">
-			<Button id="OKButton" class="PopupButton" onactivate="DOTAPopupButtonClicked( DOTAPopupBroadcastChannelEditApply() )">
+			<Button id="OKButton" class="PopupButton" onactivate="UIPopupButtonClicked( DOTAPopupBroadcastChannelEditApply() )">
 				<Label text="#UI_OK"/>
 			</Button>      
-			<Button id="CancelButton" class="PopupButton" onactivate="DOTAPopupButtonClicked()">
+			<Button id="CancelButton" class="PopupButton" onactivate="UIPopupButtonClicked()">
 				<Label text="#UI_Cancel" />
 			</Button>		
 		</Panel>

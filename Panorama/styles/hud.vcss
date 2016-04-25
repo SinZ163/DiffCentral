@@ -40,3 +40,18 @@ DOTACustomUIRoot
 	margin-right: 140px;
 	width: 122px;
 }
+
+#VoiceChat
+{
+	horizontal-align: right;
+	vertical-align: bottom;
+	margin-right: 4px;
+	margin-bottom: 352px;
+	visibility: visible;
+}
+
+#GameEndContainer
+{
+	width: 100%;
+	height: 100%;
+}
