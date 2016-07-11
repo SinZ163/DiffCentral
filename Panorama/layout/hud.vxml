@@ -11,12 +11,15 @@
 			<DOTANetGraph id="NetGraph"/>
 			<DOTAQuestStatus id="QuestStatus" />
 			<DOTAWagering id="Wagering" hittest="false"/>
-			<DOTARadarButton id="RadarButton" onactivate="DOTAHUDRadarButtonClicked();"  onmouseout="UIHideTextTooltip();" onmouseover="UIShowTextTooltip( #DOTA_ActivateRadar );"/>
+			<DOTARadarButton id="RadarButton" onactivate="DOTAHUDRadarButtonClicked();" onmouseout="DOTAHUDHideRadarTooltip();" onmouseover="DOTAHUDShowRadarTooltip();" />
 		</Panel>
 		<DOTACustomUIRoot id="CustomUIRoot" hittest="false"/>
 		<DOTAQuestPicker id="QuestPicker"/>
 		<DOTAVoiceChat id="VoiceChat" />
-				
+		<DOTAProjectionDebug id="ProjectionDebug" />
+		<DOTAIngamePredictionsContainer id="IngamePredictionsContainer" />
+    <ToastManager id="PredictionToastManager" hittest="false" toastduration="5.0s" maxtoastsvisible="2" />
+    
 		<Panel id="GameEndContainer" hittest="false" class="FullScreen" />  <!-- real game end will be constructed and parented to GameEndContainer -->
 
 		<!-- These should be high in the z-order so that they appear on top of everything correctly -->

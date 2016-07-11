@@ -7,13 +7,6 @@ WeekendTourneyStatusPanel
 	padding-bottom: 9px;
 }
 
-#DivisionSelectDropdown
-{
-	border: 0px;
-	background-color: transparent;
-	box-shadow: none;
-}
-
 /*
 #Title
 {
@@ -34,53 +27,43 @@ WeekendTourneyStatusPanel
 }
 */
 
-#NoTournamentScheduledLabel, #StartingTimeLongLabel, #StartingTimeShortLabel, #NowOpenLabel, #TooLateLabel
+#NoTournamentScheduledLabel,
+#StartingLaterLabel,
+#StartingSoonLabel,
+#NowOpenLabel,
+#TooLateLabel
 {
 	visibility: collapse;
 	width: 100%;
 	text-align: center;
 }
 
-.StateNothingScheduledForThisDivision #NoTournamentScheduledLabel
-{
-	visibility: visible;
-}
-
-.StartingLater #StartingTimeLongLabel
-{
-	visibility: visible;
-}
-
-.StateStartingSoon #StartingTimeShortLabel
-{
-	visibility: visible;
-}
-
-.StateNowOpen #NowOpenLabel
-{
-	visibility: visible;
-}
-
-.StateTooLate #TooLateLabel
-{
-	visibility: visible;
-}
-
-#StartingTimeRemainingLabel, #RegistrationTimeRemainingLabel
+.StateInTourney #NotInTourney
 {
 	visibility: collapse;
-	width: 100%;
-	text-align: center;
 }
 
-.StateStartingLater #StartingTimeRemainingLabel, .StateStartingSoon #StartingTimeRemainingLabel
+.StateNothingScheduledForThisDivision #NoTournamentScheduledLabel,
+.StateNothingScheduledForAnyDivision #NoTournamentScheduledLabel,
+.StartingLater #StartingLaterLabel,
+.StateStartingSoon #StartingSoonLabel,
+.StateNowOpen #NowOpenLabel,
+.StateTooLate #TooLateLabel,
+.StateInTourney #InTourney
 {
 	visibility: visible;
 }
-.StateNowOpen #RegistrationTimeRemainingLabel
+
+a
 {
-	visibility: visible;
+	text-decoration: underline;
 }
+
+a:hover
+{
+	color: white;
+}
+
 
 #NotInTourney
 {
@@ -89,22 +72,12 @@ WeekendTourneyStatusPanel
 	visibility: visible;
 }
 
-.StateInTourney #NotInTourney
-{
-	visibility: collapse;
-}
-
 #InTourney
 {
 	flow-children: down;
 	width: 100%;
 	visibility: collapse;
 	visibility: collapse;
-}
-
-.StateInTourney #InTourney
-{
-	visibility: visible;
 }
 
 Button
