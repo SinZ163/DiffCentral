@@ -285,48 +285,60 @@
 									</Panel>
 								</Panel>
 							</Panel>
-							<Panel id="TreasureRow3" class="TreasureRow LeftRightFlow Unreleased">
-								<Panel id="Treasure3Icon" class="TreasureIcon" onactivate="">
+							<Panel id="TreasureRow3" class="TreasureRow LeftRightFlow">
+								<Panel id="Treasure3Icon" class="TreasureIcon" onactivate="DOTAShowItemDefPage( 11520 )">
 									<Panel class="InspectIcon"/>
 								</Panel>
 								<Panel class="TreasureList TopBottomFlow">
 									<Panel class="TreasuresContainer LeftRightFlow">
-										<Panel id="c3t1" class="Treasure">
-										<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel id="c3t2" class="Treasure">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel  class="Treasure">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel  class="Treasure">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>										
-										<Panel id="c3t3" class="Treasure">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel id="c3t4" class="Treasure">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel id="c3t5" class="Treasure GoldenImage">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
+										<DOTAItemCollectible item="7978" id="c3t1" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7978, 0 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t1, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7978&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )" >  >
+											<Panel class="OwnedFrame"/>  
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
 
-										<Panel id="c3r1" class="Treasure RareImage">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
-										<Panel id="c3ur1" class="Treasure UltraRareImage">
-											<Panel class="MiniHeroIcon"/>
-										</Panel>
+										<DOTAItemCollectible item="7938" id="c3t2" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7938, 0 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t2, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7938&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
+										<DOTAItemCollectible item="7976" id="c3t3" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7976, 0 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t3, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7976&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
+
+										<DOTAItemCollectible item="7603" id="c3t4" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7603, 1 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t4, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7603&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
+
+										<DOTAItemCollectible item="7576" id="c3t5" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7576, 1 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t5, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7576&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
+
+										<DOTAItemCollectible item="7293" id="c3t6" class="Treasure" onactivate="DOTAShowStoreItemDetailsPage( -1, 7293, 1 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t6, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7293&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>										
+
+										<DOTAItemCollectible item="7936" id="c3r1" class="Treasure RareImage" onactivate="DOTAShowStoreItemDetailsPage( -1, 7936, 0 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3r1, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7936&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>										
 										
+										<DOTAItemCollectible item="7990" id="c3t6g" class="Treasure GoldenImage" onactivate="DOTAShowStoreItemDetailsPage( -1, 7990, 1 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3t6g, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=7990&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>																
+										
+										
+										<DOTAItemCollectible item="20947" id="c3ur1" class="Treasure UltraRareImage" onactivate="DOTAShowStoreItemDetailsPage( -1, 20947, 0 )" onmouseover="AsyncEvent( 0.25, IfHoverOtherEvent( c3ur1, UIShowCustomLayoutParametersTooltip( SeasonPassRewardPreview, file://{resources}/layout/tooltips/tooltip_econ_set_preview.xml, itemdef=20947&amp;itemstyle=0&amp;rotationspeed=2 ))" onmouseout="UIHideCustomLayoutTooltip( SeasonPassRewardPreview )"  >
+											<Panel class="OwnedFrame"/>
+											<Panel class="InspectIcon"/>
+										</DOTAItemCollectible>
 									</Panel>
 									<Panel class="TreasureNameContainer LeftRightFlow">
 										<Label class="TreasureName" text="#DOTA_SeasonPass_Rewards_Treasure3"/>
-										<Panel id="PostNameLine">
-											<Panel class="TreasureNameLine"/>
-											<Label class="ComingSoonLabel TreasureName" text="#DOTA_SeasonPass_Rewards_Coming_Soon"/>									
-										</Panel>
+										<Panel class="TreasureNameLine"/>
 									</Panel>
 								</Panel>
 							</Panel>
